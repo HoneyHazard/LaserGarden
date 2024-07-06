@@ -51,6 +51,7 @@ class DMXArray(QObject):
             self.artnet.set(self._dmx_array)
             self.artnet.show()  # Immediately send updated DMX data
             logging.info(f'Set DMX value at index {index} to {value}')
+            self.adjust_array_size()
 
     @Property(QByteArray)
     def data(self):
@@ -60,6 +61,14 @@ class DMXArray(QObject):
         # Send the relevant part of the DMX array
         self.artnet.show()
         logging.debug('Sent full DMX array')
+
+    def adjust_array_size(self):
+        if len(self._dmx_array) > self.num_channels:
+            # Remove trailing elements if array is too large
+            self._dmx_array = self._dmx_array[:self.num_channels]
+        elif len(self._dmx_array) < self.num_channels:
+            # Add elements to the end if array is too small
+            self._dmx_array.extend(bytearray(self.num_channels - len(self._dmx_array)))
 
     @Slot(str)
     def save_configuration(self, filename):
@@ -75,9 +84,11 @@ class DMXArray(QObject):
             with open(filename, 'r') as file:
                 config = json.load(file)
                 self._dmx_array = bytearray(config)
+                self.adjust_array_size()
                 self.artnet.set(self._dmx_array)
                 self.valueChanged.emit(-1, -1)  # Signal that the entire array has changed
-            logging.info(f'Loaded configuration from {filename}')
+                logging.info(f'Loaded configuration from {filename}')
+                self.print_configuration()
         else:
             logging.warning(f'Configuration file {filename} not found')
 
@@ -111,6 +122,16 @@ class DMXArray(QObject):
     @Slot(list, str)
     def load_selected_channels(self, channels, filename):
         self.load_configuration(filename, channels)
+
+    def print_configuration(self):
+        logging.info(f"Current DMX Configuration: {list(self._dmx_array)}")
+
+    def set_all_channels_to_zero(self):
+        for i in range(len(self._dmx_array)):
+            self._dmx_array[i] = 0
+        self.artnet.set(self._dmx_array)
+        self.artnet.show()
+        logging.info("Set all DMX channels to 0")
 
 if __name__ == "__main__":
     # Set up logging
@@ -149,10 +170,11 @@ if __name__ == "__main__":
     if not engine.rootObjects():
         sys.exit(-1)
 
-    # Save last configuration on exit
+    # Save last configuration on exit and set all channels to 0
     def save_last_config_on_exit():
         dmx_array.save_last_config()
-        logging.info("Saved last configuration on exit")
+        dmx_array.set_all_channels_to_zero()
+        logging.info("Saved last configuration and set all channels to 0 on exit")
 
     app.aboutToQuit.connect(save_last_config_on_exit)
 
