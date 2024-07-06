@@ -31,6 +31,14 @@ ApplicationWindow {
                 onTriggered: dmxArray.load_preset()
             }
             MenuItem {
+                text: "Save as Default"
+                onTriggered: dmxArray.save_default()
+            }
+            MenuItem {
+                text: "Load Default"
+                onTriggered: dmxArray.load_default()
+            }
+            MenuItem {
                 text: "Quit"
                 onTriggered: Qt.quit()
             }
