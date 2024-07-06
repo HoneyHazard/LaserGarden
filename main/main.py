@@ -49,6 +49,7 @@ class DMXArray(QObject):
             self._dmx_array[index] = value
             self.valueChanged.emit(index, value)
             self.artnet.set(self._dmx_array)
+            self.artnet.show()  # Immediately send updated DMX data
             logging.info(f'Set DMX value at index {index} to {value}')
 
     @Property(QByteArray)
@@ -60,25 +61,20 @@ class DMXArray(QObject):
         self.artnet.show()
         logging.debug('Sent full DMX array')
 
-    def save_configuration(self, filename, channels=None):
+    @Slot(str)
+    def save_configuration(self, filename):
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         data_to_save = list(self._dmx_array)
-        if channels:
-            data_to_save = {i: self._dmx_array[i] for i in channels if 0 <= i < self.num_channels}
         with open(filename, 'w') as file:
             json.dump(data_to_save, file)
         logging.info(f'Saved configuration to {filename}')
 
-    def load_configuration(self, filename, channels=None):
+    @Slot(str)
+    def load_configuration(self, filename):
         if os.path.exists(filename):
             with open(filename, 'r') as file:
                 config = json.load(file)
-                if isinstance(config, list):
-                    self._dmx_array = bytearray(config)
-                elif isinstance(config, dict) and channels:
-                    for i in channels:
-                        if str(i) in config:
-                            self._dmx_array[i] = config[str(i)]
+                self._dmx_array = bytearray(config)
                 self.artnet.set(self._dmx_array)
                 self.valueChanged.emit(-1, -1)  # Signal that the entire array has changed
             logging.info(f'Loaded configuration from {filename}')
@@ -103,6 +99,10 @@ class DMXArray(QObject):
     @Slot()
     def load_default(self):
         self.load_configuration(self.default_preset)
+
+    @Slot()
+    def save_last_config(self):
+        self.save_configuration(self.config_file)
 
     @Slot(list, str)
     def save_selected_channels(self, channels, filename):
@@ -148,5 +148,12 @@ if __name__ == "__main__":
 
     if not engine.rootObjects():
         sys.exit(-1)
+
+    # Save last configuration on exit
+    def save_last_config_on_exit():
+        dmx_array.save_last_config()
+        logging.info("Saved last configuration on exit")
+
+    app.aboutToQuit.connect(save_last_config_on_exit)
 
     sys.exit(app.exec())

@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Dialogs
 
 ApplicationWindow {
     visible: true
@@ -24,11 +25,11 @@ ApplicationWindow {
             title: "File"
             MenuItem {
                 text: "Save Preset"
-                onTriggered: dmxArray.save_preset()
+                onTriggered: savePresetDialog.open()
             }
             MenuItem {
                 text: "Load Preset"
-                onTriggered: dmxArray.load_preset()
+                onTriggered: loadPresetDialog.open()
             }
             MenuItem {
                 text: "Save as Default"
@@ -42,6 +43,30 @@ ApplicationWindow {
                 text: "Quit"
                 onTriggered: Qt.quit()
             }
+        }
+    }
+
+    FileDialog {
+        id: savePresetDialog
+        title: "Save Preset"
+        //selectExisting: false
+        currentFolder: "file:///mnt/data/projs/LaserGarden/presets"
+        nameFilters: ["*.json"]
+        fileMode: FileDialog.SaveFile
+        onAccepted: {
+            dmxArray.save_configuration(savePresetDialog.selectedFile)
+        }
+    }
+
+    FileDialog {
+        id: loadPresetDialog
+        title: "Load Preset"
+        //selectExisting: true
+        currentFolder: "file:///mnt/data/projs/LaserGarden/presets"
+        nameFilters: ["*.json"]
+        fileMode: FileDialog.OpenFile
+        onAccepted: {
+            dmxArray.load_configuration(loadPresetDialog.selectedFile)
         }
     }
 }
