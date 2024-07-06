@@ -15,7 +15,7 @@ ApplicationWindow {
 
         Component {
             id: page1
-            Loader { source: "pages/Page1.qml" }
+            Loader { source: "Page1.qml" }
         }
     }
 
@@ -29,6 +29,10 @@ ApplicationWindow {
             MenuItem {
                 text: "Load Preset"
                 onTriggered: dmxArray.load_preset()
+            }
+            MenuItem {
+                text: "Quit"
+                onTriggered: Qt.quit()
             }
         }
     }

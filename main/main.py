@@ -10,7 +10,7 @@ from PySide6.QtQml import QQmlApplicationEngine
 from stupidArtnet import StupidArtnet
 
 class DMXArray(QObject):
-    valueChanged = Signal(int, arguments=['value'])
+    valueChanged = Signal(int, int, arguments=['index', 'value'])
 
     def __init__(self, target_ip):
         super().__init__()
@@ -19,7 +19,8 @@ class DMXArray(QObject):
         self.config_file = "last_config.json"
 
         # Initialize Art-Net device (Receiving IP)
-        self.artnet = StupidArtnet(target_ip, 0, 512, 30)  # Target IP, Universe, Packet size, FPS
+        self.artnet = StupidArtnet(target_ip, 0, self.num_channels, 30)  # Target IP, Universe, Packet size, FPS
+        self.artnet.set(self._dmx_array)
         self.artnet.start()
 
         # Load the last configuration
@@ -40,16 +41,15 @@ class DMXArray(QObject):
     def set_value(self, index, value):
         if 0 <= index < self.num_channels:
             self._dmx_array[index] = value
-            self.valueChanged.emit(index)
-            self.artnet.set_single_value(index, value)
+            self.valueChanged.emit(index, value)
+            self.artnet.set(self._dmx_array)
 
     @Property(QByteArray)
     def data(self):
         return QByteArray(self._dmx_array)
 
     def send_full_dmx_array(self):
-        # Send only the relevant part of the DMX array
-        self.artnet.set(self._dmx_array)
+        # Send the relevant part of the DMX array
         self.artnet.show()
 
     def save_configuration(self, filename):
@@ -61,9 +61,8 @@ class DMXArray(QObject):
             with open(filename, 'r') as file:
                 config = json.load(file)
                 self._dmx_array = bytearray(config)
-                for index, value in enumerate(self._dmx_array):
-                    self.artnet.set_single_value(index, value)
-                self.valueChanged.emit(-1)  # Signal that the entire array has changed
+                self.artnet.set(self._dmx_array)
+                self.valueChanged.emit(-1, -1)  # Signal that the entire array has changed
 
     def load_last_configuration(self):
         self.load_configuration(self.config_file)

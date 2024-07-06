@@ -30,30 +30,36 @@ Item {
             strokeWidth: 10
             strokeColor: "lightgray"
             fillColor: "transparent"
-            startX: root.width / 2
-            startY: root.height / 2
+            startX: width / 2
+            startY: height / 2
             PathArc {
-                x: root.width / 2
-                y: root.height / 2
-                radiusX: root.width / 2 - 5
-                radiusY: root.height / 2 - 5
-                startAngle: 0
-                sweepAngle: 360
+                direction: PathArc.Clockwise
+                radiusX: width / 2 - 10
+                radiusY: height / 2 - 10
+                x: width / 2
+                y: height / 2
+                useLargeArc: false
+                relativeX: 0
+                relativeY: 0
+                xAxisRotation: 0
             }
         }
         ShapePath {
             strokeWidth: 10
             strokeColor: "blue"
             fillColor: "transparent"
-            startX: root.width / 2
-            startY: root.height / 2
+            startX: width / 2
+            startY: height / 2
             PathArc {
-                x: root.width / 2
-                y: root.height / 2
-                radiusX: root.width / 2 - 5
-                radiusY: root.height / 2 - 5
-                startAngle: -90
-                sweepAngle: 360 * (root.value - root.minValue) / (root.maxValue - root.minValue)
+                direction: PathArc.Clockwise
+                radiusX: width / 2 - 10
+                radiusY: height / 2 - 10
+                x: width / 2 + (width / 2 - 10) * Math.cos(2 * Math.PI * (value - minValue) / (maxValue - minValue) - Math.PI / 2)
+                y: height / 2 + (height / 2 - 10) * Math.sin(2 * Math.PI * (value - minValue) / (maxValue - minValue) - Math.PI / 2)
+                useLargeArc: (value - minValue) / (maxValue - minValue) > 0.5
+                relativeX: 0
+                relativeY: 0
+                xAxisRotation: 0
             }
         }
     }
@@ -67,16 +73,16 @@ Item {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            root.value = (root.value + 1) % (root.maxValue + 1)
-            root.updateValue(root.value)
+            root.value = (root.value + 1) % (root.maxValue + 1);
+            root.updateValue(root.value);
         }
     }
 
     Connections {
         target: dmxArray
-        onValueChanged: {
+        function onValueChanged(index, value) {
             if (index === root.dmxIndex) {
-                root.loadValue()
+                root.value = value;
             }
         }
     }
