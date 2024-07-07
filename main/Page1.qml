@@ -1,120 +1,59 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-Rectangle {
-    width: parent.width
-    height: parent.height
-    color: "lightblue"
+Page {
+    id: page
 
-    Column {
-        spacing: 10
-        anchors.centerIn: parent
+    GridLayout {
+        columns: 3
+        anchors.fill: parent
+        anchors.margins: 10
 
-        Text {
-            text: "Welcome to Page 1 with Circular Gauges"
-            font.pointSize: 20
-            horizontalAlignment: Text.AlignHCenter
-            width: parent.width
+        CircularGauge {
+            id: gauge1
+            dmxIndex: 0
+            value: dmxArray.get_value(0)
+            onValueUpdated: handleValueUpdated
         }
 
-        Row {
-            spacing: 10
-
-            CircularGauge {
-                id: gauge1
-                width: 200
-                height: 200
-                dmxIndex: 0
-            }
-
-            CircularGauge {
-                id: gauge2
-                width: 200
-                height: 200
-                dmxIndex: 1
-            }
-
-            CircularGauge {
-                id: gauge3
-                width: 200
-                height: 200
-                dmxIndex: 2
-            }
+        CircularGauge {
+            id: gauge2
+            dmxIndex: 1
+            value: dmxArray.get_value(1)
+            onValueUpdated: handleValueUpdated
         }
 
-        Row {
-            spacing: 10
-
-            CircularGauge {
-                id: gauge4
-                width: 200
-                height: 200
-                dmxIndex: 3
-            }
-
-            CircularGauge {
-                id: gauge5
-                width: 200
-                height: 200
-                dmxIndex: 4
-            }
-
-            CircularGauge {
-                id: gauge6
-                width: 200
-                height: 200
-                dmxIndex: 5
-            }
+        CircularGauge {
+            id: gauge3
+            dmxIndex: 2
+            value: dmxArray.get_value(2)
+            onValueUpdated: handleValueUpdated
         }
 
-        Row {
-            spacing: 10
-
-            Slider {
-                from: 0
-                to: 255
-                value: gauge1.value
-                onValueChanged: gauge1.updateValue(value)
-            }
-
-            Slider {
-                from: 0
-                to: 255
-                value: gauge2.value
-                onValueChanged: gauge2.updateValue(value)
-            }
-
-            Slider {
-                from: 0
-                to: 255
-                value: gauge3.value
-                onValueChanged: gauge3.updateValue(value)
-            }
+        CircularGauge {
+            id: gauge4
+            dmxIndex: 3
+            value: dmxArray.get_value(3)
+            onValueUpdated: handleValueUpdated
         }
 
-        Row {
-            spacing: 10
-
-            Slider {
-                from: 0
-                to: 255
-                value: gauge4.value
-                onValueChanged: gauge4.updateValue(value)
-            }
-
-            Slider {
-                from: 0
-                to: 255
-                value: gauge5.value
-                onValueChanged: gauge5.updateValue(value)
-            }
-
-            Slider {
-                from: 0
-                to: 255
-                value: gauge6.value
-                onValueChanged: gauge6.updateValue(value)
-            }
+        CircularGauge {
+            id: gauge5
+            dmxIndex: 4
+            value: dmxArray.get_value(4)
+            onValueUpdated: handleValueUpdated
         }
+
+        CircularGauge {
+            id: gauge6
+            dmxIndex: 5
+            value: dmxArray.get_value(5)
+            onValueUpdated: handleValueUpdated
+        }
+    }
+
+    function handleValueUpdated(dmxIndex, value) {
+        dmxArray.set_value(dmxIndex, value)
     }
 }

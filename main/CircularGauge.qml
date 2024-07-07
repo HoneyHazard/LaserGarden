@@ -1,91 +1,91 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import QtQuick.Shapes 1.15
 
 Item {
     id: root
-    width: 200
-    height: 200
+    width: 150
+    height: 150
 
+    property int value: 0
     property int minValue: 0
     property int maxValue: 255
-    property int value: 0
-    property int dmxIndex: -1
+    property real startAngle: -120
+    property real endAngle: 120
+    property real stepSize: 1
+    property int dmxIndex: 0
 
-    function loadValue() {
-        if (dmxIndex >= 0 && dmxIndex < 34) {
-            value = dmxArray.get_value(dmxIndex)
-        }
-    }
+    signal valueUpdated(int dmxIndex, int newValue)
 
     function updateValue(newValue) {
-        if (dmxIndex >= 0 && dmxIndex < 34) {
-            dmxArray.set_value(dmxIndex, newValue)
+        value = Math.min(maxValue, Math.max(minValue, newValue))
+    }
+
+    function handleMouseClick(mouseX, mouseY) {
+        var centerX = mouseArea.width / 2
+        var centerY = mouseArea.height / 2
+        var x = mouseX - centerX
+        var y = mouseY - centerY
+        var angle = Math.atan2(y, x) * 180 / Math.PI + 90
+
+        if (angle < startAngle)
+            angle += 360
+
+        if (angle >= startAngle && angle <= endAngle) {
+            var newValue = Math.round((angle - startAngle) / (endAngle - startAngle) * (maxValue - minValue) + minValue)
+            updateValue(newValue)
+            valueUpdated(dmxIndex, newValue)
         }
     }
 
-    Shape {
+    onValueChanged: {
+        canvas.requestPaint()
+        valueUpdated(dmxIndex, value)
+    }
+
+    Canvas {
+        id: canvas
         anchors.fill: parent
-        ShapePath {
-            strokeWidth: 10
-            strokeColor: "lightgray"
-            fillColor: "transparent"
-            startX: width / 2
-            startY: height / 2
-            PathArc {
-                direction: PathArc.Clockwise
-                radiusX: width / 2 - 10
-                radiusY: height / 2 - 10
-                x: width / 2
-                y: height / 2
-                useLargeArc: false
-                relativeX: 0
-                relativeY: 0
-                xAxisRotation: 0
-            }
+
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+            var centerX = canvas.width / 2
+            var centerY = canvas.height / 2
+            var radius = Math.min(centerX, centerY) - 10
+            var angleRange = endAngle - startAngle
+
+            // Draw background arc
+            ctx.beginPath()
+            ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (endAngle - 90) * Math.PI / 180)
+            ctx.lineWidth = 20
+            ctx.strokeStyle = "#ddd"
+            ctx.stroke()
+
+            // Draw value arc
+            var valueAngle = startAngle + (value - minValue) / (maxValue - minValue) * angleRange
+            ctx.beginPath()
+            ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (valueAngle - 90) * Math.PI / 180)
+            ctx.lineWidth = 20
+            ctx.strokeStyle = "lightblue"
+            ctx.stroke()
         }
-        ShapePath {
-            strokeWidth: 10
-            strokeColor: "blue"
-            fillColor: "transparent"
-            startX: width / 2
-            startY: height / 2
-            PathArc {
-                direction: PathArc.Clockwise
-                radiusX: width / 2 - 10
-                radiusY: height / 2 - 10
-                x: width / 2 + (width / 2 - 10) * Math.cos(2 * Math.PI * (value - minValue) / (maxValue - minValue) - Math.PI / 2)
-                y: height / 2 + (height / 2 - 10) * Math.sin(2 * Math.PI * (value - minValue) / (maxValue - minValue) - Math.PI / 2)
-                useLargeArc: (value - minValue) / (maxValue - minValue) > 0.5
-                relativeX: 0
-                relativeY: 0
-                xAxisRotation: 0
-            }
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+
+        onClicked: (mouse) => {
+            handleMouseClick(mouse.x, mouse.y)
         }
     }
 
     Text {
-        anchors.centerIn: parent
         text: value
-        font.pointSize: 20
+        anchors.centerIn: parent
+        font.pixelSize: 20
     }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            root.value = (root.value + 1) % (root.maxValue + 1);
-            root.updateValue(root.value);
-        }
-    }
-
-    Connections {
-        target: dmxArray
-        function onValueChanged(index, value) {
-            if (index === root.dmxIndex) {
-                root.value = value;
-            }
-        }
-    }
-
-    Component.onCompleted: loadValue()
 }
