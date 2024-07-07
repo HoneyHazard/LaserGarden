@@ -25,7 +25,11 @@ ApplicationWindow {
             title: "File"
             MenuItem {
                 text: "Save Preset"
-                onTriggered: savePresetDialog.open()
+                onTriggered: {
+                    presetNameField.text = ""
+                    savePresetDialog.open()
+                    presetNameField.focus = true
+                }
             }
             MenuItem {
                 text: "Load Preset"
@@ -54,6 +58,8 @@ ApplicationWindow {
         id: savePresetDialog
         modal: true
         title: "Save Preset"
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
 
         Column {
             spacing: 10
@@ -77,7 +83,7 @@ ApplicationWindow {
                 }
                 Button {
                     text: "Cancel"
-                    onClicked: savePresetDialog.close
+                    onClicked: savePresetDialog.close()
                 }
             }
         }
@@ -87,6 +93,8 @@ ApplicationWindow {
         id: loadPresetDialog
         modal: true
         title: "Load Preset"
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
 
         Column {
             spacing: 10
@@ -125,7 +133,7 @@ ApplicationWindow {
                 spacing: 10
                 Button {
                     text: "Cancel"
-                    onClicked: loadPresetDialog.close
+                    onClicked: loadPresetDialog.close()
                 }
             }
         }

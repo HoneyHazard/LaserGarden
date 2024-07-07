@@ -13,13 +13,13 @@ from stupidArtnet import StupidArtnet
 class DMXArray(QObject):
     valueChanged = Signal(int, int, arguments=['index', 'value'])
 
-    def __init__(self, target_ip, default_preset_file=None):
+    def __init__(self, target_ip, initial_preset=None):
         super().__init__()
         self.num_channels = 34  # Handle only 34 channels
         self._dmx_array = bytearray(self.num_channels)  # Initialize with 34 bytes (0-255 values)
-        self.config_file = "presets/last_config.json"
+        self.last_preset = "presets/last_config.json"
         self.default_preset = "presets/default.json"
-        self.default_preset_file = default_preset_file
+        self.initial_preset = initial_preset
 
         # Initialize Art-Net device (Receiving IP)
         self.artnet = StupidArtnet(target_ip, 0, self.num_channels, 30)  # Target IP, Universe, Packet size, FPS
@@ -31,10 +31,10 @@ class DMXArray(QObject):
             sys.exit(1)
 
         # Load the last configuration first
-        if os.path.exists(self.config_file):
+        if os.path.exists(self.last_preset):
             self.load_last_configuration()
-        elif self.default_preset_file:
-            self.load_configuration(self.default_preset_file)
+        elif self.initial_preset:
+            self.load_configuration(self.initial_preset)
         else:
             self.load_default()
 
@@ -89,7 +89,10 @@ class DMXArray(QObject):
     @Slot(str)
     def save_configuration(self, filename):
         os.makedirs(os.path.dirname(filename), exist_ok=True)
-        data_to_save = list(self._dmx_array)
+        data_to_save = []
+        for index, value in enumerate(self._dmx_array):
+            data_to_save.append(index)
+            data_to_save.append(value)
         with open(filename, 'w') as file:
             json.dump(data_to_save, file)
         logging.info(f'Saved configuration to {filename}')
@@ -99,7 +102,10 @@ class DMXArray(QObject):
         if os.path.exists(filename):
             with open(filename, 'r') as file:
                 config = json.load(file)
-                self._dmx_array = bytearray(config)
+                for i in range(0, len(config), 2):
+                    index = config[i]
+                    value = config[i + 1]
+                    self._dmx_array[index] = value
                 self.adjust_array_size()
                 self.artnet.set(self._dmx_array)
                 self.valueChanged.emit(-1, -1)  # Signal that the entire array has changed
@@ -109,7 +115,7 @@ class DMXArray(QObject):
             logging.warning(f'Configuration file {filename} not found')
 
     def load_last_configuration(self):
-        self.load_configuration(self.config_file)
+        self.load_configuration(self.last_preset)
 
     @Slot()
     def save_preset(self):
@@ -129,15 +135,36 @@ class DMXArray(QObject):
 
     @Slot()
     def save_last_config(self):
-        self.save_configuration(self.config_file)
+        self.save_configuration(self.last_preset)
 
     @Slot(list, str)
     def save_selected_channels(self, channels, filename):
-        self.save_configuration(filename, channels)
+        data_to_save = []
+        for index in channels:
+            data_to_save.append(index)
+            data_to_save.append(self._dmx_array[index])
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        with open(filename, 'w') as file:
+            json.dump(data_to_save, file)
+        logging.info(f'Saved selected channels to {filename}')
 
     @Slot(list, str)
     def load_selected_channels(self, channels, filename):
-        self.load_configuration(filename, channels)
+        if os.path.exists(filename):
+            with open(filename, 'r') as file:
+                config = json.load(file)
+                for i in range(0, len(config), 2):
+                    index = config[i]
+                    value = config[i + 1]
+                    if index in channels:
+                        self._dmx_array[index] = value
+                self.adjust_array_size()
+                self.artnet.set(self._dmx_array)
+                self.valueChanged.emit(-1, -1)  # Signal that the entire array has changed
+                logging.info(f'Loaded selected channels from {filename}')
+                self.print_configuration()
+        else:
+            logging.warning(f'Configuration file {filename} not found')
 
     def print_configuration(self):
         logging.info(f"Current DMX Configuration: {list(self._dmx_array)}")
@@ -183,29 +210,29 @@ if __name__ == "__main__":
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="LaserGarden DMX Controller")
     parser.add_argument("--target-ip", type=str, default="192.168.7.99", help="IP address of the target Art-Net device")
-    parser.add_argument("--preset", type=str, help="Path to the default preset file to load")
+    parser.add_argument("--preset", type=str, help="Path to the initial preset file to load")
     args = parser.parse_args()
 
-    default_preset_file = None
+    initial_preset = None
     if args.preset:
         if os.path.isabs(args.preset):
-            default_preset_file = args.preset
+            initial_preset = args.preset
         else:
             # Search in presets first
             preset_path = os.path.join("presets", args.preset)
             if os.path.exists(preset_path):
-                default_preset_file = preset_path
+                initial_preset = preset_path
             else:
                 # Search in the current directory
                 if os.path.exists(args.preset):
-                    default_preset_file = args.preset
+                    initial_preset = args.preset
                 else:
-                    logging.warning(f'Default preset file {args.preset} not found in presets or current directory')
+                    logging.warning(f'Initial preset file {args.preset} not found in presets or current directory')
 
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-    dmx_array = DMXArray(args.target_ip, default_preset_file)
+    dmx_array = DMXArray(args.target_ip, initial_preset)
     engine.rootContext().setContextProperty("dmxArray", dmx_array)
 
     engine.load(QUrl("main/main.qml"))
