@@ -236,7 +236,7 @@ if __name__ == "__main__":
     dmx_array = DMXArray(args.target_ip, initial_preset)
     engine.rootContext().setContextProperty("dmxArray", dmx_array)
 
-    engine.load(QUrl("main/main.qml"))
+    engine.load(QUrl("app/main.qml"))
 
     if not engine.rootObjects():
         sys.exit(-1)

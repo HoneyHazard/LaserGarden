@@ -1,0 +1,8 @@
+{
+    "files": [
+        "app/main.py",
+        "app/main.qml",
+        "app/CircularGauge.qml",
+        "app/Page1.qml"
+    ]
+}

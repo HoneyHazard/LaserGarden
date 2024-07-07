@@ -14,15 +14,22 @@ Item {
     property real startAngle: -120
     property real endAngle: 120
     property real stepSize: 1
-    property int dmxIndex: 0
+    property int dmxIndex: -1
 
-    signal valueUpdated(int dmxIndex, int newValue)
+    signal sigUiChannelChanged(int dmxIndex, int newValue)
 
-    function updateValue(newValue) {
+    function onDmxChannelChanged(dmxIndex, newValue) {
+        if (dmxIndex == this.dmxIndex) {
+            console.log('UI element received DMX value: ' + dmxIndex + ' changed to ' + newValue)
+            value = newValue
+        }
+    }
+
+    function sanitizeValue(newValue) {
         value = Math.min(maxValue, Math.max(minValue, newValue))
     }
 
-    function handleMouseInteraction(mouseX, mouseY) {
+    function onMouseInteraction(mouseX, mouseY) {
         var centerX = mouseArea.width / 2
         var centerY = mouseArea.height / 2
         var x = mouseX - centerX
@@ -39,8 +46,10 @@ Item {
         // Check if the angle is within the valid range
         if ((start < end && angle >= start && angle <= end) || (start > end && (angle >= start || angle <= end))) {
             var newValue = Math.round(((angle - start + 360) % 360) / (end - start + (end < start ? 360 : 0)) * (maxValue - minValue) + minValue)
-            updateValue(newValue)
-            valueUpdated(dmxIndex, newValue)
+            sanitizeValue(newValue)
+            
+            console.log('UI element emitting DMX value: ' + dmxIndex + ' changed to ' + newValue)
+            sigUiChannelChanged(dmxIndex, newValue)
         }
     }
 
@@ -83,17 +92,17 @@ Item {
         anchors.fill: parent
 
         onClicked: (mouse) => {
-            handleMouseInteraction(mouse.x, mouse.y)
+            onMouseInteraction(mouse.x, mouse.y)
         }
 
         onPositionChanged: (mouse) => {
             if (mouse.buttons & Qt.LeftButton) {
-                handleMouseInteraction(mouse.x, mouse.y)
+                onMouseInteraction(mouse.x, mouse.y)
             }
         }
 
         onPressed: (mouse) => {
-            handleMouseInteraction(mouse.x, mouse.y)
+            onMouseInteraction(mouse.x, mouse.y)
         }
     }
 
@@ -102,4 +111,16 @@ Item {
         anchors.centerIn: parent
         font.pixelSize: 20
     }
+
+    /*     
+    Connections {
+        target: parent
+        function onDmxChannelChanged(dmxIndex, newValue) {
+            if (dmxIndex == this.dmxIndex) {
+                value = newValue
+            }
+        }
+    }
+ */
 }
+

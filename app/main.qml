@@ -8,6 +8,44 @@ ApplicationWindow {
     height: 480
     title: "LaserGarden"
 
+    function connectChildItems(item) {
+
+        for (var i = 0; i < item.children.length; i++) {
+            var childItem = item.children[i]
+            
+            // Process the child item here
+            //console.log("Child:", childItem)
+            
+            // Access properties of the child if needed
+            //if (childItem.objectName) {
+            //    console.log("Object Name:", childItem.objectName)
+            //}
+            
+            if (childItem.onDmxChannelChanged) {
+                console.log("Setting up DMX channel handler for dmx channel: " + childItem.dmxIndex)
+                dmxArray.valueChanged.connect(childItem.onDmxChannelChanged)
+            }
+            if (childItem.sigUiChannelChanged) {
+                console.log("Setting up UI channel handler for: " + childItem)
+                childItem.sigUiChannelChanged.connect(dmxArray.set_value)
+            }
+
+            // Recursively iterate through the child's children
+            if (childItem.children && childItem.children.length > 0) {
+                connectChildItems(childItem)
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        connectChildItems(stackView)
+
+        var presets = dmxArray.list_presets()
+        for (var i = 0; i < presets.length; i++) {
+            presetsModel.append({"name": presets[i]})
+        }
+    }
+
     StackView {
         id: stackView
         anchors.fill: parent
@@ -164,12 +202,5 @@ ApplicationWindow {
 
     ListModel {
         id: presetsModel
-    }
-
-    Component.onCompleted: {
-        var presets = dmxArray.list_presets()
-        for (var i = 0; i < presets.length; i++) {
-            presetsModel.append({"name": presets[i]})
-        }
     }
 }
