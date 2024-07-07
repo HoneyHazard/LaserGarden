@@ -3,6 +3,7 @@
 import sys
 import os
 import json
+import signal
 import argparse
 import logging
 from PySide6.QtCore import QUrl, QObject, Signal, Slot, Property, QByteArray, QTimer
@@ -247,5 +248,12 @@ if __name__ == "__main__":
         logging.info("Saved last configuration and set all channels to 0 on exit")
 
     app.aboutToQuit.connect(save_last_config_on_exit)
+
+    # Signal handler for Ctrl+C
+    def signal_handler(sig, frame):
+        print('Ctrl+C pressed, exiting...')
+        app.quit()
+
+    signal.signal(signal.SIGINT, signal_handler)
 
     sys.exit(app.exec())

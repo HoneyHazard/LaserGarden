@@ -60,6 +60,8 @@ ApplicationWindow {
         title: "Save Preset"
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
+        width: 400
+        height: 200
 
         Column {
             spacing: 10
@@ -69,6 +71,8 @@ ApplicationWindow {
             TextField {
                 id: presetNameField
                 placeholderText: "Preset name"
+                width: parent.width - 20
+                anchors.horizontalCenter: parent.horizontalCenter
             }
             Row {
                 spacing: 10
@@ -83,7 +87,7 @@ ApplicationWindow {
                 }
                 Button {
                     text: "Cancel"
-                    onClicked: savePresetDialog.close()
+                    onClicked: savePresetDialog.close
                 }
             }
         }
@@ -95,45 +99,64 @@ ApplicationWindow {
         title: "Load Preset"
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
+        width: 500
+        height: 400
 
         Column {
             spacing: 10
             width: parent.width
             height: parent.height
 
-            ListView {
-                id: presetListView
-                model: presetsModel
+            ScrollView {
                 width: parent.width
                 height: parent.height * 0.8
 
-                delegate: Item {
-                    width: presetListView.width
-                    height: 40
+                GridView {
+                    id: presetGridView
+                    model: presetsModel
+                    cellWidth: 120
+                    cellHeight: 50
+                    width: parent.width
+                    height: parent.height
 
-                    RowLayout {
-                        width: parent.width
-                        height: parent.height
-                        Label {
-                            text: name
-                            Layout.fillWidth: true
-                        }
-                    }
+                    delegate: Item {
+                        width: presetGridView.cellWidth
+                        height: presetGridView.cellHeight
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            dmxArray.load_configuration("presets/" + name + ".json")
-                            loadPresetDialog.close()
+                        Rectangle {
+                            width: presetGridView.cellWidth
+                            height: presetGridView.cellHeight
+                            color: "lightgray"
+                            border.color: "black"
+                            radius: 5
+
+                            RowLayout {
+                                anchors.fill: parent
+                                Label {
+                                    text: name
+                                    Layout.fillWidth: true
+                                    horizontalAlignment: Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                }
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    dmxArray.load_configuration("presets/" + name + ".json")
+                                    loadPresetDialog.close()
+                                }
+                            }
                         }
                     }
                 }
             }
+
             Row {
                 spacing: 10
                 Button {
                     text: "Cancel"
-                    onClicked: loadPresetDialog.close()
+                    onClicked: loadPresetDialog.close
                 }
             }
         }
