@@ -142,12 +142,30 @@ class DMXArray(QObject):
     def print_configuration(self):
         logging.info(f"Current DMX Configuration: {list(self._dmx_array)}")
 
+    @Slot()
     def set_all_channels_to_zero(self):
         for i in range(len(self._dmx_array)):
             self._dmx_array[i] = 0
         self.artnet.set(self._dmx_array)
         self.artnet.show()
         logging.info("Set all DMX channels to 0")
+
+    @Slot()
+    def reset(self):
+        self._dmx_array[0] = 1
+        for i in range(1, len(self._dmx_array)):
+            self._dmx_array[i] = 0
+        self.artnet.set(self._dmx_array)
+        self.artnet.show()
+        self.valueChanged.emit(-1, -1)  # Signal that the entire array has changed
+        logging.info("Reset DMX channels: first channel set to 1, rest set to 0")
+
+    @Slot(result=list)
+    def list_presets(self):
+        presets_folder = "presets"
+        if not os.path.exists(presets_folder):
+            return []
+        return [os.path.splitext(f)[0] for f in os.listdir(presets_folder) if f.endswith('.json') and f not in ['default.json', 'last_config.json']]
 
 def change_to_parent_dir_if_in_main():
     current_dir = os.path.basename(os.getcwd())

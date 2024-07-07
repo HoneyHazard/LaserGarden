@@ -1,6 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Dialogs
+import QtQuick.Layouts 1.15
 
 ApplicationWindow {
     visible: true
@@ -40,33 +40,105 @@ ApplicationWindow {
                 onTriggered: dmxArray.load_default()
             }
             MenuItem {
+                text: "Reset"
+                onTriggered: dmxArray.reset()
+            }
+            MenuItem {
                 text: "Quit"
                 onTriggered: Qt.quit()
             }
         }
     }
 
-    FileDialog {
+    Dialog {
         id: savePresetDialog
+        modal: true
         title: "Save Preset"
-        //selectExisting: false
-        currentFolder: "file:///mnt/data/projs/LaserGarden/presets"
-        nameFilters: ["*.json"]
-        fileMode: FileDialog.SaveFile
-        onAccepted: {
-            dmxArray.save_configuration(savePresetDialog.selectedFile)
+
+        Column {
+            spacing: 10
+            Label {
+                text: "Enter preset name:"
+            }
+            TextField {
+                id: presetNameField
+                placeholderText: "Preset name"
+            }
+            Row {
+                spacing: 10
+                Button {
+                    text: "Save"
+                    onClicked: {
+                        if (presetNameField.text.length > 0) {
+                            dmxArray.save_configuration("presets/" + presetNameField.text + ".json")
+                            savePresetDialog.close()
+                        }
+                    }
+                }
+                Button {
+                    text: "Cancel"
+                    onClicked: savePresetDialog.close
+                }
+            }
         }
     }
 
-    FileDialog {
+    Dialog {
         id: loadPresetDialog
+        modal: true
         title: "Load Preset"
-        //selectExisting: true
-        currentFolder: "file:///mnt/data/projs/LaserGarden/presets"
-        nameFilters: ["*.json"]
-        fileMode: FileDialog.OpenFile
-        onAccepted: {
-            dmxArray.load_configuration(loadPresetDialog.selectedFile)
+
+        Column {
+            spacing: 10
+            width: parent.width
+            height: parent.height
+
+            ListView {
+                id: presetListView
+                model: presetsModel
+                width: parent.width
+                height: parent.height * 0.8
+
+                delegate: Item {
+                    width: presetListView.width
+                    height: 40
+
+                    RowLayout {
+                        width: parent.width
+                        height: parent.height
+                        Label {
+                            text: name
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            dmxArray.load_configuration("presets/" + name + ".json")
+                            loadPresetDialog.close()
+                        }
+                    }
+                }
+            }
+            Row {
+                spacing: 10
+                Button {
+                    text: "Cancel"
+                    onClicked: loadPresetDialog.close
+                }
+            }
+        }
+    }
+
+    ListModel {
+        id: presetsModel
+    }
+
+    Component.onCompleted: {
+        var presets = dmxArray.list_presets()
+        for (var i = 0; i < presets.length; i++) {
+            presetsModel.append({"name": presets[i]})
         }
     }
 }
