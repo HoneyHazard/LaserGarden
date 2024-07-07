@@ -22,18 +22,23 @@ Item {
         value = Math.min(maxValue, Math.max(minValue, newValue))
     }
 
-    function handleMouseClick(mouseX, mouseY) {
+    function handleMouseInteraction(mouseX, mouseY) {
         var centerX = mouseArea.width / 2
         var centerY = mouseArea.height / 2
         var x = mouseX - centerX
         var y = mouseY - centerY
-        var angle = Math.atan2(y, x) * 180 / Math.PI + 90
+        var angle = Math.atan2(y, x) * 180 / Math.PI
 
-        if (angle < startAngle)
-            angle += 360
+        // Normalize the angle to be between 0 and 360 degrees
+        angle = (angle + 360 + 90) % 360
 
-        if (angle >= startAngle && angle <= endAngle) {
-            var newValue = Math.round((angle - startAngle) / (endAngle - startAngle) * (maxValue - minValue) + minValue)
+        // Ensure the start and end angles are positive and normalized
+        var start = (startAngle + 360) % 360
+        var end = (endAngle + 360) % 360
+
+        // Check if the angle is within the valid range
+        if ((start < end && angle >= start && angle <= end) || (start > end && (angle >= start || angle <= end))) {
+            var newValue = Math.round(((angle - start + 360) % 360) / (end - start + (end < start ? 360 : 0)) * (maxValue - minValue) + minValue)
             updateValue(newValue)
             valueUpdated(dmxIndex, newValue)
         }
@@ -41,7 +46,6 @@ Item {
 
     onValueChanged: {
         canvas.requestPaint()
-        valueUpdated(dmxIndex, value)
     }
 
     Canvas {
@@ -79,7 +83,17 @@ Item {
         anchors.fill: parent
 
         onClicked: (mouse) => {
-            handleMouseClick(mouse.x, mouse.y)
+            handleMouseInteraction(mouse.x, mouse.y)
+        }
+
+        onPositionChanged: (mouse) => {
+            if (mouse.buttons & Qt.LeftButton) {
+                handleMouseInteraction(mouse.x, mouse.y)
+            }
+        }
+
+        onPressed: (mouse) => {
+            handleMouseInteraction(mouse.x, mouse.y)
         }
     }
 
