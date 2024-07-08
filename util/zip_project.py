@@ -5,7 +5,7 @@ import zipfile
 
 # List of items to include in the zip file
 items_to_zip = [
-    "main",
+    "app",
     "qlcplus_gruolin_olaalite_a001_a002",
     "qlcplus_workspace",
     "README.md",
