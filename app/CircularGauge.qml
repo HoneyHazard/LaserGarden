@@ -125,7 +125,7 @@ Item {
                 Rectangle {
                     width: 20
                     height: 10
-                    color: decreaseButton.pressed ? "lightblue" : "#ccc"
+                    color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
                     anchors.left: parent.left
                     anchors.leftMargin: 35
                     anchors.bottom: parent.verticalCenter
@@ -133,10 +133,10 @@ Item {
                     rotation: -45
 
                     MouseArea {
-                        id: decreaseButton
+                        id: decreaseButtonTop
                         anchors.fill: parent
                         anchors.margins: -10 // Expands 10 pixels in all directions
-                        onPressedChanged: parent.color = decreaseButton.pressed ? "lightblue" : "#ccc"
+                        onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
                         onPressed: {
                             root.value = Math.max(root.minValue, root.value - root.stepSize)
                             sigUiChannelChanged(root.dmxIndex, root.value)
@@ -156,7 +156,7 @@ Item {
                 Rectangle {
                     width: 20
                     height: 10
-                    color: decreaseButton.pressed ? "lightblue" : "#ccc"
+                    color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
                     anchors.left: parent.left
                     anchors.leftMargin: 35
                     anchors.top: parent.verticalCenter
@@ -164,9 +164,10 @@ Item {
                     rotation: +45
 
                     MouseArea {
+                        id: decreaseButtonBottom
                         anchors.fill: parent
                         anchors.margins: -10 // Expands 10 pixels in all directions
-                        onPressedChanged: parent.color = decreaseButton.pressed ? "lightblue" : "#ccc"
+                        onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
                         onPressed: {
                             root.value = Math.max(root.minValue, root.value - root.stepSize)
                             sigUiChannelChanged(root.dmxIndex, root.value)
@@ -196,7 +197,7 @@ Item {
                 Rectangle {
                     width: 20
                     height: 10
-                    color: increaseButton.pressed ? "lightblue" : "#ccc"
+                    color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
                     anchors.right: parent.right
                     anchors.rightMargin: 35
                     anchors.bottom: parent.verticalCenter
@@ -204,10 +205,10 @@ Item {
                     rotation: 45
 
                     MouseArea {
-                        id: increaseButton
+                        id: increaseButtonTop
                         anchors.fill: parent
                         anchors.margins: -10 // Expands 10 pixels in all directions
-                        onPressedChanged: parent.color = increaseButton.pressed ? "lightblue" : "#ccc"
+                        onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
                         onPressed: {
                             root.value = Math.min(root.maxValue, root.value + root.stepSize)
                             sigUiChannelChanged(root.dmxIndex, root.value)
@@ -227,7 +228,7 @@ Item {
                 Rectangle {
                     width: 20
                     height: 10
-                    color: increaseButton.pressed ? "lightblue" : "#ccc"
+                    color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
                     anchors.right: parent.right
                     anchors.rightMargin: 35
                     anchors.top: parent.verticalCenter
@@ -235,9 +236,10 @@ Item {
                     rotation: -45
 
                     MouseArea {
+                        id: increaseButtonBottom
                         anchors.fill: parent
                         anchors.margins: -10 // Expands 10 pixels in all directions
-                        onPressedChanged: parent.color = increaseButton.pressed ? "lightblue" : "#ccc"
+                        onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
                         onPressed: {
                             root.value = Math.min(root.maxValue, root.value + root.stepSize)
                             sigUiChannelChanged(root.dmxIndex, root.value)
