@@ -6,15 +6,16 @@ import QtQuick.Shapes 1.15
 Item {
     id: root
     width: 150
-    height: 150
+    height: 200  // Adjusted height to accommodate title
 
     property int value: 0
     property int minValue: 0
     property int maxValue: 255
-    property real startAngle: -120
-    property real endAngle: 120
+    property real startAngle: -150
+    property real endAngle: 150
     property real stepSize: 1
     property int dmxIndex: -1
+    property string title: "Circular Gauge"  // Title property
 
     signal sigUiChannelChanged(int dmxIndex, int newValue)
 
@@ -57,70 +58,218 @@ Item {
         canvas.requestPaint()
     }
 
-    Canvas {
-        id: canvas
+    Column {
         anchors.fill: parent
 
-        onPaint: {
-            var ctx = getContext("2d")
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
+        // Gauge and Spinbox buttons
+        Item {
+            width: parent.width
+            height: parent.height - 40  // Adjust height to accommodate title
 
-            var centerX = canvas.width / 2
-            var centerY = canvas.height / 2
-            var radius = Math.min(centerX, centerY) - 10
-            var angleRange = endAngle - startAngle
+            Canvas {
+                id: canvas
+                anchors.centerIn: parent
+                width: parent.width
+                height: parent.width  // Make it square
 
-            // Draw background arc
-            ctx.beginPath()
-            ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (endAngle - 90) * Math.PI / 180)
-            ctx.lineWidth = 20
-            ctx.strokeStyle = "#ddd"
-            ctx.stroke()
+                onPaint: {
+                    var ctx = getContext("2d")
+                    ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-            // Draw value arc
-            var valueAngle = startAngle + (value - minValue) / (maxValue - minValue) * angleRange
-            ctx.beginPath()
-            ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (valueAngle - 90) * Math.PI / 180)
-            ctx.lineWidth = 20
-            ctx.strokeStyle = "lightblue"
-            ctx.stroke()
-        }
-    }
+                    var centerX = canvas.width / 2
+                    var centerY = canvas.height / 2
+                    var radius = Math.min(centerX, centerY) - 10
+                    var angleRange = endAngle - startAngle
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
+                    // Draw background arc
+                    ctx.beginPath()
+                    ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (endAngle - 90) * Math.PI / 180)
+                    ctx.lineWidth = 20
+                    ctx.strokeStyle = "#ccc"
+                    ctx.stroke()
 
-        onClicked: (mouse) => {
-            onMouseInteraction(mouse.x, mouse.y)
-        }
+                    // Draw value arc
+                    var valueAngle = startAngle + (value - minValue) / (maxValue - minValue) * angleRange
+                    ctx.beginPath()
+                    ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (valueAngle - 90) * Math.PI / 180)
+                    ctx.lineWidth = 20
+                    ctx.strokeStyle = "lightblue"
+                    ctx.stroke()
+                }
+            }
 
-        onPositionChanged: (mouse) => {
-            if (mouse.buttons & Qt.LeftButton) {
-                onMouseInteraction(mouse.x, mouse.y)
+            MouseArea {
+                id: mouseArea
+                anchors.fill: parent
+
+                onClicked: (mouse) => {
+                    onMouseInteraction(mouse.x, mouse.y)
+                }
+
+                onPositionChanged: (mouse) => {
+                    if (mouse.buttons & Qt.LeftButton) {
+                        onMouseInteraction(mouse.x, mouse.y)
+                    }
+                }
+
+                onPressed: (mouse) => {
+                    onMouseInteraction(mouse.x, mouse.y)
+                }
+            }
+
+            Item {
+                width: parent.width
+                height: parent.width  // Make it square
+
+                // Decrease button top part
+                Rectangle {
+                    width: 20
+                    height: 10
+                    color: decreaseButton.pressed ? "lightblue" : "#ccc"
+                    anchors.left: parent.left
+                    anchors.leftMargin: 35
+                    anchors.bottom: parent.verticalCenter
+                    anchors.bottomMargin: -1
+                    rotation: -45
+
+                    MouseArea {
+                        id: decreaseButton
+                        anchors.fill: parent
+                        anchors.margins: -10 // Expands 10 pixels in all directions
+                        onPressedChanged: parent.color = decreaseButton.pressed ? "lightblue" : "#ccc"
+                        onPressed: {
+                            decreaseTimer.start()
+                        }
+                        onReleased: {
+                            decreaseTimer.stop()
+                        }
+                        onClicked: {
+                            root.value = Math.max(root.minValue, root.value - root.stepSize)
+                            sigUiChannelChanged(root.dmxIndex, root.value)
+                        }
+                    }
+                }
+                // Decrease button bottom part
+                Rectangle {
+                    width: 20
+                    height: 10
+                    color: decreaseButton.pressed ? "lightblue" : "#ccc"
+                    anchors.left: parent.left
+                    anchors.leftMargin: 35
+                    anchors.top: parent.verticalCenter
+                    anchors.topMargin: -1
+                    rotation: +45
+
+                    MouseArea {
+                        anchors.fill: parent
+                        anchors.margins: -10 // Expands 10 pixels in all directions
+                        onPressedChanged: parent.color = decreaseButton.pressed ? "lightblue" : "#ccc"
+                        onPressed: {
+                            decreaseTimer.start()
+                        }
+                        onReleased: {
+                            decreaseTimer.stop()
+                        }
+                        onClicked: {
+                            root.value = Math.max(root.minValue, root.value - root.stepSize)
+                            sigUiChannelChanged(root.dmxIndex, root.value)
+                        }
+                    }
+                }
+
+                // Value display
+                Text {
+                    text: value
+                    font.pixelSize: 20
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                // Increase button top part
+                Rectangle {
+                    width: 20
+                    height: 10
+                    color: increaseButton.pressed ? "lightblue" : "#ccc"
+                    anchors.right: parent.right
+                    anchors.rightMargin: 35
+                    anchors.bottom: parent.verticalCenter
+                    anchors.bottomMargin: -1
+                    rotation: 45
+
+                    MouseArea {
+                        id: increaseButton
+                        anchors.fill: parent
+                        anchors.margins: -10 // Expands 10 pixels in all directions
+                        onPressedChanged: parent.color = increaseButton.pressed ? "lightblue" : "#ccc"
+                        onPressed: {
+                            increaseTimer.start()
+                        }
+                        onReleased: {
+                            increaseTimer.stop()
+                        }
+                        onClicked: {
+                            root.value = Math.min(root.maxValue, root.value + root.stepSize)
+                            sigUiChannelChanged(root.dmxIndex, root.value)
+                        }
+                    }
+                }
+                // Increase button bottom part
+                Rectangle {
+                    width: 20
+                    height: 10
+                    color: increaseButton.pressed ? "lightblue" : "#ccc"
+                    anchors.right: parent.right
+                    anchors.rightMargin: 35
+                    anchors.top: parent.verticalCenter
+                    anchors.topMargin: -1
+                    rotation: -45
+
+                    MouseArea {
+                        anchors.fill: parent
+                        anchors.margins: -10 // Expands 10 pixels in all directions
+                        onPressedChanged: parent.color = increaseButton.pressed ? "lightblue" : "#ccc"
+                        onPressed: {
+                            increaseTimer.start()
+                        }
+                        onReleased: {
+                            increaseTimer.stop()
+                        }
+                        onClicked: {
+                            root.value = Math.min(root.maxValue, root.value + root.stepSize)
+                            sigUiChannelChanged(root.dmxIndex, root.value)
+                        }
+                    }
+                }
             }
         }
 
-        onPressed: (mouse) => {
-            onMouseInteraction(mouse.x, mouse.y)
+        // Title
+        Text {
+            text: root.title
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 20
+            color: "#000000"
         }
     }
 
-    Text {
-        text: value
-        anchors.centerIn: parent
-        font.pixelSize: 20
-    }
-
-    /*     
-    Connections {
-        target: parent
-        function onDmxChannelChanged(dmxIndex, newValue) {
-            if (dmxIndex == this.dmxIndex) {
-                value = newValue
-            }
+    Timer {
+        id: decreaseTimer
+        interval: 100
+        repeat: true
+        onTriggered: {
+            root.value = Math.max(root.minValue, root.value - root.stepSize)
+            sigUiChannelChanged(root.dmxIndex, root.value)
         }
     }
- */
+
+    Timer {
+        id: increaseTimer
+        interval: 100
+        repeat: true
+        onTriggered: {
+            root.value = Math.min(root.maxValue, root.value + root.stepSize)
+            sigUiChannelChanged(root.dmxIndex, root.value)
+        }
+    }
 }
-
