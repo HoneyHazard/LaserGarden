@@ -5,7 +5,7 @@ import QtQuick.Shapes 1.15
 
 Item {
     id: root
-    width: 150
+    width: parent.width
     height: width  // Maintain a 1:1 ratio
 
     property int value: 0
@@ -16,6 +16,14 @@ Item {
     property real stepSize: 1
     property int dmxIndex: -1
     property string title: "Circular Gauge"  // Title property
+
+    // New properties for customization
+    property color backgroundColor: "#ccc"
+    property color valueColor: "lightblue"
+    property color arrowColor: "gray"
+    property color arrowPressedColor: "lightblue"
+    property real arcThickness: 0.25  // As a fraction of the radius
+    property real arrowThickness: 0.065  // As a fraction of the width
 
     signal sigUiChannelChanged(int dmxIndex, int newValue)
 
@@ -65,7 +73,7 @@ Item {
         Canvas {
             id: canvas
             anchors.centerIn: parent
-            width: parent.width * 0.8
+            width: parent.width * 0.95
             height: width  // Make it square
 
             onPaint: {
@@ -80,16 +88,16 @@ Item {
                 // Draw background arc
                 ctx.beginPath()
                 ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (endAngle - 90) * Math.PI / 180)
-                ctx.lineWidth = radius * 0.2
-                ctx.strokeStyle = "#ccc"
+                ctx.lineWidth = radius * arcThickness
+                ctx.strokeStyle = backgroundColor
                 ctx.stroke()
 
                 // Draw value arc
                 var valueAngle = startAngle + (value - minValue) / (maxValue - minValue) * angleRange
                 ctx.beginPath()
                 ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (valueAngle - 90) * Math.PI / 180)
-                ctx.lineWidth = radius * 0.2
-                ctx.strokeStyle = "lightblue"
+                ctx.lineWidth = radius * arcThickness
+                ctx.strokeStyle = valueColor
                 ctx.stroke()
             }
         }
@@ -125,8 +133,8 @@ Item {
                 // Decrease button top part
                 Rectangle {
                     width: parent.width * 0.13
-                    height: parent.width * 0.065
-                    color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
+                    height: parent.width * arrowThickness
+                    color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? arrowPressedColor : arrowColor
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.23
                     anchors.bottom: parent.verticalCenter
@@ -137,7 +145,7 @@ Item {
                         id: decreaseButtonTop
                         anchors.fill: parent
                         anchors.margins: parent.width * -0.07  // Expands in all directions
-                        onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
+                        onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? arrowPressedColor : arrowColor
                         onPressed: {
                             root.value = Math.max(root.minValue, root.value - root.stepSize)
                             sigUiChannelChanged(root.dmxIndex, root.value)
@@ -156,8 +164,8 @@ Item {
                 // Decrease button bottom part
                 Rectangle {
                     width: parent.width * 0.13
-                    height: parent.width * 0.065
-                    color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
+                    height: parent.width * arrowThickness
+                    color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? arrowPressedColor : arrowColor
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.23
                     anchors.top: parent.verticalCenter
@@ -168,7 +176,7 @@ Item {
                         id: decreaseButtonBottom
                         anchors.fill: parent
                         anchors.margins: parent.width * -0.07  // Expands in all directions
-                        onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
+                        onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? arrowPressedColor : arrowColor
                         onPressed: {
                             root.value = Math.max(root.minValue, root.value - root.stepSize)
                             sigUiChannelChanged(root.dmxIndex, root.value)
@@ -197,8 +205,8 @@ Item {
                 // Increase button top part
                 Rectangle {
                     width: parent.width * 0.13
-                    height: parent.width * 0.065
-                    color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
+                    height: parent.width * arrowThickness
+                    color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? arrowPressedColor : arrowColor
                     anchors.right: parent.right
                     anchors.rightMargin: parent.width * 0.23
                     anchors.bottom: parent.verticalCenter
@@ -209,7 +217,7 @@ Item {
                         id: increaseButtonTop
                         anchors.fill: parent
                         anchors.margins: parent.width * -0.07  // Expands in all directions
-                        onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
+                        onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? arrowPressedColor : arrowColor
                         onPressed: {
                             root.value = Math.min(root.maxValue, root.value + root.stepSize)
                             sigUiChannelChanged(root.dmxIndex, root.value)
@@ -228,8 +236,8 @@ Item {
                 // Increase button bottom part
                 Rectangle {
                     width: parent.width * 0.13
-                    height: parent.width * 0.065
-                    color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
+                    height: parent.width * arrowThickness
+                    color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? arrowPressedColor : arrowColor
                     anchors.right: parent.right
                     anchors.rightMargin: parent.width * 0.23
                     anchors.top: parent.verticalCenter
@@ -240,7 +248,7 @@ Item {
                         id: increaseButtonBottom
                         anchors.fill: parent
                         anchors.margins: parent.width * -0.07  // Expands in all directions
-                        onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
+                        onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? arrowPressedColor : arrowColor
                         onPressed: {
                             root.value = Math.min(root.maxValue, root.value + root.stepSize)
                             sigUiChannelChanged(root.dmxIndex, root.value)
@@ -261,7 +269,7 @@ Item {
 
         // Title
         Text {
-            text: root.title
+            text: root.title !== "Circular Gauge" ? root.title : (root.dmxIndex !== -1 ? "CH" + root.dmxIndex : root.title)
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.bottom
             font.pixelSize: parent.width * 0.13
