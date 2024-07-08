@@ -6,7 +6,7 @@ import QtQuick.Shapes 1.15
 Item {
     id: root
     width: 150
-    height: 200  // Adjusted height to accommodate title
+    height: width  // Maintain a 1:1 ratio
 
     property int value: 0
     property int minValue: 0
@@ -58,84 +58,85 @@ Item {
         canvas.requestPaint()
     }
 
-    Column {
+    Rectangle {
         anchors.fill: parent
+        color: "transparent"
 
-        // Gauge and Spinbox buttons
-        Item {
-            width: parent.width
-            height: parent.height - 40  // Adjust height to accommodate title
+        Canvas {
+            id: canvas
+            anchors.centerIn: parent
+            width: parent.width * 0.8
+            height: width  // Make it square
 
-            Canvas {
-                id: canvas
-                anchors.centerIn: parent
-                width: parent.width
-                height: parent.width  // Make it square
+            onPaint: {
+                var ctx = getContext("2d")
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-                onPaint: {
-                    var ctx = getContext("2d")
-                    ctx.clearRect(0, 0, canvas.width, canvas.height)
+                var centerX = canvas.width / 2
+                var centerY = canvas.height / 2
+                var radius = Math.min(centerX, centerY) * 0.9
+                var angleRange = endAngle - startAngle
 
-                    var centerX = canvas.width / 2
-                    var centerY = canvas.height / 2
-                    var radius = Math.min(centerX, centerY) - 10
-                    var angleRange = endAngle - startAngle
+                // Draw background arc
+                ctx.beginPath()
+                ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (endAngle - 90) * Math.PI / 180)
+                ctx.lineWidth = radius * 0.2
+                ctx.strokeStyle = "#ccc"
+                ctx.stroke()
 
-                    // Draw background arc
-                    ctx.beginPath()
-                    ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (endAngle - 90) * Math.PI / 180)
-                    ctx.lineWidth = 20
-                    ctx.strokeStyle = "#ccc"
-                    ctx.stroke()
+                // Draw value arc
+                var valueAngle = startAngle + (value - minValue) / (maxValue - minValue) * angleRange
+                ctx.beginPath()
+                ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (valueAngle - 90) * Math.PI / 180)
+                ctx.lineWidth = radius * 0.2
+                ctx.strokeStyle = "lightblue"
+                ctx.stroke()
+            }
+        }
 
-                    // Draw value arc
-                    var valueAngle = startAngle + (value - minValue) / (maxValue - minValue) * angleRange
-                    ctx.beginPath()
-                    ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (valueAngle - 90) * Math.PI / 180)
-                    ctx.lineWidth = 20
-                    ctx.strokeStyle = "lightblue"
-                    ctx.stroke()
-                }
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+
+            onClicked: (mouse) => {
+                onMouseInteraction(mouse.x, mouse.y)
             }
 
-            MouseArea {
-                id: mouseArea
-                anchors.fill: parent
-
-                onClicked: (mouse) => {
-                    onMouseInteraction(mouse.x, mouse.y)
-                }
-
-                onPositionChanged: (mouse) => {
-                    if (mouse.buttons & Qt.LeftButton) {
-                        onMouseInteraction(mouse.x, mouse.y)
-                    }
-                }
-
-                onPressed: (mouse) => {
+            onPositionChanged: (mouse) => {
+                if (mouse.buttons & Qt.LeftButton) {
                     onMouseInteraction(mouse.x, mouse.y)
                 }
             }
+
+            onPressed: (mouse) => {
+                onMouseInteraction(mouse.x, mouse.y)
+            }
+        }
+
+        Column {
+            width: parent.width * 0.8
+            height: parent.height * 0.8
+            anchors.centerIn: parent
 
             Item {
                 width: parent.width
-                height: parent.width  // Make it square
+                height: parent.height  // Make it square
 
                 // Decrease button top part
                 Rectangle {
-                    width: 20
-                    height: 10
+                    width: parent.width * 0.13
+                    height: parent.width * 0.065
                     color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
                     anchors.left: parent.left
-                    anchors.leftMargin: 35
+                    anchors.leftMargin: parent.width * 0.23
                     anchors.bottom: parent.verticalCenter
-                    anchors.bottomMargin: -1
+                    anchors.bottomMargin: parent.width * -0.007
                     rotation: -45
 
                     MouseArea {
                         id: decreaseButtonTop
                         anchors.fill: parent
-                        anchors.margins: -10 // Expands 10 pixels in all directions
+                        anchors.margins: parent.width * -0.07  // Expands in all directions
                         onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
                         onPressed: {
                             root.value = Math.max(root.minValue, root.value - root.stepSize)
@@ -154,19 +155,19 @@ Item {
                 }
                 // Decrease button bottom part
                 Rectangle {
-                    width: 20
-                    height: 10
+                    width: parent.width * 0.13
+                    height: parent.width * 0.065
                     color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
                     anchors.left: parent.left
-                    anchors.leftMargin: 35
+                    anchors.leftMargin: parent.width * 0.23
                     anchors.top: parent.verticalCenter
-                    anchors.topMargin: -1
+                    anchors.topMargin: parent.width * -0.007
                     rotation: +45
 
                     MouseArea {
                         id: decreaseButtonBottom
                         anchors.fill: parent
-                        anchors.margins: -10 // Expands 10 pixels in all directions
+                        anchors.margins: parent.width * -0.07  // Expands in all directions
                         onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? "lightblue" : "#ccc"
                         onPressed: {
                             root.value = Math.max(root.minValue, root.value - root.stepSize)
@@ -187,7 +188,7 @@ Item {
                 // Value display
                 Text {
                     text: value
-                    font.pixelSize: 20
+                    font.pixelSize: parent.width * 0.13
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -195,19 +196,19 @@ Item {
 
                 // Increase button top part
                 Rectangle {
-                    width: 20
-                    height: 10
+                    width: parent.width * 0.13
+                    height: parent.width * 0.065
                     color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
                     anchors.right: parent.right
-                    anchors.rightMargin: 35
+                    anchors.rightMargin: parent.width * 0.23
                     anchors.bottom: parent.verticalCenter
-                    anchors.bottomMargin: -1
+                    anchors.bottomMargin: parent.width * -0.007
                     rotation: 45
 
                     MouseArea {
                         id: increaseButtonTop
                         anchors.fill: parent
-                        anchors.margins: -10 // Expands 10 pixels in all directions
+                        anchors.margins: parent.width * -0.07  // Expands in all directions
                         onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
                         onPressed: {
                             root.value = Math.min(root.maxValue, root.value + root.stepSize)
@@ -226,19 +227,19 @@ Item {
                 }
                 // Increase button bottom part
                 Rectangle {
-                    width: 20
-                    height: 10
+                    width: parent.width * 0.13
+                    height: parent.width * 0.065
                     color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
                     anchors.right: parent.right
-                    anchors.rightMargin: 35
+                    anchors.rightMargin: parent.width * 0.23
                     anchors.top: parent.verticalCenter
-                    anchors.topMargin: -1
+                    anchors.topMargin: parent.width * -0.007
                     rotation: -45
 
                     MouseArea {
                         id: increaseButtonBottom
                         anchors.fill: parent
-                        anchors.margins: -10 // Expands 10 pixels in all directions
+                        anchors.margins: parent.width * -0.07  // Expands in all directions
                         onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? "lightblue" : "#ccc"
                         onPressed: {
                             root.value = Math.min(root.maxValue, root.value + root.stepSize)
@@ -262,7 +263,8 @@ Item {
         Text {
             text: root.title
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 20
+            anchors.top: parent.bottom
+            font.pixelSize: parent.width * 0.13
             color: "#000000"
         }
     }
