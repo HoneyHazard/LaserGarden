@@ -5,7 +5,7 @@ import QtQuick.Shapes 1.15
 
 Item {
     id: root
-    width: parent.width
+    width: parent ? parent.width : 150
     height: width  // Maintain a 1:1 ratio
 
     property int value: 0
@@ -20,9 +20,9 @@ Item {
     // New properties for customization
     property color backgroundColor: "#ccc"
     property color valueColor: "lightblue"
-    property color arrowColor: "gray"
-    property color arrowPressedColor: "lightblue"
-    property real arcThickness: 0.25  // As a fraction of the radius
+    property color arrowColor: backgroundColor
+    property color arrowPressedColor: valueColor
+    property real arcThickness: 0.2  // As a fraction of the radius
     property real arrowThickness: 0.065  // As a fraction of the width
 
     signal sigUiChannelChanged(int dmxIndex, int newValue)
@@ -73,7 +73,7 @@ Item {
         Canvas {
             id: canvas
             anchors.centerIn: parent
-            width: parent.width * 0.95
+            width: parent.width * 0.8
             height: width  // Make it square
 
             onPaint: {
@@ -130,66 +130,19 @@ Item {
                 width: parent.width
                 height: parent.height  // Make it square
 
-                // Decrease button top part
-                Rectangle {
-                    width: parent.width * 0.13
-                    height: parent.width * arrowThickness
-                    color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? arrowPressedColor : arrowColor
+                // Decrease button
+                ArrowButton {
+                    color: root.arrowColor
+                    pressedColor: root.arrowPressedColor
+                    widthRatio: 0.13
+                    heightRatio: root.arrowThickness
                     anchors.left: parent.left
                     anchors.leftMargin: parent.width * 0.23
-                    anchors.bottom: parent.verticalCenter
-                    anchors.bottomMargin: parent.width * -0.007
-                    rotation: -45
+                    anchors.verticalCenter: parent.verticalCenter
 
-                    MouseArea {
-                        id: decreaseButtonTop
-                        anchors.fill: parent
-                        anchors.margins: parent.width * -0.07  // Expands in all directions
-                        onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? arrowPressedColor : arrowColor
-                        onPressed: {
-                            root.value = Math.max(root.minValue, root.value - root.stepSize)
-                            sigUiChannelChanged(root.dmxIndex, root.value)
-                            decreaseDelayTimer.start()
-                        }
-                        onReleased: {
-                            decreaseTimer.stop()
-                            decreaseDelayTimer.stop()
-                        }
-                        onClicked: {
-                            root.value = Math.max(root.minValue, root.value - root.stepSize)
-                            sigUiChannelChanged(root.dmxIndex, root.value)
-                        }
-                    }
-                }
-                // Decrease button bottom part
-                Rectangle {
-                    width: parent.width * 0.13
-                    height: parent.width * arrowThickness
-                    color: decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? arrowPressedColor : arrowColor
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.23
-                    anchors.top: parent.verticalCenter
-                    anchors.topMargin: parent.width * -0.007
-                    rotation: +45
-
-                    MouseArea {
-                        id: decreaseButtonBottom
-                        anchors.fill: parent
-                        anchors.margins: parent.width * -0.07  // Expands in all directions
-                        onPressedChanged: parent.color = decreaseButtonTop.pressed || decreaseButtonBottom.pressed ? arrowPressedColor : arrowColor
-                        onPressed: {
-                            root.value = Math.max(root.minValue, root.value - root.stepSize)
-                            sigUiChannelChanged(root.dmxIndex, root.value)
-                            decreaseDelayTimer.start()
-                        }
-                        onReleased: {
-                            decreaseTimer.stop()
-                            decreaseDelayTimer.stop()
-                        }
-                        onClicked: {
-                            root.value = Math.max(root.minValue, root.value - root.stepSize)
-                            sigUiChannelChanged(root.dmxIndex, root.value)
-                        }
+                    onSigArrowTrigered: {
+                        root.value = Math.max(root.minValue, root.value - root.stepSize)
+                        sigUiChannelChanged(root.dmxIndex, root.value)
                     }
                 }
 
@@ -202,66 +155,21 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                 }
 
-                // Increase button top part
-                Rectangle {
-                    width: parent.width * 0.13
-                    height: parent.width * arrowThickness
-                    color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? arrowPressedColor : arrowColor
+                // Increase button
+                ArrowButton {
+                    color: root.arrowColor
+                    pressedColor: root.arrowPressedColor
+                    widthRatio: 0.13
+                    heightRatio: root.arrowThickness
+                    rotation: 180
                     anchors.right: parent.right
                     anchors.rightMargin: parent.width * 0.23
-                    anchors.bottom: parent.verticalCenter
-                    anchors.bottomMargin: parent.width * -0.007
-                    rotation: 45
+                    anchors.verticalCenter: parent.verticalCenter
 
-                    MouseArea {
-                        id: increaseButtonTop
-                        anchors.fill: parent
-                        anchors.margins: parent.width * -0.07  // Expands in all directions
-                        onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? arrowPressedColor : arrowColor
-                        onPressed: {
-                            root.value = Math.min(root.maxValue, root.value + root.stepSize)
-                            sigUiChannelChanged(root.dmxIndex, root.value)
-                            increaseDelayTimer.start()
-                        }
-                        onReleased: {
-                            increaseTimer.stop()
-                            increaseDelayTimer.stop()
-                        }
-                        onClicked: {
-                            root.value = Math.min(root.maxValue, root.value + root.stepSize)
-                            sigUiChannelChanged(root.dmxIndex, root.value)
-                        }
-                    }
-                }
-                // Increase button bottom part
-                Rectangle {
-                    width: parent.width * 0.13
-                    height: parent.width * arrowThickness
-                    color: increaseButtonTop.pressed || increaseButtonBottom.pressed ? arrowPressedColor : arrowColor
-                    anchors.right: parent.right
-                    anchors.rightMargin: parent.width * 0.23
-                    anchors.top: parent.verticalCenter
-                    anchors.topMargin: parent.width * -0.007
-                    rotation: -45
 
-                    MouseArea {
-                        id: increaseButtonBottom
-                        anchors.fill: parent
-                        anchors.margins: parent.width * -0.07  // Expands in all directions
-                        onPressedChanged: parent.color = increaseButtonTop.pressed || increaseButtonBottom.pressed ? arrowPressedColor : arrowColor
-                        onPressed: {
-                            root.value = Math.min(root.maxValue, root.value + root.stepSize)
-                            sigUiChannelChanged(root.dmxIndex, root.value)
-                            increaseDelayTimer.start()
-                        }
-                        onReleased: {
-                            increaseTimer.stop()
-                            increaseDelayTimer.stop()
-                        }
-                        onClicked: {
-                            root.value = Math.min(root.maxValue, root.value + root.stepSize)
-                            sigUiChannelChanged(root.dmxIndex, root.value)
-                        }
+                    onSigArrowTrigered: {
+                        root.value = Math.min(root.maxValue, root.value + root.stepSize)
+                        sigUiChannelChanged(root.dmxIndex, root.value)
                     }
                 }
             }
@@ -274,44 +182,6 @@ Item {
             anchors.top: parent.bottom
             font.pixelSize: parent.width * 0.13
             color: "#000000"
-        }
-    }
-
-    Timer {
-        id: decreaseDelayTimer
-        interval: 600
-        onTriggered: {
-            decreaseDelayTimer.stop()
-            decreaseTimer.start()
-        }
-    }
-
-    Timer {
-        id: decreaseTimer
-        interval: 100
-        repeat: true
-        onTriggered: {
-            root.value = Math.max(root.minValue, root.value - root.stepSize)
-            sigUiChannelChanged(root.dmxIndex, root.value)
-        }
-    }
-
-    Timer {
-        id: increaseDelayTimer
-        interval: 600
-        onTriggered: {
-            increaseDelayTimer.stop()
-            increaseTimer.start()
-        }
-    }
-
-    Timer {
-        id: increaseTimer
-        interval: 100
-        repeat: true
-        onTriggered: {
-            root.value = Math.min(root.maxValue, root.value + root.stepSize)
-            sigUiChannelChanged(root.dmxIndex, root.value)
         }
     }
 }
