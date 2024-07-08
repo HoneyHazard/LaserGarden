@@ -138,10 +138,13 @@ Item {
                         anchors.margins: -10 // Expands 10 pixels in all directions
                         onPressedChanged: parent.color = decreaseButton.pressed ? "lightblue" : "#ccc"
                         onPressed: {
-                            decreaseTimer.start()
+                            root.value = Math.max(root.minValue, root.value - root.stepSize)
+                            sigUiChannelChanged(root.dmxIndex, root.value)
+                            decreaseDelayTimer.start()
                         }
                         onReleased: {
                             decreaseTimer.stop()
+                            decreaseDelayTimer.stop()
                         }
                         onClicked: {
                             root.value = Math.max(root.minValue, root.value - root.stepSize)
@@ -165,10 +168,13 @@ Item {
                         anchors.margins: -10 // Expands 10 pixels in all directions
                         onPressedChanged: parent.color = decreaseButton.pressed ? "lightblue" : "#ccc"
                         onPressed: {
-                            decreaseTimer.start()
+                            root.value = Math.max(root.minValue, root.value - root.stepSize)
+                            sigUiChannelChanged(root.dmxIndex, root.value)
+                            decreaseDelayTimer.start()
                         }
                         onReleased: {
                             decreaseTimer.stop()
+                            decreaseDelayTimer.stop()
                         }
                         onClicked: {
                             root.value = Math.max(root.minValue, root.value - root.stepSize)
@@ -203,10 +209,13 @@ Item {
                         anchors.margins: -10 // Expands 10 pixels in all directions
                         onPressedChanged: parent.color = increaseButton.pressed ? "lightblue" : "#ccc"
                         onPressed: {
-                            increaseTimer.start()
+                            root.value = Math.min(root.maxValue, root.value + root.stepSize)
+                            sigUiChannelChanged(root.dmxIndex, root.value)
+                            increaseDelayTimer.start()
                         }
                         onReleased: {
                             increaseTimer.stop()
+                            increaseDelayTimer.stop()
                         }
                         onClicked: {
                             root.value = Math.min(root.maxValue, root.value + root.stepSize)
@@ -230,10 +239,13 @@ Item {
                         anchors.margins: -10 // Expands 10 pixels in all directions
                         onPressedChanged: parent.color = increaseButton.pressed ? "lightblue" : "#ccc"
                         onPressed: {
-                            increaseTimer.start()
+                            root.value = Math.min(root.maxValue, root.value + root.stepSize)
+                            sigUiChannelChanged(root.dmxIndex, root.value)
+                            increaseDelayTimer.start()
                         }
                         onReleased: {
                             increaseTimer.stop()
+                            increaseDelayTimer.stop()
                         }
                         onClicked: {
                             root.value = Math.min(root.maxValue, root.value + root.stepSize)
@@ -254,12 +266,30 @@ Item {
     }
 
     Timer {
+        id: decreaseDelayTimer
+        interval: 600
+        onTriggered: {
+            decreaseDelayTimer.stop()
+            decreaseTimer.start()
+        }
+    }
+
+    Timer {
         id: decreaseTimer
         interval: 100
         repeat: true
         onTriggered: {
             root.value = Math.max(root.minValue, root.value - root.stepSize)
             sigUiChannelChanged(root.dmxIndex, root.value)
+        }
+    }
+
+    Timer {
+        id: increaseDelayTimer
+        interval: 600
+        onTriggered: {
+            increaseDelayTimer.stop()
+            increaseTimer.start()
         }
     }
 
