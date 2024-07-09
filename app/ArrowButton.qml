@@ -18,7 +18,7 @@ Item {
     signal sigArrowTriggered()
 
     // Adjust width and height to fill the available space while maintaining aspect ratio
-    readonly property real sz: Math.min(width, height)
+    readonly property real sz: 1.4 * Math.min(width, height)
     
     //readonly property real targetWidth: Math.min(parent ? parent.width : width, (parent ? parent.height : height) * aspectRatio)
     //readonly property real targetHeight: targetWidth / aspectRatio
@@ -37,6 +37,8 @@ Item {
     Canvas {
         id: canvas
         anchors.centerIn: parent
+
+        property real lineW: sz / 5
         width: parent.width
         height: parent.height  // Make it square
 
@@ -47,30 +49,43 @@ Item {
             var halfSz = arrowButton.sz / 2
             var centerX = canvas.width / 2
             var centerY = canvas.height / 2
+            var lineW = sz / 6
             
-            ctx.lineWidth = 10
+            ctx.lineWidth = lineW
             ctx.strokeStyle = arrowButton.pressed ? arrowButton.pressedColor : arrowButton.color
             ctx.beginPath()
             if (arrowButton.direction == arrowButton.directionLeft) {
-                ctx.moveTo(centerX - halfSz, centerY)
-                ctx.lineTo(centerX + halfSz, centerY + halfSz)
-                ctx.moveTo(centerX - halfSz, centerY)
-                ctx.lineTo(centerX + halfSz, centerY - halfSz)
+                ctx.moveTo(centerX - halfSz + lineW, centerY + lineW/4)
+                ctx.lineTo(centerX + halfSz - lineW/2, centerY + halfSz - lineW)
+                ctx.moveTo(centerX - halfSz + lineW, centerY - lineW/4)
+                ctx.lineTo(centerX + halfSz - lineW/2, centerY - halfSz + lineW)
+                
+                ctx.moveTo(centerX - halfSz + lineW, centerY + lineW/1.4)
+                ctx.lineTo(centerX - halfSz + lineW, centerY - lineW/1.4)
             } else if (arrowButton.direction == arrowButton.directionRight) {
-                ctx.moveTo(centerX + halfSz, centerY)
-                ctx.lineTo(centerX - halfSz, centerY + halfSz)
-                ctx.moveTo(centerX + halfSz, centerY)
-                ctx.lineTo(centerX - halfSz, centerY - halfSz)
+                ctx.moveTo(centerX + halfSz - lineW, centerY + lineW/4)
+                ctx.lineTo(centerX - halfSz + lineW/2, centerY + halfSz - lineW)
+                ctx.moveTo(centerX + halfSz - lineW, centerY - lineW/4)
+                ctx.lineTo(centerX - halfSz + lineW/2, centerY - halfSz + lineW)
+                
+                ctx.moveTo(centerX + halfSz - lineW, centerY + lineW/1.4)
+                ctx.lineTo(centerX + halfSz - lineW, centerY - lineW/1.4)
             } else if (arrowButton.direction == arrowButton.directionUp) {
-                ctx.moveTo(centerX, centerY - halfSz)
-                ctx.lineTo(centerX + halfSz, centerY + halfSz)
-                ctx.moveTo(centerX, centerY - halfSz)
-                ctx.lineTo(centerX - halfSz, centerY + halfSz)
+                ctx.moveTo(centerX + lineW/4, centerY - halfSz + lineW)
+                ctx.lineTo(centerX + halfSz - lineW, centerY + halfSz - lineW)
+                ctx.moveTo(centerX - lineW/4, centerY - halfSz + lineW)
+                ctx.lineTo(centerX - halfSz + lineW, centerY + halfSz - lineW)
+                
+                ctx.moveTo(centerX + lineW/1.4, centerY - halfSz + lineW)
+                ctx.lineTo(centerX - lineW/1.4, centerY - halfSz + lineW)
             } else if (arrowButton.direction == arrowButton.directionDown) {
-                ctx.moveTo(centerX, centerY + halfSz)
-                ctx.lineTo(centerX + halfSz, centerY - halfSz)
-                ctx.moveTo(centerX, centerY + halfSz)
-                ctx.lineTo(centerX - halfSz, centerY - halfSz)
+                ctx.moveTo(centerX + lineW/4, centerY + halfSz - lineW)
+                ctx.lineTo(centerX + halfSz - lineW, centerY - halfSz + lineW)
+                ctx.moveTo(centerX - lineW/4, centerY + halfSz - lineW)
+                ctx.lineTo(centerX - halfSz + lineW, centerY - halfSz + lineW)
+                
+                ctx.moveTo(centerX + lineW/1.4, centerY + halfSz - lineW)
+                ctx.lineTo(centerX - lineW/1.4, centerY + halfSz - lineW)
             }
             ctx.stroke()
 
