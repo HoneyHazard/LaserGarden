@@ -131,16 +131,17 @@ Item {
                 height: parent.height  // Make it square
 
                 // Decrease button
+
                 ArrowButton {
+                    direction: directionLeft
                     color: root.arrowColor
                     pressedColor: root.arrowPressedColor
-                    widthRatio: 0.13
-                    heightRatio: root.arrowThickness
-                    anchors.left: parent.left
-                    anchors.leftMargin: parent.width * 0.23
+                    width: parent.width * 0.15
+                    height: parent.height * 0.15
                     anchors.verticalCenter: parent.verticalCenter
-
-                    onSigArrowTrigered: {
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width * 0.2                  
+                    onSigArrowTriggered: {
                         root.value = Math.max(root.minValue, root.value - root.stepSize)
                         sigUiChannelChanged(root.dmxIndex, root.value)
                     }
@@ -157,17 +158,15 @@ Item {
 
                 // Increase button
                 ArrowButton {
+                    direction: directionRight
                     color: root.arrowColor
                     pressedColor: root.arrowPressedColor
-                    widthRatio: 0.13
-                    heightRatio: root.arrowThickness
-                    rotation: 180
-                    anchors.right: parent.right
-                    anchors.rightMargin: parent.width * 0.23
+                    width: parent.width * 0.15
+                    height: parent.height * 0.15
                     anchors.verticalCenter: parent.verticalCenter
-
-
-                    onSigArrowTrigered: {
+                    anchors.right: parent.right
+                    anchors.rightMargin: parent.width * 0.2
+                    onSigArrowTriggered: {
                         root.value = Math.min(root.maxValue, root.value + root.stepSize)
                         sigUiChannelChanged(root.dmxIndex, root.value)
                     }
@@ -179,7 +178,7 @@ Item {
         Text {
             text: root.title !== "Circular Gauge" ? root.title : (root.dmxIndex !== -1 ? "CH" + root.dmxIndex : root.title)
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.bottom
+            anchors.top: canvas.bottom
             font.pixelSize: parent.width * 0.13
             color: "#000000"
         }
