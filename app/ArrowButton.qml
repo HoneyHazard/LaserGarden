@@ -29,11 +29,12 @@ Item {
     width: targetWidth
     height: targetHeight
 
+/*
     Rectangle {
         anchors.fill: parent
         color: "magenta"
     }
-
+*/
     Canvas {
         id: canvas
         anchors.centerIn: parent
