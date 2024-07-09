@@ -9,7 +9,7 @@ items_to_zip = [
     "qlcplus_gruolin_olaalite_a001_a002",
     "qlcplus_workspace",
     "README.md",
-    "todo.org"
+    "todo.org",
     "run_gla001.sh",
     "run_ola002.sh",
     "util"
