@@ -11,6 +11,7 @@ Laser garden is where lasers grow, and bring delight to humans :)
 - You don't need to echo everything back. The details of your analysis do not need to be shown every time. Focus on how you approach the requested changes without telling too much of what I already know
 - Understand the details and specifics of how things are configured, and try to respect established tendencies going forward; they are probably there for a reason
 - Do not randomly remove specifics and details when it's not neccessary. Try to preserve details of how things are configured. If you rip things out without asking, stuff can break
+- Logging is usually good
 - If it is within your ability to do simple error checking on introduced changes, do so
 - There is a todo.org file. You don't need to ask me too often about what I want the next step to be, but the file is there to give an idea about what is coming next. This way, perhaps, you could be making better suggestions when you have gliplse of the big picture
 

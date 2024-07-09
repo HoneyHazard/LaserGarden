@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Workspace>
-<Workspace xmlns="http://www.qlcplus.org/Workspace" CurrentWindow="FunctionManager">
+<Workspace xmlns="http://www.qlcplus.org/Workspace" CurrentWindow="VirtualConsole">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.12.7</Version>
-  <Author>admin</Author>
+  <Author></Author>
  </Creator>
  <Engine>
   <InputOutputMap>
    <Universe Name="Universe 1" ID="0">
-    <Input Plugin="OSC" UID="172.17.0.1" Line="1"/>
+    <Input Plugin="OSC" UID="127.0.0.1" Line="0" Profile="space time"/>
     <Output Plugin="uDMX" UID="uDMX" Line="0">
      <PluginParameters UniverseChannels="34"/>
     </Output>
@@ -44,160 +44,168 @@
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">0,0,1,0</FixtureVal>
   </Function>
-  <Function ID="4" Type="Scene" Name="b_bounds_off">
+  <Function ID="4" Type="Scene" Name="a_6_two-overlapping-triangles">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">17,0,18,0</FixtureVal>
+   <FixtureVal ID="0">2,224,3,103</FixtureVal>
   </Function>
-  <Function ID="5" Type="Scene" Name="b_bounds_large">
+  <Function ID="6" Type="Scene" Name="a_2_circle-smaller-off-center_ver3">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">17,1,18,0</FixtureVal>
+   <FixtureVal ID="0">2,224,3,105</FixtureVal>
   </Function>
-  <Function ID="6" Type="Scene" Name="b_bounds_medium">
+  <Function ID="7" Type="Scene" Name="a_3_three-branch-spiral">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">17,1,18,20</FixtureVal>
-  </Function>
-  <Function ID="7" Type="Scene" Name="b_bounds_small">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">17,1,18,40</FixtureVal>
+   <FixtureVal ID="0">2,224,3,107</FixtureVal>
   </Function>
   <Function ID="8" Type="Scene" Name="a_0_boy-shoots-heart">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,24</FixtureVal>
   </Function>
-  <Function ID="9" Type="Scene" Name="b_0_boy-shoots-heart">
+  <Function ID="9" Type="Scene" Name="a_1_three-lines-shifted_ver2">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,24</FixtureVal>
+   <FixtureVal ID="0">2,224,3,107</FixtureVal>
   </Function>
   <Function ID="10" Type="Scene" Name="x_flowerpower_colors">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">0,1,1,14,2,249,3,191,4,244,5,15,6,0,7,0,8,0,9,0,10,163,11,216,12,0,13,0,14,0,15,0,16,0,17,1,18,0,19,239,20,191,21,0,22,187,23,0,24,0,25,0,26,0,27,146,28,221,29,0,30,0,31,0,32,0,33,0</FixtureVal>
+   <FixtureVal ID="0">0,1,1,190,2,224,3,114,4,244,5,242,6,128,7,0,8,0,9,0,10,163,11,184,12,0,13,14,14,0,15,255,16,0,17,1,18,190,19,224,20,106,21,0,22,255,23,191,24,128,25,0,26,0,27,146,28,221,29,0,30,0,31,0,32,0,33,0</FixtureVal>
   </Function>
   <Function ID="11" Type="Collection" Name="a_0">
    <Step Number="0">8</Step>
+   <Step Number="1">36</Step>
+   <Step Number="2">16</Step>
+   <Step Number="3">32</Step>
+   <Step Number="4">22</Step>
+   <Step Number="5">26</Step>
+   <Step Number="6">20</Step>
+   <Step Number="7">14</Step>
+   <Step Number="8">30</Step>
+   <Step Number="9">34</Step>
+   <Step Number="10">18</Step>
+   <Step Number="11">28</Step>
+   <Step Number="12">24</Step>
+   <Step Number="13">38</Step>
+   <Step Number="14">40</Step>
   </Function>
-  <Function ID="12" Type="Collection" Name="a_bounds">
+  <Function ID="12" Type="Collection" Name="a_ctrl">
    <Step Number="0">2</Step>
    <Step Number="1">3</Step>
    <Step Number="2">1</Step>
    <Step Number="3">0</Step>
+   <Step Number="4">83</Step>
   </Function>
-  <Function ID="13" Type="Collection" Name="b_bounds">
-   <Step Number="0">5</Step>
-   <Step Number="1">6</Step>
-   <Step Number="2">4</Step>
-   <Step Number="3">7</Step>
+  <Function ID="13" Type="Collection" Name="b_ctrl">
+   <Step Number="0">84</Step>
   </Function>
   <Function ID="14" Type="Scene" Name="a_0_hearts-arrow">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,32</FixtureVal>
   </Function>
-  <Function ID="15" Type="Scene" Name="b_0_hearts-arrow">
+  <Function ID="15" Type="Scene" Name="a_2_five-dots">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,32</FixtureVal>
+   <FixtureVal ID="0">2,224,3,108</FixtureVal>
   </Function>
   <Function ID="16" Type="Scene" Name="a_0_broom">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,40</FixtureVal>
   </Function>
-  <Function ID="17" Type="Scene" Name="b_0_broom">
+  <Function ID="17" Type="Scene" Name="a_2_nine-dots">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,40</FixtureVal>
+   <FixtureVal ID="0">2,224,3,109</FixtureVal>
   </Function>
   <Function ID="18" Type="Scene" Name="a_0_penguin">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,48</FixtureVal>
   </Function>
-  <Function ID="19" Type="Scene" Name="b_0_penguin">
+  <Function ID="19" Type="Scene" Name="a_*_circle-larger">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,48</FixtureVal>
+   <FixtureVal ID="0">2,224,3,110</FixtureVal>
   </Function>
   <Function ID="20" Type="Scene" Name="a_0_heartbreak">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,56</FixtureVal>
   </Function>
-  <Function ID="21" Type="Scene" Name="b_0_heartbreak">
+  <Function ID="21" Type="Scene" Name="a_4_x-large">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,56</FixtureVal>
+   <FixtureVal ID="0">2,224,3,111</FixtureVal>
   </Function>
   <Function ID="22" Type="Scene" Name="a_0_deer">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,64</FixtureVal>
   </Function>
-  <Function ID="23" Type="Scene" Name="b_0_deer">
+  <Function ID="23" Type="Scene" Name="a_2_two-lines_ver3">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,64</FixtureVal>
+   <FixtureVal ID="0">2,224,3,112</FixtureVal>
   </Function>
   <Function ID="24" Type="Scene" Name="a_0_sailboat">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,72</FixtureVal>
   </Function>
-  <Function ID="25" Type="Scene" Name="b_0_sailboat">
+  <Function ID="25" Type="Scene" Name="a_2_two-four-pointed-stars">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,72</FixtureVal>
+   <FixtureVal ID="0">2,224,3,113</FixtureVal>
   </Function>
   <Function ID="26" Type="Scene" Name="a_0_flower">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,80</FixtureVal>
   </Function>
-  <Function ID="27" Type="Scene" Name="b_0_flower">
+  <Function ID="27" Type="Scene" Name="a_3_three-triangles-make-four">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,80</FixtureVal>
+   <FixtureVal ID="0">2,224,3,114</FixtureVal>
   </Function>
   <Function ID="28" Type="Scene" Name="a_0_runner">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,88</FixtureVal>
   </Function>
-  <Function ID="29" Type="Scene" Name="b_0_runner">
+  <Function ID="29" Type="Scene" Name="a_2_zigzag">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,88</FixtureVal>
+   <FixtureVal ID="0">2,224,3,115</FixtureVal>
   </Function>
   <Function ID="30" Type="Scene" Name="a_0_microphone">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,120</FixtureVal>
   </Function>
-  <Function ID="31" Type="Scene" Name="b_0_microphone">
+  <Function ID="31" Type="Scene" Name="a_8_octagon-with-loops">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,120</FixtureVal>
+   <FixtureVal ID="0">2,224,3,116</FixtureVal>
   </Function>
   <Function ID="32" Type="Scene" Name="a_0_cat">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,128</FixtureVal>
   </Function>
-  <Function ID="33" Type="Scene" Name="b_0_cat">
+  <Function ID="33" Type="Scene" Name="a_5_star-larger-with-gaps">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,128</FixtureVal>
+   <FixtureVal ID="0">2,224,3,117</FixtureVal>
   </Function>
   <Function ID="34" Type="Scene" Name="a_0_mouse">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,136</FixtureVal>
   </Function>
-  <Function ID="35" Type="Scene" Name="b_0_mouse">
+  <Function ID="35" Type="Scene" Name="a_4_four-pointed-fidget-spinner">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,136</FixtureVal>
+   <FixtureVal ID="0">2,224,3,118</FixtureVal>
   </Function>
   <Function ID="36" Type="Scene" Name="a_0_alien">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,144</FixtureVal>
   </Function>
-  <Function ID="37" Type="Scene" Name="b_0_alien">
+  <Function ID="37" Type="Scene" Name="a_4_square_ver6">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,144</FixtureVal>
+   <FixtureVal ID="0">2,224,3,119</FixtureVal>
   </Function>
   <Function ID="38" Type="Scene" Name="a_0_satellite">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,152</FixtureVal>
   </Function>
-  <Function ID="39" Type="Scene" Name="b_0_satellite">
+  <Function ID="39" Type="Scene" Name="a_2_line-larger_ver4">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,152</FixtureVal>
+   <FixtureVal ID="0">2,224,3,120</FixtureVal>
   </Function>
   <Function ID="40" Type="Scene" Name="a_0_saturn">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">2,0,3,160</FixtureVal>
   </Function>
-  <Function ID="41" Type="Scene" Name="b_0_saturn">
+  <Function ID="41" Type="Scene" Name="a_2_two-lines_ver3">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="0">19,0,20,160</FixtureVal>
+   <FixtureVal ID="0">2,224,3,121</FixtureVal>
   </Function>
   <Function ID="42" Type="Scene" Name="a_flowerpower_crazy">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -206,6 +214,763 @@
   <Function ID="43" Type="Scene" Name="x_crazy-flower-3">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">0,1,1,40,2,249,3,191,4,244,5,232,6,0,7,0,8,0,9,0,10,163,11,216,12,0,13,0,14,1,15,0,16,0,17,1,18,37,19,239,20,159,21,0,22,163,23,129,24,0,25,0,26,0,27,146,28,221,29,0,30,0,31,0,32,0,33,0</FixtureVal>
+  </Function>
+  <Function ID="44" Type="Collection" Name="b0"/>
+  <Function ID="45" Type="Scene" Name="a_2_arc">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,0</FixtureVal>
+  </Function>
+  <Function ID="46" Type="Scene" Name="a_*_circle-larger_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,122</FixtureVal>
+  </Function>
+  <Function ID="47" Type="Scene" Name="a_4_square">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,1</FixtureVal>
+  </Function>
+  <Function ID="48" Type="Scene" Name="a_4_square_ver7">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,123</FixtureVal>
+  </Function>
+  <Function ID="49" Type="Scene" Name="a_2_line-of-25-dots">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,2</FixtureVal>
+  </Function>
+  <Function ID="50" Type="Scene" Name="a_2_line_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,124</FixtureVal>
+  </Function>
+  <Function ID="51" Type="Scene" Name="a_2_line-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,3</FixtureVal>
+  </Function>
+  <Function ID="52" Type="Scene" Name="a_3_three-circles-small-different-sizes">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,125</FixtureVal>
+  </Function>
+  <Function ID="53" Type="Scene" Name="a_4_square_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,4</FixtureVal>
+  </Function>
+  <Function ID="54" Type="Scene" Name="a_2_twenty-six-dots">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,126</FixtureVal>
+  </Function>
+  <Function ID="55" Type="Scene" Name="a_3_triangle">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,5</FixtureVal>
+  </Function>
+  <Function ID="56" Type="Scene" Name="a_2_s">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,127</FixtureVal>
+  </Function>
+  <Function ID="57" Type="Scene" Name="a_3_triangle_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,6</FixtureVal>
+  </Function>
+  <Function ID="58" Type="Scene" Name="a_2_eight-drops-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,128</FixtureVal>
+  </Function>
+  <Function ID="59" Type="Scene" Name="a_3_triangle_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,7</FixtureVal>
+  </Function>
+  <Function ID="60" Type="Scene" Name="a_3_three-circles-smaller">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,129</FixtureVal>
+  </Function>
+  <Function ID="61" Type="Scene" Name="a_4_square_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,8</FixtureVal>
+  </Function>
+  <Function ID="62" Type="Scene" Name="a_3_three-circles-smaller">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,129</FixtureVal>
+  </Function>
+  <Function ID="63" Type="Scene" Name="a_4_square_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,9</FixtureVal>
+  </Function>
+  <Function ID="64" Type="Scene" Name="a_4_four-squares-apart">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,130</FixtureVal>
+  </Function>
+  <Function ID="65" Type="Scene" Name="a_5_pentagon">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,10</FixtureVal>
+  </Function>
+  <Function ID="66" Type="Scene" Name="a_4_four-squares-together-make-five">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,131</FixtureVal>
+  </Function>
+  <Function ID="67" Type="Scene" Name="a_5_star">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,11</FixtureVal>
+  </Function>
+  <Function ID="68" Type="Scene" Name="a_2_two-lines_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,132</FixtureVal>
+  </Function>
+  <Function ID="69" Type="Scene" Name="a_6_hexagon">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,12</FixtureVal>
+  </Function>
+  <Function ID="70" Type="Scene" Name="a_4_x-with-gaps">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,133</FixtureVal>
+  </Function>
+  <Function ID="71" Type="Scene" Name="a_6_hexagon_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,13</FixtureVal>
+  </Function>
+  <Function ID="72" Type="Scene" Name="a_2_line-larger_ver5">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,134</FixtureVal>
+  </Function>
+  <Function ID="73" Type="Scene" Name="a_6_hexagon_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,14</FixtureVal>
+  </Function>
+  <Function ID="74" Type="Scene" Name="a_5_star-thinnish_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,135</FixtureVal>
+  </Function>
+  <Function ID="75" Type="Scene" Name="a_2_line-smaller">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,15</FixtureVal>
+  </Function>
+  <Function ID="76" Type="Scene" Name="a_2_seven-segments">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,136</FixtureVal>
+  </Function>
+  <Function ID="77" Type="Scene" Name="a_2_bucket">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,16</FixtureVal>
+  </Function>
+  <Function ID="78" Type="Scene" Name="a_1_two-lines-shifted">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,137</FixtureVal>
+  </Function>
+  <Function ID="79" Type="Scene" Name="a_2_spring">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,17</FixtureVal>
+  </Function>
+  <Function ID="80" Type="Scene" Name="a_1_two-lines-shifted_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,138</FixtureVal>
+  </Function>
+  <Function ID="81" Type="Scene" Name="a_3_split-circle">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,18</FixtureVal>
+  </Function>
+  <Function ID="82" Type="Scene" Name="a_5_pentagon_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,139</FixtureVal>
+  </Function>
+  <Function ID="83" Type="Scene" Name="a_reset">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">0,0,1,0,2,0,3,0,4,0,5,0,6,0,7,0,8,0,9,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0</FixtureVal>
+  </Function>
+  <Function ID="84" Type="Scene" Name="b_reset">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">17,1,18,0,19,0,20,0,21,0,22,0,23,0,24,0,25,0,26,0,27,0,28,0,29,0,30,0,31,0,32,0,33,0</FixtureVal>
+  </Function>
+  <Function ID="85" Type="Scene" Name="a_4_circle-and-four-dots">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,20</FixtureVal>
+  </Function>
+  <Function ID="86" Type="Scene" Name="ab_reset">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">0,0,1,0,2,0,3,0,4,0,5,0,6,0,7,0,8,0,9,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0,17,1,18,0,19,0,20,0,21,0,22,0,23,0,24,0,25,0,26,0,27,0,28,0,29,0,30,0,31,0,32,0,33,0</FixtureVal>
+  </Function>
+  <Function ID="87" Type="Script" Name="OSC Scene Activator">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+  </Function>
+  <Function ID="88" Type="Scene" Name="a_5_windspinner">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,104</FixtureVal>
+  </Function>
+  <Function ID="89" Type="Scene" Name="a_2_line">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,22</FixtureVal>
+  </Function>
+  <Function ID="90" Type="Chaser" Name="a_ctrl_chaser">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <Direction>Forward</Direction>
+   <RunOrder>SingleShot</RunOrder>
+   <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
+   <Step Number="0" FadeIn="0" Hold="0" FadeOut="0">83</Step>
+   <Step Number="1" FadeIn="0" Hold="0" FadeOut="0">2</Step>
+   <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">3</Step>
+   <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">1</Step>
+   <Step Number="4" FadeIn="0" Hold="0" FadeOut="0">0</Step>
+  </Function>
+  <Function ID="91" Type="Scene" Name="a_2_line-smaller_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,23</FixtureVal>
+  </Function>
+  <Function ID="92" Type="Scene" Name="a_2_circle-smaller-off-center_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,105</FixtureVal>
+  </Function>
+  <Function ID="93" Type="Scene" Name="x_busy_color_flower">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">0,1,1,190,2,224,3,114,4,244,5,242,6,128,7,0,8,0,9,0,10,163,11,184,12,0,13,14,14,0,15,255,16,0,17,1,18,190,19,224,20,106,21,0,22,179,23,0,24,128,25,0,26,0,27,146,28,221,29,0,30,0,31,0,32,0,33,0</FixtureVal>
+  </Function>
+  <Function ID="94" Type="Scene" Name="a_0_lady-dances">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,0,3,0</FixtureVal>
+  </Function>
+  <Function ID="95" Type="Scene" Name="a_0_horse">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,0,3,8</FixtureVal>
+  </Function>
+  <Function ID="96" Type="Scene" Name="a_0_ballroom-dance">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,0,3,16</FixtureVal>
+  </Function>
+  <Function ID="97" Type="Scene" Name="a_0_horse-and-carriage">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,0,3,96</FixtureVal>
+  </Function>
+  <Function ID="98" Type="Scene" Name="a_0_fishes">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,0,3,104</FixtureVal>
+  </Function>
+  <Function ID="99" Type="Scene" Name="a_0_komodo-dragon">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,0,3,112</FixtureVal>
+  </Function>
+  <Function ID="100" Type="Scene" Name="a_*_two-cocentric-circles">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,19</FixtureVal>
+  </Function>
+  <Function ID="101" Type="Scene" Name="a_*_circle-of-dots">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,21</FixtureVal>
+  </Function>
+  <Function ID="102" Type="Scene" Name="a_2_line-larger">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,22</FixtureVal>
+  </Function>
+  <Function ID="103" Type="Scene" Name="a_2_v">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,23</FixtureVal>
+  </Function>
+  <Function ID="104" Type="Scene" Name="a_1_curve">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,24</FixtureVal>
+  </Function>
+  <Function ID="105" Type="Scene" Name="a_2_ribs">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,25</FixtureVal>
+  </Function>
+  <Function ID="106" Type="Scene" Name="a_3_three-axes">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,26</FixtureVal>
+  </Function>
+  <Function ID="107" Type="Scene" Name="a_2_line_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,27</FixtureVal>
+  </Function>
+  <Function ID="108" Type="Scene" Name="a_2_line-larger_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,28</FixtureVal>
+  </Function>
+  <Function ID="109" Type="Scene" Name="a_2_line-off-center_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,29</FixtureVal>
+  </Function>
+  <Function ID="110" Type="Scene" Name="a_8_octagon">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,30</FixtureVal>
+  </Function>
+  <Function ID="111" Type="Scene" Name="a_8_octagon_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,31</FixtureVal>
+  </Function>
+  <Function ID="112" Type="Scene" Name="a_2_v_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,32</FixtureVal>
+  </Function>
+  <Function ID="113" Type="Scene" Name="a_2_two-lines">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,33</FixtureVal>
+  </Function>
+  <Function ID="114" Type="Scene" Name="a_2_three-lines">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,34</FixtureVal>
+  </Function>
+  <Function ID="115" Type="Scene" Name="a_3_two-cocentric-triangles">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,35</FixtureVal>
+  </Function>
+  <Function ID="116" Type="Scene" Name="a_3_three-circular-segments">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,36</FixtureVal>
+  </Function>
+  <Function ID="117" Type="Scene" Name="a_5_spinning-sticks">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,37</FixtureVal>
+  </Function>
+  <Function ID="118" Type="Scene" Name="a_2_three-lines-different-length">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,38</FixtureVal>
+  </Function>
+  <Function ID="119" Type="Scene" Name="a_2_v_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,39</FixtureVal>
+  </Function>
+  <Function ID="120" Type="Scene" Name="a_4_square_ver5">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,40</FixtureVal>
+  </Function>
+  <Function ID="121" Type="Scene" Name="a_4_crossroads">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,41</FixtureVal>
+  </Function>
+  <Function ID="122" Type="Scene" Name="a_2_two-triangles">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,42</FixtureVal>
+  </Function>
+  <Function ID="123" Type="Scene" Name="a_2_two-saws">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,43</FixtureVal>
+  </Function>
+  <Function ID="124" Type="Scene" Name="a_2_two-circles-small">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,44</FixtureVal>
+  </Function>
+  <Function ID="125" Type="Scene" Name="a_2_two-circles-small_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,45</FixtureVal>
+  </Function>
+  <Function ID="126" Type="Scene" Name="a_2_circle-and-a-line">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,46</FixtureVal>
+  </Function>
+  <Function ID="127" Type="Scene" Name="a_1_three-lines-shifted">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,47</FixtureVal>
+  </Function>
+  <Function ID="128" Type="Scene" Name="a_1_s-and-i">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,48</FixtureVal>
+  </Function>
+  <Function ID="129" Type="Scene" Name="a_1_four-segments-shifted">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,49</FixtureVal>
+  </Function>
+  <Function ID="130" Type="Scene" Name="a_2_wave">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,50</FixtureVal>
+  </Function>
+  <Function ID="131" Type="Scene" Name="a_line-larger_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,51</FixtureVal>
+  </Function>
+  <Function ID="132" Type="Scene" Name="a_*_circle-smaller">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,52</FixtureVal>
+  </Function>
+  <Function ID="133" Type="Scene" Name="a_2_line-larger_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,51</FixtureVal>
+  </Function>
+  <Function ID="134" Type="Scene" Name="a_2_three-dots-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,53</FixtureVal>
+  </Function>
+  <Function ID="135" Type="Scene" Name="a_2_three-dots-off-center_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,54</FixtureVal>
+  </Function>
+  <Function ID="136" Type="Scene" Name="a_2_circle-smaller-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,55</FixtureVal>
+  </Function>
+  <Function ID="137" Type="Scene" Name="a_2_three-dots-off-center_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,56</FixtureVal>
+  </Function>
+  <Function ID="138" Type="Scene" Name="a_2_three-dots-off-center_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,57</FixtureVal>
+  </Function>
+  <Function ID="139" Type="Scene" Name="a_2_three-dots-off-center-larger">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,58</FixtureVal>
+  </Function>
+  <Function ID="140" Type="Scene" Name="a_2_six-segments">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,59</FixtureVal>
+  </Function>
+  <Function ID="141" Type="Scene" Name="a_2_six-segments-smaller">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,60</FixtureVal>
+  </Function>
+  <Function ID="142" Type="Scene" Name="a_2_v_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,61</FixtureVal>
+  </Function>
+  <Function ID="143" Type="Scene" Name="a_5_pentagon_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,62</FixtureVal>
+  </Function>
+  <Function ID="144" Type="Scene" Name="a_5_star-thicker">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,63</FixtureVal>
+  </Function>
+  <Function ID="145" Type="Scene" Name="a_5_star-thickish">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,64</FixtureVal>
+  </Function>
+  <Function ID="146" Type="Scene" Name="a_5_star_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,65</FixtureVal>
+  </Function>
+  <Function ID="147" Type="Scene" Name="a_5_star-thinnish">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,66</FixtureVal>
+  </Function>
+  <Function ID="148" Type="Scene" Name="a_5_star-thinner">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,67</FixtureVal>
+  </Function>
+  <Function ID="149" Type="Scene" Name="a_5_star-thin">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,68</FixtureVal>
+  </Function>
+  <Function ID="150" Type="Scene" Name="a_8_flower">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,69</FixtureVal>
+  </Function>
+  <Function ID="151" Type="Scene" Name="a_4_four-circular-segments-twice">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,70</FixtureVal>
+  </Function>
+  <Function ID="152" Type="Scene" Name="a_2_two-slices">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,71</FixtureVal>
+  </Function>
+  <Function ID="153" Type="Scene" Name="a_2_three-circles-small-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,72</FixtureVal>
+  </Function>
+  <Function ID="154" Type="Scene" Name="a_5_whirpool">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,73</FixtureVal>
+  </Function>
+  <Function ID="155" Type="Scene" Name="a_2_olympic-pedestal">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,74</FixtureVal>
+  </Function>
+  <Function ID="156" Type="Scene" Name="a_2_two-circles-different-sizes-overlapping">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,75</FixtureVal>
+  </Function>
+  <Function ID="157" Type="Scene" Name="a_5_star-zebra">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,76</FixtureVal>
+  </Function>
+  <Function ID="158" Type="Scene" Name="a_2_two-five-pointed-stars-small">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,77</FixtureVal>
+  </Function>
+  <Function ID="159" Type="Scene" Name="a_3_circle-and-spikes">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,78</FixtureVal>
+  </Function>
+  <Function ID="160" Type="Scene" Name="a_3_pretzel-thin">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,79</FixtureVal>
+  </Function>
+  <Function ID="161" Type="Scene" Name="a_4_four-corners">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,80</FixtureVal>
+  </Function>
+  <Function ID="162" Type="Scene" Name="a_1_four-dots-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,81</FixtureVal>
+  </Function>
+  <Function ID="163" Type="Scene" Name="a_4_four-mushrooms">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,82</FixtureVal>
+  </Function>
+  <Function ID="164" Type="Scene" Name="a_1_five-dots-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,83</FixtureVal>
+  </Function>
+  <Function ID="165" Type="Scene" Name="a_1_four-dots-off-center_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,84</FixtureVal>
+  </Function>
+  <Function ID="166" Type="Scene" Name="a_2_three-dots-off-center_ver5">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,85</FixtureVal>
+  </Function>
+  <Function ID="167" Type="Scene" Name="a_2_three-dots-off-center_ver6">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,86</FixtureVal>
+  </Function>
+  <Function ID="168" Type="Scene" Name="a_2_heart-small">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,87</FixtureVal>
+  </Function>
+  <Function ID="169" Type="Scene" Name="a_5_five-dots-twice">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,88</FixtureVal>
+  </Function>
+  <Function ID="170" Type="Scene" Name="a_2_circle-smaller-off-center_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,89</FixtureVal>
+  </Function>
+  <Function ID="171" Type="Scene" Name="a_2_m-larger">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,90</FixtureVal>
+  </Function>
+  <Function ID="172" Type="Scene" Name="a_2_card-spade">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,91</FixtureVal>
+  </Function>
+  <Function ID="173" Type="Scene" Name="a_*_circle">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,92</FixtureVal>
+  </Function>
+  <Function ID="174" Type="Scene" Name="a_2_hourglass">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,93</FixtureVal>
+  </Function>
+  <Function ID="175" Type="Scene" Name="a_2_leaf">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,94</FixtureVal>
+  </Function>
+  <Function ID="176" Type="Scene" Name="a_2_card-clubs">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,95</FixtureVal>
+  </Function>
+  <Function ID="177" Type="Scene" Name="a_*_dot">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,96</FixtureVal>
+  </Function>
+  <Function ID="178" Type="Scene" Name="a_2_two-lines_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,97</FixtureVal>
+  </Function>
+  <Function ID="179" Type="Scene" Name="a_2_diamond-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,98</FixtureVal>
+  </Function>
+  <Function ID="180" Type="Scene" Name="a_3_three-circular-segments_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,99</FixtureVal>
+  </Function>
+  <Function ID="181" Type="Scene" Name="a_12_dodecagon">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,100</FixtureVal>
+  </Function>
+  <Function ID="182" Type="Scene" Name="a_8_eight-radiating-segments">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,101</FixtureVal>
+  </Function>
+  <Function ID="183" Type="Scene" Name="a_*_two-cocentric-circles_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,102</FixtureVal>
+  </Function>
+  <Function ID="184" Type="Scene" Name="a_2_two-lines_ver5">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,140</FixtureVal>
+  </Function>
+  <Function ID="185" Type="Scene" Name="a_4_square-without-corners">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,141</FixtureVal>
+  </Function>
+  <Function ID="186" Type="Scene" Name="a_3_three-five-pointed-stars-different-sizes">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,142</FixtureVal>
+  </Function>
+  <Function ID="187" Type="Scene" Name="a_3_triangle_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,143</FixtureVal>
+  </Function>
+  <Function ID="188" Type="Scene" Name="a_4_square_ver8">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,144</FixtureVal>
+  </Function>
+  <Function ID="189" Type="Scene" Name="a_2_line-off-center_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,145</FixtureVal>
+  </Function>
+  <Function ID="190" Type="Scene" Name="a_2_line-off-center_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,146</FixtureVal>
+  </Function>
+  <Function ID="191" Type="Scene" Name="a_2_line_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,147</FixtureVal>
+  </Function>
+  <Function ID="192" Type="Scene" Name="a_2_line_ver5">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,148</FixtureVal>
+  </Function>
+  <Function ID="193" Type="Scene" Name="a_*_circle-larger_ver3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,149</FixtureVal>
+  </Function>
+  <Function ID="194" Type="Scene" Name="a_2_two-circles">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,150</FixtureVal>
+  </Function>
+  <Function ID="195" Type="Scene" Name="a_6_hexagon_ver4">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,151</FixtureVal>
+  </Function>
+  <Function ID="196" Type="Scene" Name="a_4_square_ver9">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,152</FixtureVal>
+  </Function>
+  <Function ID="197" Type="Scene" Name="a_*_circle-of-dots_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,153</FixtureVal>
+  </Function>
+  <Function ID="198" Type="Scene" Name="a_2_arrow">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,155</FixtureVal>
+  </Function>
+  <Function ID="199" Type="Scene" Name="a_8_eight-radiating-segments_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,156</FixtureVal>
+  </Function>
+  <Function ID="200" Type="Scene" Name="a_5_windspinner_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,157</FixtureVal>
+  </Function>
+  <Function ID="201" Type="Scene" Name="a_3_three-branch-spiral_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,158</FixtureVal>
+  </Function>
+  <Function ID="202" Type="Scene" Name="a_8_eight-pointed-star">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,159</FixtureVal>
+  </Function>
+  <Function ID="203" Type="Scene" Name="a_2_two-circles-different-sizes">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,160</FixtureVal>
+  </Function>
+  <Function ID="204" Type="Scene" Name="a_3_two-cocentric-triangles_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,161</FixtureVal>
+  </Function>
+  <Function ID="205" Type="Scene" Name="a_2_seven-circles">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,162</FixtureVal>
+  </Function>
+  <Function ID="206" Type="Scene" Name="a_2_four-segments-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,163</FixtureVal>
+  </Function>
+  <Function ID="207" Type="Scene" Name="a_1_three-plus-one-segment-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,164</FixtureVal>
+  </Function>
+  <Function ID="208" Type="Scene" Name="a_2_two-plus-two-segments-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,165</FixtureVal>
+  </Function>
+  <Function ID="210" Type="Scene" Name="a_1_expanding-spiral">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,167</FixtureVal>
+  </Function>
+  <Function ID="211" Type="Scene" Name="a_2_nine-dots-make-s">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,168</FixtureVal>
+  </Function>
+  <Function ID="212" Type="Scene" Name="a_2_six-dots">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,169</FixtureVal>
+  </Function>
+  <Function ID="213" Type="Scene" Name="a_8_eight-dots">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,170</FixtureVal>
+  </Function>
+  <Function ID="214" Type="Scene" Name="a_2_eight-dots">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,171</FixtureVal>
+  </Function>
+  <Function ID="215" Type="Scene" Name="a_2_line-larger_ver6">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,173</FixtureVal>
+  </Function>
+  <Function ID="216" Type="Scene" Name="a_1_welcome">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,174</FixtureVal>
+  </Function>
+  <Function ID="217" Type="Scene" Name="a_2_two-squares-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,175</FixtureVal>
+  </Function>
+  <Function ID="218" Type="Scene" Name="a_2_two-lines_ver6">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,176</FixtureVal>
+  </Function>
+  <Function ID="219" Type="Scene" Name="a_2_maple-leaf">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,177</FixtureVal>
+  </Function>
+  <Function ID="220" Type="Scene" Name="a_6_arms-with-a-gap">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,178</FixtureVal>
+  </Function>
+  <Function ID="221" Type="Scene" Name="a_3_triangle_ver5">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,179</FixtureVal>
+  </Function>
+  <Function ID="222" Type="Scene" Name="a_2_line-off-center_ver5">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,180</FixtureVal>
+  </Function>
+  <Function ID="223" Type="Scene" Name="a_2_square-and-triangle-off-center">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,182</FixtureVal>
+  </Function>
+  <Function ID="224" Type="Scene" Name="a_2_line-larger_ver7">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,183</FixtureVal>
+  </Function>
+  <Function ID="225" Type="Scene" Name="a_2_almost-hourglass">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,185</FixtureVal>
+  </Function>
+  <Function ID="226" Type="Scene" Name="a_4_square-with-gaps">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,186</FixtureVal>
+  </Function>
+  <Function ID="227" Type="Scene" Name="a_4_rounded-square">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,187</FixtureVal>
+  </Function>
+  <Function ID="228" Type="Scene" Name="a_4_compass">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,188</FixtureVal>
+  </Function>
+  <Function ID="229" Type="Scene" Name="a_6_virus">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,189</FixtureVal>
+  </Function>
+  <Function ID="230" Type="Scene" Name="a_2_spaghetti-oval">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,190</FixtureVal>
+  </Function>
+  <Function ID="231" Type="Scene" Name="a_8_flower_ver2">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,191</FixtureVal>
+  </Function>
+  <Function ID="232" Type="Scene" Name="a_8_persimmon-axial">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">2,224,3,192</FixtureVal>
   </Function>
   <Monitor DisplayMode="0" ShowLabels="0">
    <Font>Arial,12,-1,5,50,0,0,0,0,0</Font>
@@ -219,11 +984,11 @@
    <Appearance>
     <FrameStyle>None</FrameStyle>
     <ForegroundColor>Default</ForegroundColor>
-    <BackgroundColor>Default</BackgroundColor>
+    <BackgroundColor>4278190080</BackgroundColor>
     <BackgroundImage>None</BackgroundImage>
     <Font>Default</Font>
    </Appearance>
-   <SoloFrame Caption="A BOUNDS" ID="0">
+   <SoloFrame Caption="" ID="0">
     <Appearance>
      <FrameStyle>Sunken</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -231,185 +996,30 @@
      <BackgroundImage>None</BackgroundImage>
      <Font>Default</Font>
     </Appearance>
-    <WindowState Visible="False" X="0" Y="0" Width="480" Height="180"/>
-    <AllowChildren>True</AllowChildren>
+    <WindowState Visible="True" X="25" Y="50" Width="625" Height="95"/>
+    <AllowChildren>False</AllowChildren>
     <AllowResize>True</AllowResize>
     <ShowHeader>True</ShowHeader>
     <ShowEnableButton>True</ShowEnableButton>
     <Mixing>False</Mixing>
     <Collapsed>False</Collapsed>
     <Disabled>False</Disabled>
-    <Frame Caption="" ID="1">
+    <Button Caption="a_reset" ID="1" Icon="">
+     <WindowState Visible="True" X="10" Y="45" Width="85" Height="45"/>
      <Appearance>
-      <FrameStyle>Sunken</FrameStyle>
+      <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
       <BackgroundColor>Default</BackgroundColor>
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <WindowState Visible="False" X="25" Y="45" Width="415" Height="115"/>
-     <AllowChildren>False</AllowChildren>
-     <AllowResize>False</AllowResize>
-     <ShowHeader>False</ShowHeader>
-     <ShowEnableButton>True</ShowEnableButton>
-     <Collapsed>False</Collapsed>
-     <Disabled>False</Disabled>
-     <Button Caption="a_bounds_off" ID="2" Icon="">
-      <WindowState Visible="False" X="5" Y="0" Width="95" Height="95"/>
-      <Appearance>
-       <FrameStyle>None</FrameStyle>
-       <ForegroundColor>Default</ForegroundColor>
-       <BackgroundColor>Default</BackgroundColor>
-       <BackgroundImage>None</BackgroundImage>
-       <Font>Default</Font>
-      </Appearance>
-      <Function ID="3"/>
-      <Action>Toggle</Action>
-      <Intensity Adjust="False">100</Intensity>
-     </Button>
-     <Button Caption="a_bounds_small" ID="3" Icon="">
-      <WindowState Visible="False" X="110" Y="0" Width="95" Height="95"/>
-      <Appearance>
-       <FrameStyle>None</FrameStyle>
-       <ForegroundColor>Default</ForegroundColor>
-       <BackgroundColor>Default</BackgroundColor>
-       <BackgroundImage>None</BackgroundImage>
-       <Font>Default</Font>
-      </Appearance>
-      <Function ID="2"/>
-      <Action>Toggle</Action>
-      <Intensity Adjust="False">100</Intensity>
-     </Button>
-     <Button Caption="a_bounds_medium" ID="4" Icon="">
-      <WindowState Visible="False" X="205" Y="10" Width="95" Height="95"/>
-      <Appearance>
-       <FrameStyle>None</FrameStyle>
-       <ForegroundColor>Default</ForegroundColor>
-       <BackgroundColor>Default</BackgroundColor>
-       <BackgroundImage>None</BackgroundImage>
-       <Font>Default</Font>
-      </Appearance>
-      <Function ID="1"/>
-      <Action>Toggle</Action>
-      <Intensity Adjust="False">100</Intensity>
-     </Button>
-     <Button Caption="a_bounds_large" ID="5" Icon="">
-      <WindowState Visible="False" X="305" Y="10" Width="95" Height="95"/>
-      <Appearance>
-       <FrameStyle>None</FrameStyle>
-       <ForegroundColor>Default</ForegroundColor>
-       <BackgroundColor>Default</BackgroundColor>
-       <BackgroundImage>None</BackgroundImage>
-       <Font>Default</Font>
-      </Appearance>
-      <Function ID="0"/>
-      <Action>Toggle</Action>
-      <Intensity Adjust="False">100</Intensity>
-     </Button>
-    </Frame>
-   </SoloFrame>
-   <SoloFrame Caption="B BOUNDS" ID="11">
-    <Appearance>
-     <FrameStyle>Sunken</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-    <WindowState Visible="False" X="510" Y="10" Width="480" Height="180"/>
-    <AllowChildren>True</AllowChildren>
-    <AllowResize>True</AllowResize>
-    <ShowHeader>True</ShowHeader>
-    <ShowEnableButton>True</ShowEnableButton>
-    <Mixing>False</Mixing>
-    <Collapsed>False</Collapsed>
-    <Disabled>False</Disabled>
-    <Frame Caption="" ID="10">
-     <Appearance>
-      <FrameStyle>Sunken</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <WindowState Visible="False" X="25" Y="45" Width="415" Height="115"/>
-     <AllowChildren>False</AllowChildren>
-     <AllowResize>False</AllowResize>
-     <ShowHeader>False</ShowHeader>
-     <ShowEnableButton>True</ShowEnableButton>
-     <Collapsed>False</Collapsed>
-     <Disabled>False</Disabled>
-     <Button Caption="b_bounds_off" ID="6" Icon="">
-      <WindowState Visible="False" X="0" Y="5" Width="95" Height="95"/>
-      <Appearance>
-       <FrameStyle>None</FrameStyle>
-       <ForegroundColor>Default</ForegroundColor>
-       <BackgroundColor>Default</BackgroundColor>
-       <BackgroundImage>None</BackgroundImage>
-       <Font>Default</Font>
-      </Appearance>
-      <Function ID="4"/>
-      <Action>Toggle</Action>
-      <Intensity Adjust="False">100</Intensity>
-     </Button>
-     <Button Caption="b_bounds_small" ID="7" Icon="">
-      <WindowState Visible="False" X="105" Y="5" Width="95" Height="95"/>
-      <Appearance>
-       <FrameStyle>None</FrameStyle>
-       <ForegroundColor>Default</ForegroundColor>
-       <BackgroundColor>Default</BackgroundColor>
-       <BackgroundImage>None</BackgroundImage>
-       <Font>Default</Font>
-      </Appearance>
-      <Function ID="7"/>
-      <Action>Toggle</Action>
-      <Intensity Adjust="False">100</Intensity>
-     </Button>
-     <Button Caption="b_bounds_medium" ID="8" Icon="">
-      <WindowState Visible="False" X="205" Y="10" Width="95" Height="95"/>
-      <Appearance>
-       <FrameStyle>None</FrameStyle>
-       <ForegroundColor>Default</ForegroundColor>
-       <BackgroundColor>Default</BackgroundColor>
-       <BackgroundImage>None</BackgroundImage>
-       <Font>Default</Font>
-      </Appearance>
-      <Function ID="6"/>
-      <Action>Toggle</Action>
-      <Intensity Adjust="False">100</Intensity>
-     </Button>
-     <Button Caption="b_bounds_large" ID="9" Icon="">
-      <WindowState Visible="False" X="305" Y="5" Width="95" Height="95"/>
-      <Appearance>
-       <FrameStyle>None</FrameStyle>
-       <ForegroundColor>Default</ForegroundColor>
-       <BackgroundColor>Default</BackgroundColor>
-       <BackgroundImage>None</BackgroundImage>
-       <Font>Default</Font>
-      </Appearance>
-      <Function ID="5"/>
-      <Action>Toggle</Action>
-      <Intensity Adjust="False">100</Intensity>
-     </Button>
-    </Frame>
-   </SoloFrame>
-   <Frame Caption="" ID="12">
-    <Appearance>
-     <FrameStyle>Sunken</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-    <WindowState Visible="False" X="50" Y="280" Width="880" Height="440"/>
-    <AllowChildren>True</AllowChildren>
-    <AllowResize>True</AllowResize>
-    <ShowHeader>True</ShowHeader>
-    <ShowEnableButton>True</ShowEnableButton>
-    <Collapsed>False</Collapsed>
-    <Disabled>False</Disabled>
-    <Button Caption="a_bounds_off" ID="13" Icon="">
-     <WindowState Visible="False" X="220" Y="180" Width="95" Height="95"/>
+     <Function ID="83"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <Input Universe="0" Channel="9509"/>
+    </Button>
+    <Button Caption="a_bounds_off" ID="2" Icon="">
+     <WindowState Visible="True" X="100" Y="45" Width="110" Height="45"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -420,9 +1030,10 @@
      <Function ID="3"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="0" Channel="24760"/>
     </Button>
-    <Button Caption="a_bounds_small" ID="14" Icon="">
-     <WindowState Visible="False" X="325" Y="180" Width="95" Height="95"/>
+    <Button Caption="a_bounds_small" ID="3" Icon="">
+     <WindowState Visible="True" X="215" Y="45" Width="130" Height="45"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -433,9 +1044,10 @@
      <Function ID="2"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="0" Channel="29200"/>
     </Button>
-    <Button Caption="a_bounds_medium" ID="15" Icon="">
-     <WindowState Visible="False" X="420" Y="190" Width="95" Height="95"/>
+    <Button Caption="a_bounds_medium" ID="4" Icon="">
+     <WindowState Visible="True" X="350" Y="45" Width="130" Height="45"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -446,9 +1058,10 @@
      <Function ID="1"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="0" Channel="27705"/>
     </Button>
-    <Button Caption="a_bounds_large" ID="16" Icon="">
-     <WindowState Visible="False" X="520" Y="190" Width="95" Height="95"/>
+    <Button Caption="a_bounds_large" ID="5" Icon="">
+     <WindowState Visible="True" X="485" Y="45" Width="130" Height="45"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -459,9 +1072,27 @@
      <Function ID="0"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="0" Channel="10240"/>
     </Button>
-    <Button Caption="b_bounds_off" ID="17" Icon="">
-     <WindowState Visible="False" X="490" Y="340" Width="95" Height="95"/>
+   </SoloFrame>
+   <SoloFrame Caption="" ID="16">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Visible="True" X="25" Y="160" Width="625" Height="95"/>
+    <AllowChildren>True</AllowChildren>
+    <AllowResize>True</AllowResize>
+    <ShowHeader>True</ShowHeader>
+    <ShowEnableButton>True</ShowEnableButton>
+    <Mixing>False</Mixing>
+    <Collapsed>False</Collapsed>
+    <Disabled>True</Disabled>
+    <Button Caption="ab_reset" ID="11" Icon="">
+     <WindowState Visible="True" X="10" Y="40" Width="85" Height="45"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -469,12 +1100,12 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="4"/>
+     <Function ID="86"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
     </Button>
-    <Button Caption="b_bounds_small" ID="18" Icon="">
-     <WindowState Visible="False" X="595" Y="340" Width="95" Height="95"/>
+    <Button Caption="x_crazy-flower-3" ID="17" Icon="">
+     <WindowState Visible="True" X="105" Y="40" Width="85" Height="45"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -482,37 +1113,11 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="7"/>
+     <Function ID="43"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
     </Button>
-    <Button Caption="b_bounds_medium" ID="19" Icon="">
-     <WindowState Visible="False" X="695" Y="345" Width="95" Height="95"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="6"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="b_bounds_large" ID="20" Icon="">
-     <WindowState Visible="False" X="785" Y="340" Width="95" Height="95"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="5"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-   </Frame>
+   </SoloFrame>
   </Frame>
   <Properties>
    <Size Width="1920" Height="1080"/>
