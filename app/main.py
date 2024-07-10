@@ -1,6 +1,7 @@
 import sys
 import signal
 import logging
+import getch
 from PySide6.QtCore import QUrl
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
@@ -21,15 +22,15 @@ if __name__ == "__main__":
     dmx_array = DMXArray(target_ip, initial_preset)
     engine.rootContext().setContextProperty("dmxArray", dmx_array)
 
+    if qlc_workspace:
+        logging.info(f"Importing QLC workspace: {qlc_workspace}")
+        scenes = parse_qlc_workspace(qlc_workspace)
+
     engine.load(QUrl("app/main.qml"))
 
     if not engine.rootObjects():
         sys.exit(-1)
 
-    if qlc_workspace:
-        logging.info(f"Importing QLC workspace: {qlc_workspace}")
-        scenes = parse_qlc_workspace(qlc_workspace)
-        # Store scenes in the DMXArray object or another suitable location
 
     def save_last_config_on_exit():
         dmx_array.save_last_config()

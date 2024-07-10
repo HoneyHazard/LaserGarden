@@ -1,12 +1,21 @@
 import os
 import json
 import logging
-import xml.etree.ElementTree as ET
+#import xml.etree.ElementTree as etree
+from lxml import etree 
 
 def change_to_parent_dir_if_in_main():
     if os.path.basename(os.getcwd()) == 'main':
         os.chdir('..')
 
+def remove_namespace(tree):
+    for elem in tree.getiterator():
+        if elem.tag.startswith('{'):
+            elem.tag = elem.tag.split('}', 1)[1]  # Strip namespace
+        for key in list(elem.attrib):
+            if key.startswith('{'):
+                new_key = key.split('}', 1)[1]
+                elem.attrib[new_key] = elem.attrib.pop(key)
 
 def parse_qlc_workspace(file_path):
     """Parse QLC workspace file and import scenes."""
@@ -15,10 +24,15 @@ def parse_qlc_workspace(file_path):
         logging.error(f"QLC workspace file {file_path} not found.")
         return scenes
 
-    tree = ET.parse(file_path)
+    tree = etree.parse(file_path)
     root = tree.getroot()
 
+    remove_namespace(root)
+
+    logging.info(f"root = {root}")
+
     for function in root.findall(".//Function[@Type='Scene']"):
+        #logging.info(f"Processing: {function}")
         name = function.attrib['Name']
         parts = name.split('_', 2)
 
@@ -36,14 +50,10 @@ def parse_qlc_workspace(file_path):
 
         fixture_val = function.find('FixtureVal')
         if fixture_val is not None:
+            data_to_save = []
             values = fixture_val.text.strip().split(',')
-            scene_data = []
-
-            for i in range(0, len(values), 2):
-                scene_data.append({
-                    "channel": int(values[i]),
-                    "value": int(values[i + 1])
-                })
+            for val in values:
+                data_to_save.append(int(val))  
 
             # Ensure directory structure exists
             if group:
@@ -55,9 +65,11 @@ def parse_qlc_workspace(file_path):
             # Save scene as JSON file
             scene_file_path = os.path.join(dir_path, f"{pattern}.json")
             with open(scene_file_path, 'w') as scene_file:
-                json.dump(scene_data, scene_file, indent=4)
+                json.dump(data_to_save, scene_file)
+            
+            scenes[name] = scene_file_path 
 
-            scenes[name] = scene_file_path
+            logging.info(f"Imported scene '{name}' to '{scene_file_path}")
 
     logging.info(f"Found and imported {len(scenes)} scenes from the QLC workspace file.")
     return scenes
