@@ -73,3 +73,35 @@ def parse_qlc_workspace(file_path):
 
     logging.info(f"Found and imported {len(scenes)} scenes from the QLC workspace file.")
     return scenes
+
+def load_scenes(base_dir='scenes'):
+    scenes = {}
+    for beam in os.listdir(base_dir):
+        beam_path = os.path.join(base_dir, beam)
+        if os.path.isdir(beam_path):
+            scenes[beam] = {}
+            for group in os.listdir(beam_path):
+                group_path = os.path.join(beam_path, group)
+                if os.path.isdir(group_path):
+                    scenes[beam][group] = {}
+                    for scene_file in os.listdir(group_path):
+                        if scene_file.endswith('.json'):
+                            scene_path = os.path.join(group_path, scene_file)
+                            with open(scene_path, 'r') as file:
+                                scene_data = json.load(file)
+                                scene_name = os.path.splitext(scene_file)[0]
+                                scenes[beam][group][scene_name] = scene_data
+    return scenes
+
+def list_scenes_for_beam_and_group(scenes, beam, group):
+    if beam in scenes and group in scenes[beam]:
+        return list(scenes[beam][group].keys())
+    return []
+
+def find_matching_scene(scenes, dmx_values):
+    for beam in scenes:
+        for group in scenes[beam]:
+            for scene_name, scene_data in scenes[beam][group].items():
+                if scene_data['data'] == dmx_values:
+                    return {'beam': beam, 'group': group, 'scene': scene_name}
+    return None
