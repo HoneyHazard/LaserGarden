@@ -7,7 +7,7 @@ Laser garden is where lasers grow, and bring delight to humans :)
 - Analyze the code carefully to understand how modules work together
 - When making a change to any one QtQuick item or python script be ready to provide changes for all affected modules interfacing with it. 
     - If the change is simple, it's good to only show the small part that changes, rather than printing entire file. 
-    - However, if the changes in the affected module are significant/drastic/easy to overlook, lets print the whole file in its entirety, with no omissions
+    - However, if the changes in the affected module are significant/drastic/easy to overlook, be ready print the whole file in its entirety, with no omissions
 - You don't need to echo everything back. The details of your analysis do not need to be shown every time. Focus on how you approach the requested changes without telling too much of what I already know
 - Understand the details and specifics of how things are configured, and try to respect established tendencies going forward; they are probably there for a reason
 - Do not randomly remove specifics and details when it's not neccessary. Try to preserve details of how things are configured. If you rip things out without asking, stuff can break
