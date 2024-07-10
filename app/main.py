@@ -27,6 +27,7 @@ if __name__ == "__main__":
         sys.exit(-1)
 
     if qlc_workspace:
+        logging.info(f"Importing QLC workspace: {qlc_workspace}")
         scenes = parse_qlc_workspace(qlc_workspace)
         # Store scenes in the DMXArray object or another suitable location
 
