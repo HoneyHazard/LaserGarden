@@ -9,7 +9,7 @@ def parse_arguments():
     parser.add_argument("--qlc-workspace", type=str, help="Path to the QLC workspace file to import scenes")
 
     args = parser.parse_args()
-
+    
     initial_preset = None
     if args.preset:
         if os.path.isabs(args.preset):
@@ -23,5 +23,5 @@ def parse_arguments():
                     initial_preset = args.preset
                 else:
                     logging.warning(f"Initial preset file {args.preset} not found in presets or current directory")
-
+    
     return args.target_ip, initial_preset, args.qlc_workspace
