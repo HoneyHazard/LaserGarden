@@ -4,6 +4,10 @@ import logging
 #import xml.etree.ElementTree as etree
 from lxml import etree 
 
+from PySide6.QtCore import QObject, Slot, QStringListModel
+
+
+
 def change_to_parent_dir_if_in_main():
     if os.path.basename(os.getcwd()) == 'main':
         os.chdir('..')
@@ -74,34 +78,80 @@ def parse_qlc_workspace(file_path):
     logging.info(f"Found and imported {len(scenes)} scenes from the QLC workspace file.")
     return scenes
 
-def load_scenes(base_dir='scenes'):
-    scenes = {}
-    for beam in os.listdir(base_dir):
-        beam_path = os.path.join(base_dir, beam)
-        if os.path.isdir(beam_path):
-            scenes[beam] = {}
-            for group in os.listdir(beam_path):
-                group_path = os.path.join(beam_path, group)
-                if os.path.isdir(group_path):
-                    scenes[beam][group] = {}
-                    for scene_file in os.listdir(group_path):
-                        if scene_file.endswith('.json'):
-                            scene_path = os.path.join(group_path, scene_file)
-                            with open(scene_path, 'r') as file:
-                                scene_data = json.load(file)
-                                scene_name = os.path.splitext(scene_file)[0]
-                                scenes[beam][group][scene_name] = scene_data
-    return scenes
 
-def list_scenes_for_beam_and_group(scenes, beam, group):
-    if beam in scenes and group in scenes[beam]:
-        return list(scenes[beam][group].keys())
-    return []
+class SceneManager(QObject):
+    def __init__(self, base_dir='scenes'):
+        super().__init__()
+        self.base_dir = base_dir
+        self.scenes = self.load_scenes()
 
-def find_matching_scene(scenes, dmx_values):
-    for beam in scenes:
-        for group in scenes[beam]:
-            for scene_name, scene_data in scenes[beam][group].items():
-                if scene_data['data'] == dmx_values:
-                    return {'beam': beam, 'group': group, 'scene': scene_name}
-    return None
+    def load_scenes(self):
+        scenes = {}
+        for beam in os.listdir(self.base_dir):
+            beam_path = os.path.join(self.base_dir, beam)
+            if os.path.isdir(beam_path):
+                scenes[beam] = {}
+                for group in os.listdir(beam_path):
+                    group_path = os.path.join(beam_path, group)
+                    if os.path.isdir(group_path):
+                        scenes[beam][group] = {}
+                        for scene_file in os.listdir(group_path):
+                            if scene_file.endswith('.json'):
+                                scene_path = os.path.join(group_path, scene_file)
+                                with open(scene_path, 'r') as file:
+                                    scene_data = json.load(file)
+                                    scene_name = os.path.splitext(scene_file)[0]
+                                    scenes[beam][group][scene_name] = scene_data
+        return scenes
+
+    @Slot(str, str, result='QVariantList')
+    def list_scenes_for_beam_and_group(self, beam, group):
+        if beam in self.scenes and group in self.scenes[beam]:
+            return list(self.scenes[beam][group].keys())
+        return []
+
+from PySide6.QtCore import QObject, Slot
+
+class SceneManager(QObject):
+    def __init__(self, base_dir='scenes'):
+        super().__init__()
+        self.base_dir = base_dir
+        self.scenes = self.load_scenes()
+
+    def load_scenes(self):
+        scenes = {}
+        for beam in os.listdir(self.base_dir):
+            beam_path = os.path.join(self.base_dir, beam)
+            if os.path.isdir(beam_path):
+                scenes[beam] = {}
+                for group in os.listdir(beam_path):
+                    group_path = os.path.join(beam_path, group)
+                    if os.path.isdir(group_path):
+                        scenes[beam][group] = {}
+                        for scene_file in os.listdir(group_path):
+                            if scene_file.endswith('.json'):
+                                scene_path = os.path.join(group_path, scene_file)
+                                with open(scene_path, 'r') as file:
+                                    scene_data = json.load(file)
+                                    scene_name = os.path.splitext(scene_file)[0]
+                                    scenes[beam][group][scene_name] = scene_data
+        return scenes
+
+    @Slot(str, str, result=list)
+    def list_scenes_for_beam_and_group(self, beam, group):
+        if beam in self.scenes and group in self.scenes[beam]:
+            return list(self.scenes[beam][group].keys())
+        return []
+
+    @Slot(list, result='QVariant')
+    def find_matching_scene(self, dmx_values):
+        for beam in self.scenes:
+            for group in self.scenes[beam]:
+                for scene_name, scene_data in self.scenes[beam][group].items():
+                    if scene_data == dmx_values:
+                        return {'beam': beam, 'group': group, 'scene': scene_name}
+        return None
+
+    @Slot(str, str, str, result='QVariant')
+    def get_scene_data(self, beam, group, scene_name):
+        return self.scenes.get(beam, {}).get(group, {}).get(scene_name, None)

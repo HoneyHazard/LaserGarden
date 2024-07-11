@@ -8,6 +8,7 @@ from PySide6.QtQml import QQmlApplicationEngine
 
 from config import parse_arguments
 from utils import change_to_parent_dir_if_in_main, parse_qlc_workspace
+from utils import SceneManager
 from dmx_array import DMXArray
 
 if __name__ == "__main__":
@@ -25,6 +26,13 @@ if __name__ == "__main__":
     if qlc_workspace:
         logging.info(f"Importing QLC workspace: {qlc_workspace}")
         scenes = parse_qlc_workspace(qlc_workspace)
+
+   # Initialize SceneManager
+    scene_manager = SceneManager()
+    scenes = scene_manager.scenes
+
+    # Pass the scenes to QML
+    engine.rootContext().setContextProperty("sceneManager", scene_manager)
 
     engine.load(QUrl("app/main.qml"))
 

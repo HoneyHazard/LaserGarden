@@ -5,11 +5,14 @@ import logging
 from PySide6.QtCore import QObject, Property, Signal, Slot
 from PySide6.QtCore import QTimer, QByteArray
 from stupidArtnet import StupidArtnet
+from utils import SceneManager
+
 class DMXArray(QObject):
     valueChanged = Signal(int, int, arguments=['index', 'value'])
 
     def __init__(self, target_ip, initial_preset=None):
         super().__init__()
+        self.scene_manager = SceneManager()
         self.num_channels = 34  # Handle only 34 channels
         self._dmx_array = bytearray(self.num_channels)  # Initialize with 34 bytes (0-255 values)
         self.last_preset = "presets/last_config.json"
@@ -91,6 +94,20 @@ class DMXArray(QObject):
         with open(filename, 'w') as file:
             json.dump(data_to_save, file)
         logging.info(f'Saved configuration to {filename}')
+
+    def apply_dmx_values(self, values):
+        for index, value in enumerate(values):
+            self.set_value(index, value)
+
+    @Slot(str, str, str)
+    def load_scene(self, beam, group, scene_name):
+        scene_data = self.scene_manager.get_scene_data(beam, group, scene_name)
+        if scene_data is not None:
+            # Implement the logic to load the scene data
+            print(f"Loading scene {scene_name} for beam {beam}, group {group}")
+            self.apply_dmx_values(scene_data)
+        else:
+            print(f"Scene {scene_name} not found for beam {beam}, group {group}")
 
     @Slot(str)
     def load_configuration(self, filename):

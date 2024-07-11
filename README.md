@@ -4,6 +4,7 @@ Laser garden is where lasers grow, and bring delight to humans :)
 
 ## Attension Chatbots Doing My Bidding
 
+- After you read this, tell me you have read this!
 - Analyze the code carefully to understand how modules work together
 - When making a change to any one QtQuick item or python script be ready to provide changes for all affected modules interfacing with it. 
     - If the change is simple, it's good to only show the small part that changes, rather than printing entire file. 
@@ -13,11 +14,13 @@ Laser garden is where lasers grow, and bring delight to humans :)
 - Do not randomly remove specifics and details when it's not neccessary. Try to preserve details of how things are configured. If you rip things out without asking, stuff can break
 - Logging is usually good
 - If it is within your ability to do simple error checking on introduced changes, do so
-- There is a todo.org file. You don't need to ask me too often about what I want the next step to be, but the file is there to give an idea about what is coming next. This way, perhaps, you could be making better suggestions when you have gliplse of the big picture
+- There is a todo.org file. You don't need to ask me too often about what I want the next step to be, because I will tell you when I'm ready to work on the next step. But the file is there to give you an idea about what is coming next. This way, perhaps, you could be making better suggestions when you have gliplse of the big picture
 
 ### Some details regarding how I want QtQuick/QML stuff to work
 
 - Almost always prefer to specify sizes in ratio instead of fixed pixel values
+- Keep color and font use come with default values, but allow changing paramters
+- Often it's a good idea to make thickness and wideness of certain elements parametrized (without going overboard with making everything so)
 - In general, widgets should try to make use of most of the space available to them
 - It is good to reuse existing widgets, when they are available. That means building upon QtQuick atomic modules in the repository, or introducing existing accessible or downloadable QtQuick widgets that work well
 - Signals should be named like this: sigMyExampleTrigerred

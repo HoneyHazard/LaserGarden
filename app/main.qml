@@ -9,28 +9,14 @@ ApplicationWindow {
     title: "LaserGarden"
 
     function connectChildItems(item) {
-
         for (var i = 0; i < item.children.length; i++) {
             var childItem = item.children[i]
-            
-            // Process the child item here
-            //console.log("Child:", childItem)
-            
-            // Access properties of the child if needed
-            //if (childItem.objectName) {
-            //    console.log("Object Name:", childItem.objectName)
-            //}
-            
             if (childItem.onDmxChannelChanged) {
-                console.log("Setting up DMX channel handler for dmx channel: " + childItem.dmxIndex)
                 dmxArray.valueChanged.connect(childItem.onDmxChannelChanged)
             }
             if (childItem.sigUiChannelChanged) {
-                console.log("Setting up UI channel handler for: " + childItem)
                 childItem.sigUiChannelChanged.connect(dmxArray.set_value)
             }
-
-            // Recursively iterate through the child's children
             if (childItem.children && childItem.children.length > 0) {
                 connectChildItems(childItem)
             }
@@ -43,6 +29,12 @@ ApplicationWindow {
         var presets = dmxArray.list_presets()
         for (var i = 0; i < presets.length; i++) {
             presetsModel.append({"name": presets[i]})
+        }
+
+        // Load scenes for Beam A, Group 0
+        var scenesA0 = sceneManager.list_scenes_for_beam_and_group("a", "0")
+        for (var i = 0; i < scenesA0.length; i++) {
+            scenesModelA0.append({"name": scenesA0[i]})
         }
     }
 
@@ -66,61 +58,54 @@ ApplicationWindow {
                 onTriggered: {
                     presetNameField.text = ""
                     savePresetDialog.open()
-                    presetNameField.focus = true
                 }
             }
             MenuItem {
                 text: "Load Preset"
-                onTriggered: loadPresetDialog.open()
+                onTriggered: loadPresetDialog.open
             }
-            MenuItem {
-                text: "Save as Default"
-                onTriggered: dmxArray.save_default()
-            }
-            MenuItem {
-                text: "Load Default"
-                onTriggered: dmxArray.load_default()
-            }
-            MenuItem {
-                text: "Reset"
-                onTriggered: dmxArray.reset()
-            }
-            MenuItem {
-                text: "Quit"
-                onTriggered: Qt.quit()
+        }
+
+        // New Menu for Beam A, Group 0
+        Menu {
+            title: "A0"
+            Repeater {
+                model: scenesModelA0
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "0", name)
+                    }
+                }
             }
         }
     }
 
     Dialog {
         id: savePresetDialog
+        visible: false
         modal: true
+        focus: true
         title: "Save Preset"
-        x: (parent.width - width) / 2
-        y: (parent.height - height) / 2
-        width: 400
-        height: 200
 
         Column {
-            spacing: 10
-            Label {
-                text: "Enter preset name:"
-            }
+            width: parent.width
+            height: parent.height
+
             TextField {
                 id: presetNameField
-                placeholderText: "Preset name"
-                width: parent.width - 20
-                anchors.horizontalCenter: parent.horizontalCenter
+                placeholderText: "Enter preset name"
+                width: parent.width
             }
+
             Row {
                 spacing: 10
                 Button {
                     text: "Save"
                     onClicked: {
-                        if (presetNameField.text.length > 0) {
-                            dmxArray.save_configuration("presets/" + presetNameField.text + ".json")
-                            savePresetDialog.close()
-                        }
+                        dmxArray.save_preset(presetNameField.text)
+                        savePresetDialog.close()
                     }
                 }
                 Button {
@@ -133,15 +118,12 @@ ApplicationWindow {
 
     Dialog {
         id: loadPresetDialog
+        visible: false
         modal: true
+        focus: true
         title: "Load Preset"
-        x: (parent.width - width) / 2
-        y: (parent.height - height) / 2
-        width: 500
-        height: 400
 
         Column {
-            spacing: 10
             width: parent.width
             height: parent.height
 
@@ -202,5 +184,10 @@ ApplicationWindow {
 
     ListModel {
         id: presetsModel
+    }
+
+    // New Model for Scenes A0
+    ListModel {
+        id: scenesModelA0
     }
 }
