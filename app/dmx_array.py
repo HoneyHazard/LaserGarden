@@ -95,9 +95,12 @@ class DMXArray(QObject):
             json.dump(data_to_save, file)
         logging.info(f'Saved configuration to {filename}')
 
-    def apply_dmx_values(self, values):
-        for index, value in enumerate(values):
+    def apply_indexed_values(self, config):
+        for i in range(0, len(config), 2):
+            index = config[i]
+            value = config[i + 1]
             self.set_value(index, value)
+        self.adjust_array_size()
 
     @Slot(str, str, str)
     def load_scene(self, beam, group, scene_name):
@@ -105,7 +108,7 @@ class DMXArray(QObject):
         if scene_data is not None:
             # Implement the logic to load the scene data
             print(f"Loading scene {scene_name} for beam {beam}, group {group}")
-            self.apply_dmx_values(scene_data)
+            self.apply_indexed_values(scene_data)
         else:
             print(f"Scene {scene_name} not found for beam {beam}, group {group}")
 
@@ -114,15 +117,8 @@ class DMXArray(QObject):
         if os.path.exists(filename):
             with open(filename, 'r') as file:
                 config = json.load(file)
-                for i in range(0, len(config), 2):
-                    index = config[i]
-                    value = config[i + 1]
-                    self._dmx_array[index] = value
-                self.adjust_array_size()
-                self.artnet.set(self._dmx_array)
-                self.valueChanged.emit(-1, -1)  # Signal that the entire array has changed
+                self.apply_indexed_values(config)
                 logging.info(f'Loaded configuration from {filename}')
-                self.print_configuration()
         else:
             logging.warning(f'Configuration file {filename} not found')
 

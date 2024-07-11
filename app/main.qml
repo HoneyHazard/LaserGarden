@@ -54,15 +54,30 @@ ApplicationWindow {
         Menu {
             title: "File"
             MenuItem {
+                text: "Load Preset"
+                onTriggered: loadPresetDialog.open()
+            }
+            MenuItem {
                 text: "Save Preset"
                 onTriggered: {
                     presetNameField.text = ""
                     savePresetDialog.open()
                 }
             }
+            
+            MenuSeparator {}
+
             MenuItem {
-                text: "Load Preset"
-                onTriggered: loadPresetDialog.open
+                text: "Save As Default"
+                onTriggered: {
+                    dmxArray.save_default()
+                }
+            }
+            MenuItem {
+                text: "Load Default"
+                onTriggered: {
+                    dmxArray.load_default()
+                }
             }
         }
 
