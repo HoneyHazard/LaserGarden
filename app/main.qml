@@ -54,30 +54,15 @@ ApplicationWindow {
         Menu {
             title: "File"
             MenuItem {
-                text: "Load Preset"
-                onTriggered: loadPresetDialog.open()
-            }
-            MenuItem {
                 text: "Save Preset"
                 onTriggered: {
                     presetNameField.text = ""
                     savePresetDialog.open()
                 }
             }
-            
-            MenuSeparator {}
-
             MenuItem {
-                text: "Save As Default"
-                onTriggered: {
-                    dmxArray.save_default()
-                }
-            }
-            MenuItem {
-                text: "Load Default"
-                onTriggered: {
-                    dmxArray.load_default()
-                }
+                text: "Load Preset"
+                onTriggered: loadPresetDialog.open()
             }
         }
 
@@ -99,33 +84,30 @@ ApplicationWindow {
 
     Dialog {
         id: savePresetDialog
-        visible: false
         modal: true
         focus: true
         title: "Save Preset"
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        width: parent.width * 0.5
+        height: parent.height * 0.3
 
-        Column {
+        onAccepted: {
+            dmxArray.save_preset(presetNameField.text)
+        }
+
+        Rectangle {
             width: parent.width
             height: parent.height
+            anchors.centerIn: parent
 
-            TextField {
-                id: presetNameField
-                placeholderText: "Enter preset name"
+            Column {
                 width: parent.width
-            }
+                height: parent.height
 
-            Row {
-                spacing: 10
-                Button {
-                    text: "Save"
-                    onClicked: {
-                        dmxArray.save_preset(presetNameField.text)
-                        savePresetDialog.close()
-                    }
-                }
-                Button {
-                    text: "Cancel"
-                    onClicked: savePresetDialog.close
+                TextField {
+                    id: presetNameField
+                    placeholderText: "Enter preset name"
+                    width: parent.width
                 }
             }
         }
@@ -133,65 +115,72 @@ ApplicationWindow {
 
     Dialog {
         id: loadPresetDialog
-        visible: false
         modal: true
         focus: true
         title: "Load Preset"
+        width: parent.width * 0.5
+        height: parent.height * 0.6
 
-        Column {
+        Rectangle {
             width: parent.width
             height: parent.height
+            anchors.centerIn: parent
 
-            ScrollView {
+            Column {
                 width: parent.width
-                height: parent.height * 0.8
+                height: parent.height
 
-                GridView {
-                    id: presetGridView
-                    model: presetsModel
-                    cellWidth: 120
-                    cellHeight: 50
+                ScrollView {
                     width: parent.width
-                    height: parent.height
+                    height: parent.height * 0.8
 
-                    delegate: Item {
-                        width: presetGridView.cellWidth
-                        height: presetGridView.cellHeight
+                    GridView {
+                        id: presetGridView
+                        model: presetsModel
+                        cellWidth: 120
+                        cellHeight: 50
+                        width: parent.width
+                        height: parent.height
 
-                        Rectangle {
+                        delegate: Item {
                             width: presetGridView.cellWidth
                             height: presetGridView.cellHeight
-                            color: "lightgray"
-                            border.color: "black"
-                            radius: 5
 
-                            RowLayout {
-                                anchors.fill: parent
-                                Label {
-                                    text: name
-                                    Layout.fillWidth: true
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
+                            Rectangle {
+                                width: presetGridView.cellWidth
+                                height: presetGridView.cellHeight
+                                color: "lightgray"
+                                border.color: "black"
+                                radius: 5
+
+                                RowLayout {
+                                    anchors.fill: parent
+                                    Label {
+                                        text: name
+                                        Layout.fillWidth: true
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                    }
                                 }
-                            }
 
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    dmxArray.load_configuration("presets/" + name + ".json")
-                                    loadPresetDialog.close()
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        dmxArray.load_configuration("presets/" + name + ".json")
+                                        loadPresetDialog.close()
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            Row {
-                spacing: 10
-                Button {
-                    text: "Cancel"
-                    onClicked: loadPresetDialog.close
+                Row {
+                    spacing: 10
+                    Button {
+                        text: "Cancel"
+                        onClicked: loadPresetDialog.close()
+                    }
                 }
             }
         }
