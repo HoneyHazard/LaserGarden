@@ -1,5 +1,5 @@
-* Gauge: add hover text
-* no --ola002 -> default to --gl001
+* DONE Gauge: add hover text
+* DONE no --ola002 -> default to --gl001
 * show ola002 vs gl001/ol003 in title
 * --ola002 vs no --gla001 -> global scenes prefix, default fixture file
 * neither -> unknown prefix

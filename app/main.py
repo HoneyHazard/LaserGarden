@@ -31,6 +31,9 @@ if __name__ == "__main__":
     dmx_array = DMXArray(target_ip, initial_preset)
     if args.get('ola002', False):
         dmx_array.ola002 = True
+    elif args.get('gla001', False):
+        dmx_array.gla001 = True
+
     engine.rootContext().setContextProperty("dmxArray", dmx_array)
 
     qlc_workspace = args.get('qlc_workspace', None)

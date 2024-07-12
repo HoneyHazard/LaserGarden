@@ -18,6 +18,7 @@ class DMXArray(QObject):
         self.last_preset = "presets/last_config.json"
         self.default_preset = "presets/default.json"
         self.initial_preset = initial_preset
+        self._gla001 = True
         self._ola002 = False
 
         # Initialize Art-Net device (Receiving IP)
@@ -208,6 +209,18 @@ class DMXArray(QObject):
     def ola002(self):
         return self._ola002
 
+    @Property(bool)
+    def gla001(self):
+        return self._gla001
+
     @ola002.setter
     def ola002(self, value):
         self._ola002 = value
+        if value:
+            self._gla001 = False
+
+    @gla001.setter
+    def gla001(self, value):
+        self._gla001 = value
+        if value:
+            self._ola002 = False

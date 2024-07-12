@@ -8,6 +8,7 @@ def parse_arguments():
     parser.add_argument("--preset", type=str, help="Path to the initial preset file to load")
     parser.add_argument("--qlc-workspace", type=str, help="Path to the QLC workspace file to import scenes")
     parser.add_argument('--ola002', action='store_true', help="Set ola002 to True to signify we are deadling with Olaalite OL-A002")
+    parser.add_argument('--gla001', action='store_true', help="Set gla001 to True to signify we are deadling with Gruolin GL-A001/Olaalite OL-A003")
 
     args = parser.parse_args()
     
