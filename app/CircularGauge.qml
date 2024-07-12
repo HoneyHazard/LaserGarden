@@ -4,6 +4,12 @@ import QtQuick.Layouts 1.15
 import QtQuick.Shapes 1.15
 
 Item {
+    Loader {
+        id: themeLoader
+        source: "Theme.qml"
+    }
+    property alias theme: themeLoader.item
+
     id: root
     width: parent ? parent.width : 150
     height: width  // Maintain a 1:1 ratio
@@ -18,10 +24,12 @@ Item {
     property string title: "Circular Gauge"  // Title property
 
     // New properties for customization
-    property color backgroundColor: "#ccc"
-    property color valueColor: "lightblue"
-    property color arrowColor: backgroundColor
-    property color arrowPressedColor: valueColor
+    property color backgroundColor: theme.inactiveElementColor
+    property color valueColor: theme.defaultGaugeColor
+    property color arrowColor: theme.inactiveElementColor
+    property color arrowPressedColor: theme.defaultGaugeColor
+    property color textColor: Qt.darker(valueColor)
+
     property real arcThickness: 0.2  // As a fraction of the radius
     property real arrowThickness: 0.065  // As a fraction of the width
 
@@ -134,7 +142,7 @@ Item {
 
                 ArrowButton {
                     direction: directionLeft
-                    color: root.arrowColor
+                    inactiveColor: root.arrowColor
                     pressedColor: root.arrowPressedColor
                     width: parent.width * 0.15
                     height: parent.height * 0.15
@@ -150,6 +158,7 @@ Item {
                 // Value display
                 Text {
                     text: value
+                    color: root.textColor
                     font.pixelSize: parent.width * 0.13
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
@@ -159,7 +168,7 @@ Item {
                 // Increase button
                 ArrowButton {
                     direction: directionRight
-                    color: root.arrowColor
+                    inactiveColor: root.arrowColor
                     pressedColor: root.arrowPressedColor
                     width: parent.width * 0.15
                     height: parent.height * 0.15
@@ -180,7 +189,8 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: canvas.bottom
             font.pixelSize: parent.width * 0.13
-            color: "#000000"
+            anchors.topMargin: -font.pixelSize * 0.5
+            color: root.textColor
         }
     }
 }

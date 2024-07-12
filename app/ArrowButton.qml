@@ -2,12 +2,20 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 Item {
+    Loader {
+        id: themeLoader
+        source: "Theme.qml"
+    }
+    property alias theme: themeLoader.item
+
+
+
     id: arrowButton
-    property color color: "gray"
-    property color pressedColor: "lightblue"
     property bool pressed: false
     property real aspectRatio: 1  // Ensuring a 1:1 aspect ratio (width / height)
-    
+    property color inactiveColor: theme.inactiveElementColor
+    property color pressedColor: theme.secondaryTextColor
+
     readonly property int directionLeft: 0
     readonly property int directionRight: 1
     readonly property int directionUp: 2
@@ -20,12 +28,6 @@ Item {
     // Adjust width and height to fill the available space while maintaining aspect ratio
     readonly property real sz: 1.4 * Math.min(width, height)
     
-    //readonly property real targetWidth: Math.min(parent ? parent.width : width, (parent ? parent.height : height) * aspectRatio)
-    //readonly property real targetHeight: targetWidth / aspectRatio
-
-    readonly property color strokeStyle: arrowButton.pressed ? arrowButton.pressedColor : arrowButton.color
-
-
     width: targetWidth
     height: targetHeight
 
@@ -53,7 +55,7 @@ Item {
             var lineW = sz / 6
             
             ctx.lineWidth = lineW
-            ctx.strokeStyle = arrowButton.pressed ? arrowButton.pressedColor : arrowButton.color
+            ctx.strokeStyle = arrowButton.pressed ? arrowButton.pressedColor : arrowButton.inactiveColor
             ctx.beginPath()
             if (arrowButton.direction == arrowButton.directionLeft) {
                 ctx.moveTo(centerX - halfSz + lineW, centerY + lineW/4)
@@ -92,34 +94,6 @@ Item {
 
         }
     }
-
-
-/*
-    Rectangle {
-        id: topRect
-        width: 1.4*sz/2
-        height: 5
-        //color: arrowButton.pressed ? arrowButton.pressedColor : arrowButton.color
-        color: "red"
-        anchors.bottomMargin: -0.1 * height
-        rotation: -45
-        anchors.bottom: parent.verticalCenter 
-        anchors.horizontalCenter: parent.horizontalCenter
-
-    }
-
-    Rectangle {
-        id: bottomRect
-        width: 1.4*sz/2
-        height: 5
-        //anchors.topMargin: -0.1 * height
-        color: arrowButton.pressed ? arrowButton.pressedColor : arrowButton.color
-        rotation: +45
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.verticalCenter
-
-    }
-    */
 
     MouseArea {
         anchors.fill: parent

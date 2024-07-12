@@ -3,7 +3,17 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Page {
+    Loader {
+        id: themeLoader
+        source: "Theme.qml"
+    }
+    property alias theme: themeLoader.item
+
     id: page
+    Rectangle {
+        anchors.fill: parent
+        color: theme.primaryBackgroundColor
+    }
 
     GridLayout {
         id: grid
