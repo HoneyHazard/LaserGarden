@@ -34,19 +34,22 @@ if __name__ == "__main__":
     elif args.get('gla001', False):
         dmx_array.gla001 = True
 
-    engine.rootContext().setContextProperty("dmxArray", dmx_array)
-
     qlc_workspace = args.get('qlc_workspace', None)
     if qlc_workspace:
         logging.info(f"Importing QLC workspace: {qlc_workspace}")
         scenes = parse_qlc_workspace(qlc_workspace)
 
-   # Initialize SceneManager
+    # Initialize SceneManager
     scene_manager = SceneManager()
     scenes = scene_manager.scenes
+    
+    # View Params
+    showTooltip = args.get('tooltip', False)
 
     # Pass the scenes to QML
     engine.rootContext().setContextProperty("sceneManager", scene_manager)
+    engine.rootContext().setContextProperty("dmxArray", dmx_array)
+    engine.rootContext().setContextProperty("pyShowTooltipSidebar", showTooltip)
 
     engine.load(QUrl("app/main.qml"))
 

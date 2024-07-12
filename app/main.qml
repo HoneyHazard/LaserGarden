@@ -4,16 +4,27 @@ import QtQuick.Layouts
 import QtQuick.VirtualKeyboard
 
 ApplicationWindow {
+
     Loader {
         source: "Theme.qml"
         id: themeLoader
     }
     property alias theme: themeLoader.item
 
+
+    id: mainWindow
     visible: true
-    title: "LaserGarden"
-    //width: 1920
-    //height: 1080
+    width: 1920
+    height: 1080
+
+    property bool showTooltipSidebar: pyShowTooltipSidebar
+
+    title: "LaserGarden: " + (dmxArray.Ola002 ? "Olaalite OL-A002" : "Gruolin GL-A001 / Olaalite OL-A003") + " mode"
+
+
+    function onToolip(val) {
+        tooltipSidebar.text = val
+    }
 
     function connectChildItems(item) {
         for (var i = 0; i < item.children.length; i++) {
@@ -45,12 +56,23 @@ ApplicationWindow {
         }
     }
 
+    background: Rectangle {
+        color: theme.primaryBackgroundColor
+    }
+
     StackView {
         id: stackView
-        anchors.fill: parent
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: (tooltipSidebar.visible ? tooltipSidebar.left : parent.right)
+        width: tooltipSidebar.visible ? parent.width * 0.8 : parent.width
 
         initialItem: allGaugesView
         //initialItem: modularView
+
+        background: Rectangle {
+            color: theme.primaryBackgroundColor
+        }
 
         Component {
             id: allGaugesView
@@ -59,7 +81,7 @@ ApplicationWindow {
 
         Component {
             id: modularView
-              RowLayout {
+            RowLayout {
                 anchors.fill: parent
                 spacing: 10
 
@@ -81,6 +103,24 @@ ApplicationWindow {
             }
         }
     }
+
+    Rectangle {
+        id: tooltipSidebar
+        visible: mainWindow.showTooltipSidebar
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        width: parent.width * 0.2
+        color: theme.tooltipBackgroundColor
+
+        Text {
+            id: tooltipText
+            color: theme.tooltipTextColor
+            font: theme.primaryFont
+            text: "Tooltip"
+        }
+    }
+
+
 
     menuBar: MenuBar {
         Menu {

@@ -1,11 +1,11 @@
 * DONE Gauge: add hover text
 * DONE no --ola002 -> default to --gl001
-* show ola002 vs gl001/ol003 in title
-* --ola002 vs no --gla001 -> global scenes prefix, default fixture file
-* neither -> unknown prefix
+* DONE show ola002 vs gl001/ol003 in title
 * --fixture file -> gauges tooltip, incl cap
 ** qxi -> channel description at index
 ** tooltip: <br/> or separator between capabilities
+* --ola002 vs no --gla001 -> global scenes prefix, default fixture file
+* neither -> unknown prefix
 * no scenes? search for default workspace files for ola002 vs gl001
 * UI Mode: --gauge(s) vs --panel(s), also via menu
 * --tooltip -> tooltip panel, also via menu. has close symbol

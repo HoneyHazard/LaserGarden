@@ -9,7 +9,7 @@ def parse_arguments():
     parser.add_argument("--qlc-workspace", type=str, help="Path to the QLC workspace file to import scenes")
     parser.add_argument('--ola002', action='store_true', help="Set ola002 to True to signify we are deadling with Olaalite OL-A002")
     parser.add_argument('--gla001', action='store_true', help="Set gla001 to True to signify we are deadling with Gruolin GL-A001/Olaalite OL-A003")
-
+    parser.add_argument('--tooltip', action='store_true', help="Show tooltip sidebar on launch")
     args = parser.parse_args()
     
     initial_preset = None

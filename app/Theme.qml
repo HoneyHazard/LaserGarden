@@ -5,6 +5,8 @@ QtObject {
     property color primaryBackgroundColor: "#1b1e23"  // Dark background
     property color secondaryBackgroundColor: "#2b2e33"  // Slightly lighter dark background
     property color tertiaryBackgroundColor: "#3b3e43"  // Even lighter dark background
+    property color tooltipBackgroundColor: "yellow" // Off-white text
+    property color tooltipTextColor: "darkgray"  // Dark blue text
     property color buttonColor: "lightgray"  // Light grey button
 
     // Element colors
