@@ -7,6 +7,7 @@ def parse_arguments():
     parser.add_argument("--target-ip", type=str, default="192.168.7.99", help="IP address of the target Art-Net device")
     parser.add_argument("--preset", type=str, help="Path to the initial preset file to load")
     parser.add_argument("--qlc-workspace", type=str, help="Path to the QLC workspace file to import scenes")
+    parser.add_argument('--ola002', action='store_true', help="Set ola002 to True")
 
     args = parser.parse_args()
     

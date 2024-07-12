@@ -18,6 +18,7 @@ class DMXArray(QObject):
         self.last_preset = "presets/last_config.json"
         self.default_preset = "presets/default.json"
         self.initial_preset = initial_preset
+        self._ola002 = False
 
         # Initialize Art-Net device (Receiving IP)
         self.artnet = StupidArtnet(target_ip, 0, self.num_channels, 30)  # Target IP, Universe, Packet size, FPS
@@ -201,3 +202,12 @@ class DMXArray(QObject):
         if not os.path.exists(presets_folder):
             return []
         return [os.path.splitext(f)[0] for f in os.listdir(presets_folder) if f.endswith('.json') and f not in ['default.json', 'last_config.json']]
+
+
+    @Property(bool)
+    def ola002(self):
+        return self._ola002
+
+    @ola002.setter
+    def ola002(self, value):
+        self._ola002 = value

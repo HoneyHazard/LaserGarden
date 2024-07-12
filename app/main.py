@@ -26,6 +26,8 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
 
     dmx_array = DMXArray(target_ip, initial_preset)
+    if config.args.ola002:
+        dmx_array.ola002 = True
     engine.rootContext().setContextProperty("dmxArray", dmx_array)
 
     if qlc_workspace:
