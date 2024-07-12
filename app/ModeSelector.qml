@@ -6,7 +6,7 @@ Rectangle {
     id: modeSelector
     property alias currentMode: currentModeText.text
     property string layoutDirection: "horizontal" // Can be "horizontal" or "vertical"
-    property var modeStrings: ["Mode1", "Mode2", "Mode3"]
+    property var modeStrings: [{"display": "Mode1", "internal": "mode1"}, {"display": "Mode2", "internal": "mode2"}, {"display": "Mode3", "internal": "mode3"}]
     property color activeColor: Theme.accentColor
     property color inactiveColor: Theme.baseColor
     property real spacing: 0
@@ -37,7 +37,7 @@ Rectangle {
                 Text {
                     id: modeText
                     anchors.centerIn: parent
-                    text: modelData
+                    text: modelData.display
                     color: Theme.textColor
                 }
 
@@ -45,7 +45,7 @@ Rectangle {
                     anchors.fill: parent
                     onClicked: {
                         currentModeIndex = index
-                        modeSelector.sigModeChanged(modelData)
+                        modeSelector.sigModeChanged(modelData.internal)
                     }
                 }
             }
@@ -55,7 +55,7 @@ Rectangle {
                 for (let i = 0; i < count; i++) {
                     itemAt(i).color = i === currentModeIndex ? modeSelector.activeColor : modeSelector.inactiveColor
                 }
-                currentModeText.text = model.get(currentModeIndex)
+                currentModeText.text = model.get(currentModeIndex).internal
             }
         }
 

@@ -1,77 +1,72 @@
-* *virtual keboard*
-* *multitouch possible?*
-
-* *WIDGETS/GAUGES (general)*
-
-** font
-** DONE have title
-** show dmx value (debug)
-** ch name + slider + spinbox (debug)
-
-* TOP TAB: BEAM A vs B
-
-
-* *!!! THINK COLOR !!!*
-** mode: default color
-** mode: full color
-*** solid color
-** mode: full color change
-*** choose pattern and speed
-** mode: sweep
-*** choose speed
-** mode: segmented color
-*** choose default vs custom segmentation
-*** choose pattern and speed
-* *!!! IMPORT, SELECT PATTERNS !!!*
-** load scenes from QLC workspace
-** sort into a_*, a_0, a_1, etc
-** pattern browser
-
-* *DEBUG PAGE*
-** sliders and spin boxes
-
+* Gauge: add hover text
+* no --ola002 -> default to --gl001
+* show ola002 vs gl001/ol003 in title
+* --ola002 vs no --gla001 -> global scenes prefix, default fixture file
+* neither -> unknown prefix
+* --fixture file -> gauges tooltip, incl cap
+** qxi -> channel description at index
+** tooltip: <br/> or separator between capabilities
+* no scenes? search for default workspace files for ola002 vs gl001
+* UI Mode: --gauge(s) vs --panel(s), also via menu
+* --tooltip -> tooltip panel, also via menu. has close symbol
+* *ALL GAUGES* mode: 3x9, blue vs red, maybe dimmed, or slightly different color
+* finish scenes via menu, maybe tooltip, maybe title has hints
+* *CONTROL PANEL* mode: 2 control panels
+** initially gauges
+* Then, *MAP GLA001/OLA003* vs *SUPER PAGES*
 
 * *BASICS PAGE A/B*
-** (size) small:49->large:0
-** (sw) On/Off (for secondary)
-** (dial 0-49) size
-** (browser) SYMM GROUP and SELECT widget
-** (color)
-*** 0 = default
-*** 8 = white
-*** 16 = red
-*** 24 = yellow
-*** 32 = green
-*** 40 = cyan
-*** 48 = blue
-*** 56 = magenta
-*** 64-95 = full red-green-blue, inc speed(full)
-*** 96-127 = full magenta-yellow-cyan
-*** 128 = full red-yellow-green-cyan-blue-magenta-white
-*** 160-191 = shifting red-yellow-green-cyan-blue-magenta-white
-*** 192-223 = white segment shifts, rest is full red-yellow-green-cyan-blue-magenta
-*** 224-255 = segment scan/trace red-yellow-green-cyan-blue-magenta
-** maybe (color shift)
+** (mode) on/off, etc
+** *(OOB widget)* 2x space
+*** (mode) clip mode selector: 50 x i -> CH
+**** OLA002 modes
+***** 0: default?
+***** 50: reflect
+***** 100: squeeze
+***** 150: rollover
+***** 200: crop
 
-* *SIZE/SCALE, ORIENT, COLOR A/B*
+*** (dial 0-49) size
+** (dial) color shift
+** *(COLOR)* 2 x 2
+*** mode: default color
+*** mode: full color
+**** solid color
+*** mode: full color change
+**** choose pattern and speed
+*** mode: sweep
+**** choose speed
+*** mode: segmented color
+**** choose default vs custom segmentation
+**** choose pattern and speed
+*** *OLA002 COLOR*
+**** 0 = default
+**** 8 = white
+**** 16 = red
+**** 24 = yellow
+**** 32 = green
+**** 40 = cyan
+**** 48 = blue
+**** 56 = magenta
+**** 64-95 = full red-green-blue, inc speed(full)
+**** 96-127 = full magenta-yellow-cyan
+**** 128 = full red-yellow-green-cyan-blue-magenta-white
+**** 160-191 = shifting red-yellow-green-cyan-blue-magenta-white
+**** 192-223 = white segment shifts, rest is full red-yellow-green-cyan-blue-magenta
+**** 224-255 = segment scan/trace red-yellow-green-cyan-blue-magenta
+** *(BROWSER)* 2 x 2?
+* *SCALE AND ORIENT*
 ** (scale) 
 ** (orient)
-** (dial 0-255) color shift
 
-* *POSITIONING, FLIPnTWIST, WAVE*
-** clip mode:
-*** 0: ?
-*** 50: reflect
-*** 100: squeeze
-*** 150: rollover
-*** 200: crop
+* *SHIFT* POSITIONING, FLIPnTWIST, WAVE
 ** (positioning) horizontal
 ** (positioning) vertical
 ** (flip-n-twist) horizontal
 ** (flip-n-twist) vertical
 ** (dial) wave size and twist
 
-* *COLOR AND EFFECTS*
+* *MOAR EFFECTGS: COLOR AND EFFECTS*
 ** _UNDERSTAND MORE_
 ** (???) color segmentation?
 ** +prim color+

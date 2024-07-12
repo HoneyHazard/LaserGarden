@@ -49,11 +49,36 @@ ApplicationWindow {
         id: stackView
         anchors.fill: parent
 
-        initialItem: page1
+        //initialItem: allGaugesView
+        initialItem: modularView
 
         Component {
-            id: page1
-            Loader { source: "Page1.qml" }
+            id: allGaugesView
+            Loader { source: "AllGaugesView.qml" }
+        }
+
+        Component {
+            id: modularView
+              RowLayout {
+                anchors.fill: parent
+                spacing: 10
+
+                // ControlSpace 1
+                ControlSpace {
+                    id: controlSpace1
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    isBeamA: true
+                }
+
+                // ControlSpace 2
+                ControlSpace {
+                    id: controlSpace2
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    isBeamA: false
+                }
+            }
         }
     }
 
