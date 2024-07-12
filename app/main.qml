@@ -64,6 +64,15 @@ ApplicationWindow {
                 text: "Load Preset"
                 onTriggered: loadPresetDialog.open()
             }
+            MenuSeparator {}
+            MenuItem {
+                text: "Save As Default"
+                onTriggered: dmxArray.save_default()
+            }
+            MenuItem {
+                text: "Load Default"
+                onTriggered: dmxArray.load_default()
+            }
         }
 
         // New Menu for Beam A, Group 0
@@ -87,18 +96,14 @@ ApplicationWindow {
         modal: true
         focus: true
         title: "Save Preset"
-        standardButtons: Dialog.Ok | Dialog.Cancel
         width: parent.width * 0.5
         height: parent.height * 0.3
-
-        onAccepted: {
-            dmxArray.save_preset(presetNameField.text)
-        }
+        anchors.centerIn: parent       
 
         Rectangle {
-            width: parent.width
-            height: parent.height
             anchors.centerIn: parent
+            width: parent.width * 0.5
+            height: parent.height * 0.3
 
             Column {
                 width: parent.width
@@ -109,6 +114,21 @@ ApplicationWindow {
                     placeholderText: "Enter preset name"
                     width: parent.width
                 }
+
+                Row {
+                    spacing: 10
+                    Button {
+                        text: "Save"
+                        onClicked: {
+                            dmxArray.save_preset(presetNameField.text)
+                            savePresetDialog.close()
+                        }
+                    }
+                    Button {
+                        text: "Cancel"
+                        onClicked: savePresetDialog.close()
+                    }
+                }
             }
         }
     }
@@ -118,27 +138,30 @@ ApplicationWindow {
         modal: true
         focus: true
         title: "Load Preset"
-        width: parent.width * 0.5
-        height: parent.height * 0.6
+        width: parent.width * 0.93
+        height: parent.height * 0.9
+        anchors.centerIn: parent        
 
         Rectangle {
-            width: parent.width
-            height: parent.height
             anchors.centerIn: parent
+            height: parent.height * 0.9
+            width: parent.width 
 
             Column {
                 width: parent.width
                 height: parent.height
 
                 ScrollView {
+                    id: presetScrollView
                     width: parent.width
-                    height: parent.height * 0.8
+                    height: parent.height
+                    ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
                     GridView {
                         id: presetGridView
                         model: presetsModel
-                        cellWidth: 120
-                        cellHeight: 50
+                        cellWidth: presetScrollView.width / 8
+                        cellHeight: presetScrollView.height / 20
                         width: parent.width
                         height: parent.height
 
@@ -176,6 +199,7 @@ ApplicationWindow {
                 }
 
                 Row {
+                    anchors.top: presetScrollView.bottom
                     spacing: 10
                     Button {
                         text: "Cancel"
