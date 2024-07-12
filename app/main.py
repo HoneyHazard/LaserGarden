@@ -18,18 +18,22 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     change_to_parent_dir_if_in_main()
-    target_ip, initial_preset, qlc_workspace = parse_arguments()
+
+    args = parse_arguments()
 
     # Enable the virtual keyboard
     os.environ['QT_IM_MODULE'] = 'qtvirtualkeyboard'
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
+    target_ip = args.get('target_ip', None)
+    initial_preset = args.get('preset', None)
     dmx_array = DMXArray(target_ip, initial_preset)
-    if config.args.ola002:
+    if args.get('ola002', False):
         dmx_array.ola002 = True
     engine.rootContext().setContextProperty("dmxArray", dmx_array)
 
+    qlc_workspace = args.get('qlc_workspace', None)
     if qlc_workspace:
         logging.info(f"Importing QLC workspace: {qlc_workspace}")
         scenes = parse_qlc_workspace(qlc_workspace)

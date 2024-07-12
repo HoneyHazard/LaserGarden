@@ -16,6 +16,12 @@ Laser garden is where lasers grow, and bring delight to humans :)
 - If it is within your ability to do simple error checking on introduced changes, do so
 - There is a todo.org file. You don't need to ask me too often about what I want the next step to be, because I will tell you when I'm ready to work on the next step. But the file is there to give you an idea about what is coming next. This way, perhaps, you could be making better suggestions when you have gliplse of the big picture
 
+## ATTENTION, CHATBOT! I'M LOOKING AT YOU!
+
+- IT IS CRUCITAL to NOT alter functionality when not asked to
+- IT IS CRUCIAL to ONLY ADD WHAT WAS ASKED
+- DO NOT REFACATOR CODE WHEN NOT ASKED
+
 ### Some details regarding how I want QtQuick/QML stuff to work
 
 - Almost always prefer to specify sizes in ratio instead of fixed pixel values

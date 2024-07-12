@@ -7,7 +7,7 @@ def parse_arguments():
     parser.add_argument("--target-ip", type=str, default="192.168.7.99", help="IP address of the target Art-Net device")
     parser.add_argument("--preset", type=str, help="Path to the initial preset file to load")
     parser.add_argument("--qlc-workspace", type=str, help="Path to the QLC workspace file to import scenes")
-    parser.add_argument('--ola002', action='store_true', help="Set ola002 to True")
+    parser.add_argument('--ola002', action='store_true', help="Set ola002 to True to signify we are deadling with Olaalite OL-A002")
 
     args = parser.parse_args()
     
@@ -25,4 +25,4 @@ def parse_arguments():
                 else:
                     logging.warning(f"Initial preset file {args.preset} not found in presets or current directory")
     
-    return args.target_ip, initial_preset, args.qlc_workspace
+    return vars(args)
