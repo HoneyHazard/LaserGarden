@@ -2,6 +2,7 @@ import sys
 import signal
 import logging
 import getch
+import os
 from PySide6.QtCore import QUrl
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
@@ -12,11 +13,15 @@ from utils import SceneManager
 from dmx_array import DMXArray
 
 if __name__ == "__main__":
+
+
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     change_to_parent_dir_if_in_main()
     target_ip, initial_preset, qlc_workspace = parse_arguments()
 
+    # Enable the virtual keyboard
+    os.environ['QT_IM_MODULE'] = 'qtvirtualkeyboard'
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 

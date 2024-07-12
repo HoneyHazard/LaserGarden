@@ -1,6 +1,7 @@
-import QtQuick 2.15
+import QtQuick
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick.Layouts
+import QtQuick.VirtualKeyboard
 
 ApplicationWindow {
     visible: true
@@ -96,44 +97,83 @@ ApplicationWindow {
         modal: true
         focus: true
         title: "Save Preset"
-        font.pointSize: parent.height * 0.02
-        
-        width: parent.width * 0.5
-        height: parent.height * 0.3
-        anchors.centerIn: parent       
+        font.pointSize: Math.max(12, parent.height * 0.02)
+        width: parent.width * 0.4  // 40% of screen width
+        height: parent.height * 0.20  // 30% of screen height
+        anchors.centerIn: parent
+        onOpened: presetNameField.forceActiveFocus()
 
-        Rectangle {
-            anchors.centerIn: parent
-            width: parent.width
-            height: parent.height * 0.8
+        contentItem: Rectangle {
+            anchors.fill: parent
 
             Column {
-                width: parent.width
-                height: parent.height
+                anchors.fill: parent
+                anchors.margins: parent.height * 0.05  // 5% of dialog height
+                spacing: parent.height * 0.05  // 5% of dialog height
+
+                Text {
+                    width: parent.width
+                    text: "Enter preset name:"
+                    font.pointSize: savePresetDialog.font.pointSize * 1.2
+                    horizontalAlignment: Text.AlignHCenter
+                }
 
                 TextField {
                     id: presetNameField
-                    placeholderText: "Enter preset name"
                     width: parent.width
+                    height: parent.height * 0.3  // 20% of column height
+                    font.pointSize: savePresetDialog.font.pointSize
+                    placeholderText: "Preset name"
+                    focus: true
+                    onAccepted: savePresetDialog.accept()
                 }
 
                 Row {
-                    spacing: 10
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: parent.width * 0.05  // 5% of column width
+                    height: parent.height * 0.3  // 20% of column height
+
                     Button {
+                        width: parent.parent.width * 0.4  // 40% of column width
+                        height: parent.height
                         text: "Save"
+                        font.pointSize: savePresetDialog.font.pointSize
                         onClicked: {
                             dmxArray.save_preset(presetNameField.text)
-                            savePresetDialog.close()
+                            savePresetDialog.accept()
                         }
                     }
+
                     Button {
+                        width: parent.parent.width * 0.4  // 40% of column width
+                        height: parent.height
                         text: "Cancel"
-                        onClicked: savePresetDialog.close()
+                        font.pointSize: savePresetDialog.font.pointSize
+                        onClicked: savePresetDialog.reject()
+                    }
+                }
+
+                Row {
+                    InputPanel {
+                        id: inputPanel
+                        z: 99
+                        width: savePresetDialog.width * 0.8  // 80% of dialog width
+                        height: savePresetDialog.height * 0.4  // 40% of dialog height
+
+                        states: State {
+                            name: "visible"
+                            when: inputPanel.active
+                            PropertyChanges {
+                                target: inputPanel
+                                y: savePresetDialog.height - inputPanel.height
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
 
     Dialog {
         id: loadPresetDialog
