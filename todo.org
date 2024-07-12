@@ -1,14 +1,14 @@
 * DONE Gauge: add hover text
 * DONE no --ola002 -> default to --gl001
 * DONE show ola002 vs gl001/ol003 in title
+* DONE UI Mode: --modular or none
 * --fixture file -> gauges tooltip, incl cap
 ** qxi -> channel description at index
 ** tooltip: <br/> or separator between capabilities
 * --ola002 vs no --gla001 -> global scenes prefix, default fixture file
 * neither -> unknown prefix
 * no scenes? search for default workspace files for ola002 vs gl001
-* UI Mode: --gauge(s) vs --panel(s), also via menu
-* --tooltip -> tooltip panel, also via menu. has close symbol
+* TODO !CLOSE! --tooltip -> tooltip panel, also via menu. has close symbol
 * *ALL GAUGES* mode: 3x9, blue vs red, maybe dimmed, or slightly different color
 * finish scenes via menu, maybe tooltip, maybe title has hints
 * *CONTROL PANEL* mode: 2 control panels

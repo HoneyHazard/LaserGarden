@@ -45,11 +45,13 @@ if __name__ == "__main__":
     
     # View Params
     showTooltip = args.get('tooltip', False)
+    modularView = args.get('modular', False)
 
-    # Pass the scenes to QML
+    # Pass objects and params to QML
     engine.rootContext().setContextProperty("sceneManager", scene_manager)
     engine.rootContext().setContextProperty("dmxArray", dmx_array)
     engine.rootContext().setContextProperty("pyShowTooltipSidebar", showTooltip)
+    engine.rootContext().setContextProperty("pyModularViewMode", modularView)
 
     engine.load(QUrl("app/main.qml"))
 

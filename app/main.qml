@@ -11,15 +11,24 @@ ApplicationWindow {
     }
     property alias theme: themeLoader.item
 
-
     id: mainWindow
+    title: "LaserGarden: " + (dmxArray.Ola002 ? "Olaalite OL-A002" : "Gruolin GL-A001 / Olaalite OL-A003") + " mode"
     visible: true
     width: 1920
     height: 1080
 
     property bool showTooltipSidebar: pyShowTooltipSidebar
+    property bool allGaugesViewMode : !pyModularViewMode
 
-    title: "LaserGarden: " + (dmxArray.Ola002 ? "Olaalite OL-A002" : "Gruolin GL-A001 / Olaalite OL-A003") + " mode"
+    onAllGaugesViewModeChanged: {
+        if (allGaugesViewMode) {
+            console.log("Pushing all gauges view")
+            stackView.push(allGaugesView)   
+        } else {
+            console.log("Pushing modular view")
+            stackView.push(modularView)
+        }
+    }
 
 
     function onToolip(val) {
@@ -66,9 +75,9 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.right: (tooltipSidebar.visible ? tooltipSidebar.left : parent.right)
         width: tooltipSidebar.visible ? parent.width * 0.8 : parent.width
-
-        initialItem: allGaugesView
+        initialItem: allGaugesViewMode ? allGaugesView : modularView
         //initialItem: modularView
+        //index: mainWindow.viewModeIndex
 
         background: Rectangle {
             color: theme.primaryBackgroundColor
@@ -82,22 +91,22 @@ ApplicationWindow {
         Component {
             id: modularView
             RowLayout {
-                anchors.fill: parent
+                //anchors.fill: parent
                 spacing: 10
 
                 // ControlSpace 1
                 ControlSpace {
                     id: controlSpace1
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    //Layout.fillWidth: true
+                    //Layout.fillHeight: true
                     isBeamA: true
                 }
 
                 // ControlSpace 2
                 ControlSpace {
                     id: controlSpace2
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    //Layout.fillWidth: true
+                    //Layout.fillHeight: true
                     isBeamA: false
                 }
             }
@@ -144,6 +153,47 @@ ApplicationWindow {
             MenuItem {
                 text: "Load Default"
                 onTriggered: dmxArray.load_default()
+            }
+        }
+
+        Menu {
+            title: qsTr("View")
+
+            // Submenu for View Mode with radio button selection
+            Menu {
+                title: qsTr("Panel Mode")
+
+                Action {
+                    //id: allGaugesMenuAction
+                    text: qsTr("All Gauges Mode")
+                    checkable: true
+                    checked: mainWindow.allGaugesViewMode
+                    onTriggered: {
+                        //stackView.push(allGaugesView)
+                        //mainWindow.viewModeIndex = 0
+                        mainWindow.allGaugesViewMode = true
+                    }
+                }
+
+                Action {
+                    //id: modularMenuAction
+                    text: qsTr("Modular")
+                    checkable: true
+                    checked: !mainWindow.allGaugesViewMode
+                    onTriggered: {
+                        //stackView.push(modularView)
+                        //mainWindow.viewModeIndex = 1
+                        mainWindow.allGaugesViewMode = false
+                    }
+                }
+            }
+
+            // Checkbox menu item for Tooltip
+            Action {
+                text: qsTr("Show Tooltip")
+                checkable: true
+                checked: mainWindow.showTooltipSidebar
+                onTriggered: mainWindow.showTooltipSidebar = !mainWindow.showTooltipSidebar
             }
         }
 
