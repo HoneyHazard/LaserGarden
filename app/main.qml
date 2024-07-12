@@ -183,7 +183,7 @@ ApplicationWindow {
         width: parent.width * 0.93
         height: parent.height * 0.9
         anchors.centerIn: parent   
-        font.pointSize: parent.height * 0.02    
+        font.pointSize: max(20, parent.height * 0.02)
 
         Rectangle {
             anchors.centerIn: parent
