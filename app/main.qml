@@ -96,6 +96,8 @@ ApplicationWindow {
         modal: true
         focus: true
         title: "Save Preset"
+        font.pointSize: parent.height * 0.02
+        
         width: parent.width * 0.5
         height: parent.height * 0.3
         anchors.centerIn: parent       
@@ -140,16 +142,19 @@ ApplicationWindow {
         title: "Load Preset"
         width: parent.width * 0.93
         height: parent.height * 0.9
-        anchors.centerIn: parent        
+        anchors.centerIn: parent   
+        font.pointSize: parent.height * 0.02    
 
         Rectangle {
             anchors.centerIn: parent
-            height: parent.height * 0.9
+            height: parent.height
             width: parent.width 
 
-            Column {
+            Rectangle{
                 width: parent.width
-                height: parent.height
+                height: parent.height * 0.9
+                anchors.top: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 ScrollView {
                     id: presetScrollView
@@ -160,18 +165,18 @@ ApplicationWindow {
                     GridView {
                         id: presetGridView
                         model: presetsModel
-                        cellWidth: presetScrollView.width / 8
-                        cellHeight: presetScrollView.height / 20
+                        cellWidth: presetScrollView.width / 3
+                        cellHeight: presetScrollView.height / 15
                         width: parent.width
                         height: parent.height
 
                         delegate: Item {
-                            width: presetGridView.cellWidth
-                            height: presetGridView.cellHeight
+                            width: presetGridView.cellWidth * 0.9
+                            height: presetGridView.cellHeight * 0.9
 
                             Rectangle {
-                                width: presetGridView.cellWidth
-                                height: presetGridView.cellHeight
+                                width: presetGridView.cellWidth * 0.95
+                                height: presetGridView.cellHeight * 0.9
                                 color: "lightgray"
                                 border.color: "black"
                                 radius: 5
@@ -183,6 +188,7 @@ ApplicationWindow {
                                         Layout.fillWidth: true
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
+                                        wrapMode: Text.WordWrap
                                     }
                                 }
 
@@ -197,14 +203,22 @@ ApplicationWindow {
                         }
                     }
                 }
+            }
 
-                Row {
-                    anchors.top: presetScrollView.bottom
-                    spacing: 10
-                    Button {
-                        text: "Cancel"
-                        onClicked: loadPresetDialog.close()
-                    }
+            Rectangle {
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.95
+                height: parent.height * 0.1
+                id: loadPresetDialogButtons
+                Button {
+                    height: parent.height * 0.8
+                    width: parent.width / 4
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: parent.height * 0.05
+                    text: "Cancel"
+                    onClicked: loadPresetDialog.close()
                 }
             }
         }
