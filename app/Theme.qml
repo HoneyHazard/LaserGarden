@@ -5,6 +5,7 @@ QtObject {
     property color primaryBackgroundColor: "#1b1e23"  // Dark background
     property color secondaryBackgroundColor: "#2b2e33"  // Slightly lighter dark background
     property color tertiaryBackgroundColor: "#3b3e43"  // Even lighter dark background
+    property color buttonColor: "lightgray"  // Light grey button
 
     // Element colors
     //property color activeElement: "#f8d210"  // Bright yellow for active elements
@@ -20,15 +21,17 @@ QtObject {
     property color defaultGaugeColor: "lime"  // Off-white for primary elements
 
     // Borders
-    property real borderWidth: 2
+    property real primaryBorderWidth: 2
+    property real secondaryBorderWidth: 1
     property color primaryBorderColor: "#f8f8f2"  // Off-white border
     property color secondaryBorderColor: "#c0c0c0"  // Light grey border
 
     // Text
     //property color primaryTextColor: "#f8f8f2"  // Off-white text
     property color primaryTextColor: "white"  // Off-white text
-    property color secondaryTextColor: "#c0c0c0"  // Light grey text
+    property color secondaryTextColor: "lightgray"  // Light grey text
+    property color inactiveTextColor: "darkgray"  // Dark grey text
     property string primaryFont: "Courier New"
-    property int primaryFontSize: 14
-    property int secondaryFontSize: 12
+    property int primaryFontSize: 28
+    property int secondaryFontSize: 24
 }

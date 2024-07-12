@@ -4,6 +4,12 @@ import QtQuick.Layouts
 import QtQuick.VirtualKeyboard
 
 ApplicationWindow {
+    Loader {
+        source: "Theme.qml"
+        id: themeLoader
+    }
+    property alias theme: themeLoader.item
+
     visible: true
     width: 640
     height: 480
@@ -102,6 +108,11 @@ ApplicationWindow {
         height: parent.height * 0.20  // 30% of screen height
         anchors.centerIn: parent
         onOpened: presetNameField.forceActiveFocus()
+        //borderWidth: theme.primaryBorderWidth
+        
+        background: Rectangle {
+            color: theme.secondaryBackgroundColor
+        }
 
         contentItem: Rectangle {
             anchors.fill: parent
@@ -114,15 +125,20 @@ ApplicationWindow {
                 Text {
                     width: parent.width
                     text: "Enter preset name:"
+                    color: theme.inactiveTextColor
                     font.pointSize: savePresetDialog.font.pointSize * 1.2
                     horizontalAlignment: Text.AlignHCenter
                 }
 
                 TextField {
+                    background: Rectangle {
+                        color: theme.tertiaryBackgroundColor
+                    }
                     id: presetNameField
                     width: parent.width
                     height: parent.height * 0.3  // 20% of column height
                     font.pointSize: savePresetDialog.font.pointSize
+                    color: theme.secondaryTextColor
                     placeholderText: "Preset name"
                     focus: true
                     onAccepted: savePresetDialog.accept()
@@ -134,6 +150,9 @@ ApplicationWindow {
                     height: parent.height * 0.3  // 20% of column height
 
                     Button {
+                        background: Rectangle {
+                            color: theme.inactiveElementColor
+                        }
                         width: parent.parent.width * 0.4  // 40% of column width
                         height: parent.height
                         text: "Save"
@@ -145,6 +164,9 @@ ApplicationWindow {
                     }
 
                     Button {
+                        background: Rectangle {
+                            color: theme.inactiveElementColor
+                        }
                         width: parent.parent.width * 0.4  // 40% of column width
                         height: parent.height
                         text: "Cancel"
