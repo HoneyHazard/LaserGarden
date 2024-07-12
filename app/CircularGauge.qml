@@ -27,13 +27,15 @@ Item {
     property color backgroundColor: theme.inactiveElementColor
     property color valueColor: theme.defaultGaugeColor
     property color arrowColor: theme.inactiveElementColor
-    property color arrowPressedColor: theme.defaultGaugeColor
+    property color arrowPressedColor: valueColor
     property color textColor: Qt.darker(valueColor)
 
     property real arcThickness: 0.2  // As a fraction of the radius
     property real arrowThickness: 0.065  // As a fraction of the width
 
     signal sigUiChannelChanged(int dmxIndex, int newValue)
+
+    onValueChanged: canvas.requestPaint()
 
     function onDmxChannelChanged(dmxIndex, newValue) {
         if (dmxIndex == this.dmxIndex) {
@@ -68,10 +70,6 @@ Item {
             console.log('UI element emitting DMX value: ' + dmxIndex + ' changed to ' + newValue)
             sigUiChannelChanged(dmxIndex, newValue)
         }
-    }
-
-    onValueChanged: {
-        canvas.requestPaint()
     }
 
     Rectangle {
@@ -141,6 +139,7 @@ Item {
                 // Decrease button
 
                 ArrowButton {
+                    id: leftArrowButton
                     direction: directionLeft
                     inactiveColor: root.arrowColor
                     pressedColor: root.arrowPressedColor
@@ -167,6 +166,7 @@ Item {
 
                 // Increase button
                 ArrowButton {
+                    id: rightArrowButton
                     direction: directionRight
                     inactiveColor: root.arrowColor
                     pressedColor: root.arrowPressedColor
@@ -189,7 +189,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: canvas.bottom
             font.pixelSize: parent.width * 0.13
-            anchors.topMargin: -font.pixelSize * 0.5
+            anchors.topMargin: - font.pixelSize * 0.5
             color: root.textColor
         }
     }

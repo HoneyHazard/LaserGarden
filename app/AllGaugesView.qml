@@ -17,12 +17,16 @@ Page {
 
     GridLayout {
         id: grid
-        columns: 3
+        rows : 3
+        columns: 9
         anchors.fill: parent
         anchors.margins: 0
 
         CircularGauge {
-            id: gauge1
+            id: mainSwitchGauge
+            title: "SW A"
+            valueColor: theme.mainBeamColorA
+            //arrowPressedColor: theme.mainBeamColorA
             dmxIndex: 0
             Layout.fillWidth: true
             Layout.fillHeight: true

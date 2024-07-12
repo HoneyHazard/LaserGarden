@@ -19,6 +19,8 @@ QtObject {
     property color heldElementColor: "magenta"  // Bright magenta for held elements
 
     property color defaultGaugeColor: "lime"  // Off-white for primary elements
+    property color mainBeamColorA: "red"  // Cyan for beam A
+    property color mainBeamColorB: "blue"  // Magenta for beam B
 
     // Borders
     property real primaryBorderWidth: 2

@@ -11,9 +11,9 @@ ApplicationWindow {
     property alias theme: themeLoader.item
 
     visible: true
-    width: 640
-    height: 480
     title: "LaserGarden"
+    //width: 1920
+    //height: 1080
 
     function connectChildItems(item) {
         for (var i = 0; i < item.children.length; i++) {
@@ -49,8 +49,8 @@ ApplicationWindow {
         id: stackView
         anchors.fill: parent
 
-        //initialItem: allGaugesView
-        initialItem: modularView
+        initialItem: allGaugesView
+        //initialItem: modularView
 
         Component {
             id: allGaugesView
