@@ -157,8 +157,8 @@ ApplicationWindow {
                     InputPanel {
                         id: inputPanel
                         z: 99
-                        width: savePresetDialog.width * 0.8  // 80% of dialog width
-                        height: savePresetDialog.height * 0.4  // 40% of dialog height
+                        width: savePresetDialog.width * 0.95
+                        height: savePresetDialog.height
 
                         states: State {
                             name: "visible"
@@ -183,7 +183,7 @@ ApplicationWindow {
         width: parent.width * 0.93
         height: parent.height * 0.9
         anchors.centerIn: parent   
-        font.pointSize: max(20, parent.height * 0.02)
+        font.pointSize: Math.max(20,parent.height * 0.02)    
 
         Rectangle {
             anchors.centerIn: parent
