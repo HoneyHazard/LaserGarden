@@ -33,19 +33,19 @@ Item {
     property real arcThickness: 0.2  // As a fraction of the radius
     property real arrowThickness: 0.065  // As a fraction of the width
 
-    signal sigUiChannelChanged(int dmxIndex, int newValue)
+    signal sigUiChannelChanged(int i, int val)
 
     onValueChanged: canvas.requestPaint()
 
-    function onDmxChannelChanged(dmxIndex, newValue) {
-        if (dmxIndex == this.dmxIndex) {
-            console.log('UI element received DMX value: ' + dmxIndex + ' changed to ' + newValue)
-            value = newValue
+    function onDmxChannelChanged(i, newValue) {
+        if (i == root.dmxIndex) {
+            console.log('gauge index ' + i + ' received value: ' + newValue)
+            root.value = newValue
         }
     }
 
     function sanitizeValue(newValue) {
-        value = Math.min(maxValue, Math.max(minValue, newValue))
+        this.value = Math.min(this.maxValue, Math.max(this.minValue, newValue))
     }
 
     function onMouseInteraction(mouseX, mouseY) {

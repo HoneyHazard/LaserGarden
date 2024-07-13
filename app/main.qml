@@ -22,10 +22,10 @@ ApplicationWindow {
 
     onAllGaugesViewModeChanged: {
         if (allGaugesViewMode) {
-            console.log("Pushing all gauges view")
+            //console.log("Pushing all gauges view")
             //stackView.push(allGaugesView)   
         } else {
-            console.log("Pushing modular view")
+            //console.log("Pushing modular view")
             //stackView.push(modularView)
         }
     }
@@ -39,9 +39,11 @@ ApplicationWindow {
         for (var i = 0; i < item.children.length; i++) {
             var childItem = item.children[i]
             if (childItem.onDmxChannelChanged) {
+                //console.log("connected onDmxChannelChanged to " + childItem.name)
                 dmxArray.valueChanged.connect(childItem.onDmxChannelChanged)
             }
             if (childItem.sigUiChannelChanged) {
+                //console.log("connected sigUiChannelChanged from " + childItem.name)
                 childItem.sigUiChannelChanged.connect(dmxArray.set_value)
             }
             if (childItem.children && childItem.children.length > 0) {
