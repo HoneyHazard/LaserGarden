@@ -263,7 +263,7 @@ class DMXArray(QObject):
         channels_info = parse_qlc_fixture(fixture_file_path)
         self.tooltips = {}
         for channel_number, info in channels_info.items():
-            print (channel_number, info)
+            # print (channel_number, info)
             self.tooltips[channel_number] = self.create_tooltip_html(info)
         return self.tooltips
 

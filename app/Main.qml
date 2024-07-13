@@ -48,7 +48,7 @@ ApplicationWindow {
             }
             if (childItem.sigHovered) {
                 childItem.sigHovered.connect(function(index) {
-                    console.log("hovered " + index)
+                    //console.log("hovered " + index)
                     tooltipText.text = dmxArray.get_tooltip_text(index);
                 });
             }
