@@ -32,6 +32,7 @@ if __name__ == "__main__":
         device = "gla001"
 
     dmx_array = DMXArray(target_ip, initial_preset, device)
+    dmx_array.ensure_preset_and_scene_dirs_exist()
 
     qlc_workspace = args.get('qlc_workspace', None)
     if qlc_workspace:

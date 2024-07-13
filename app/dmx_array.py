@@ -13,15 +13,16 @@ class DMXArray(QObject):
     def __init__(self, target_ip, initial_preset=None, device="other"):
         super().__init__()
         self.device = device
+
+        # Create necessary directories
+        self.ensure_preset_and_scene_dirs_exist()
+
         self.scene_manager = SceneManager(self.get_scene_dir())
         self.num_channels = 34  # Handle only 34 channels
         self._dmx_array = bytearray(self.num_channels)  # Initialize with 34 bytes (0-255 values)
         self.last_preset = self.get_preset_path("last_config.json")
         self.default_preset = self.get_preset_path("default.json")
         self.initial_preset = initial_preset
-
-        # Create necessary directories
-        self.ensure_directories_exist()
 
         # Initialize Art-Net device (Receiving IP)
         self.artnet = StupidArtnet(target_ip, 0, self.num_channels, 30)  # Target IP, Universe, Packet size, FPS
@@ -48,12 +49,18 @@ class DMXArray(QObject):
     def get_scene_dir(self):
         return os.path.join("scenes", self.device)
 
-    def get_preset_path(self, filename):
-        return os.path.join("presets", self.device, filename)
+    def get_preset_dir(self):
+        return os.path.join("presets", self.device)
 
-    def ensure_directories_exist(self):
+    def get_preset_path(self, filename):
+        return os.path.join(self.get_preset_dir(), filename)
+
+    def ensure_preset_and_scene_dirs_exist(self):
+        print(f"making scene dir, if it doesn't exist: {self.get_scene_dir()}")
         os.makedirs(self.get_scene_dir(), exist_ok=True)
-        os.makedirs(os.path.dirname(self.last_preset), exist_ok=True)
+
+        print(f"making preset dir, if it doesn't exist: {self.get_preset_dir()}")
+        os.makedirs(self.get_preset_dir(), exist_ok=True)
 
     def verify_connection(self):
         try:

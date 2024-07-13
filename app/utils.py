@@ -89,8 +89,6 @@ class SceneManager(QObject):
         self.base_dir = base_dir
         self.scenes = self.load_scenes()
 
-        
-
     def load_scenes(self):
         scenes = {}
         for beam in os.listdir(self.base_dir):

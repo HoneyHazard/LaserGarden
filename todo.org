@@ -1,3 +1,9 @@
+* try menu icons
+* Serialize grid
+* Page builder
+* Save shown only
+* DONE Copy pat B olA002
+* Remap ola001
 * TODO no directories -> fail
 * DONE Gauge: add hover text
 * DONE no --ola002 -> default to --gl001
