@@ -121,7 +121,6 @@ ApplicationWindow {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: (tooltipSidebar.visible ? tooltipSidebar.left : parent.right)
-        width: tooltipSidebar.visible ? parent.width * 0.8 : parent.width
         initialItem: allGaugesViewMode ? allGaugesView : modularView
         //initialItem: modularView
         //index: mainWindow.viewModeIndex
@@ -163,15 +162,19 @@ ApplicationWindow {
     Rectangle {
         id: tooltipSidebar
         visible: mainWindow.showTooltipSidebar
-        anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        width: parent.width * 0.2
+        anchors.bottom: parent.bottom
+        anchors.margins: 10
+        width: parent.width * 0.3
+        height: parent.height * 0.1
         color: theme.tooltipBackgroundColor
+        opacity: 0.8
 
         Text {
             id: tooltipText
             color: theme.tooltipTextColor
             font: theme.primaryFont
+            //font.pointSize: parent.height * 0.02
             text: "Tooltip"
         }
     }
