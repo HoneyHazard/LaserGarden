@@ -50,14 +50,18 @@ ApplicationWindow {
         }
     }
 
-    Component.onCompleted: {
-        connectChildItems(stackView)
-
+    function rebuildPresetsModel() {
+        presetsModel.clear()
         var presets = dmxArray.list_presets()
         for (var i = 0; i < presets.length; i++) {
             presetsModel.append({"name": presets[i]})
         }
+    }
 
+    Component.onCompleted: {
+        connectChildItems(stackView)
+
+        rebuildPresetsModel()
         // Load scenes for Beam A, Group 0
         var scenesA0 = sceneManager.list_scenes_for_beam_and_group("a", "0")
         for (var i = 0; i < scenesA0.length; i++) {
@@ -274,6 +278,7 @@ ApplicationWindow {
                         font.pointSize: savePresetDialog.font.pointSize
                         onClicked: {
                             dmxArray.save_preset(presetNameField.text)
+                            mainWindow.rebuildPresetsModel()
                             savePresetDialog.accept()
                         }
                     }

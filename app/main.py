@@ -1,7 +1,6 @@
 import sys
 import signal
 import logging
-import getch
 import os
 from PySide6.QtCore import QUrl
 from PySide6.QtGui import QGuiApplication
@@ -13,8 +12,6 @@ from utils import SceneManager
 from dmx_array import DMXArray
 
 if __name__ == "__main__":
-
-
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     change_to_parent_dir_if_in_main()
@@ -28,11 +25,13 @@ if __name__ == "__main__":
 
     target_ip = args.get('target_ip', None)
     initial_preset = args.get('preset', None)
-    dmx_array = DMXArray(target_ip, initial_preset)
+    device = "other"
     if args.get('ola002', False):
-        dmx_array.ola002 = True
+        device = "ola002"
     elif args.get('gla001', False):
-        dmx_array.gla001 = True
+        device = "gla001"
+
+    dmx_array = DMXArray(target_ip, initial_preset, device)
 
     qlc_workspace = args.get('qlc_workspace', None)
     if qlc_workspace:
@@ -40,7 +39,7 @@ if __name__ == "__main__":
         scenes = parse_qlc_workspace(qlc_workspace)
 
     # Initialize SceneManager
-    scene_manager = SceneManager()
+    scene_manager = SceneManager(dmx_array.get_scene_dir())
     scenes = scene_manager.scenes
     
     # View Params

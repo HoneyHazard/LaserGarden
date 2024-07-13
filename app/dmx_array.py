@@ -10,16 +10,18 @@ from utils import SceneManager
 class DMXArray(QObject):
     valueChanged = Signal(int, int, arguments=['index', 'value'])
 
-    def __init__(self, target_ip, initial_preset=None):
+    def __init__(self, target_ip, initial_preset=None, device="other"):
         super().__init__()
-        self.scene_manager = SceneManager()
+        self.device = device
+        self.scene_manager = SceneManager(self.get_scene_dir())
         self.num_channels = 34  # Handle only 34 channels
         self._dmx_array = bytearray(self.num_channels)  # Initialize with 34 bytes (0-255 values)
-        self.last_preset = "presets/last_config.json"
-        self.default_preset = "presets/default.json"
+        self.last_preset = self.get_preset_path("last_config.json")
+        self.default_preset = self.get_preset_path("default.json")
         self.initial_preset = initial_preset
-        self._gla001 = True
-        self._ola002 = False
+
+        # Create necessary directories
+        self.ensure_directories_exist()
 
         # Initialize Art-Net device (Receiving IP)
         self.artnet = StupidArtnet(target_ip, 0, self.num_channels, 30)  # Target IP, Universe, Packet size, FPS
@@ -42,6 +44,16 @@ class DMXArray(QObject):
         self.timer = QTimer()
         self.timer.timeout.connect(self.send_full_dmx_array)
         self.timer.start(1000)  # 1 second interval
+
+    def get_scene_dir(self):
+        return os.path.join("scenes", self.device)
+
+    def get_preset_path(self, filename):
+        return os.path.join("presets", self.device, filename)
+
+    def ensure_directories_exist(self):
+        os.makedirs(self.get_scene_dir(), exist_ok=True)
+        os.makedirs(os.path.dirname(self.last_preset), exist_ok=True)
 
     def verify_connection(self):
         try:
@@ -88,6 +100,7 @@ class DMXArray(QObject):
 
     @Slot(str)
     def save_configuration(self, filename):
+        filename = self.get_preset_path(filename)
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         data_to_save = []
         for index, value in enumerate(self._dmx_array):
@@ -116,6 +129,7 @@ class DMXArray(QObject):
 
     @Slot(str)
     def load_configuration(self, filename):
+        filename = self.get_preset_path(filename)
         if os.path.exists(filename):
             with open(filename, 'r') as file:
                 config = json.load(file)
@@ -127,28 +141,31 @@ class DMXArray(QObject):
     def load_last_configuration(self):
         self.load_configuration(self.last_preset)
 
-    @Slot()
-    def save_preset(self):
-        self.save_configuration("presets/preset.json")
+    @Slot(str)
+    def save_preset(self, name):
+        filename = f"{name}.json"
+        self.save_configuration(filename)
 
-    @Slot()
-    def load_preset(self):
-        self.load_configuration("presets/preset.json")
+    @Slot(str)
+    def load_preset(self, name):
+        filename = f"{name}.json"
+        self.load_configuration(filename)
 
     @Slot()
     def save_default(self):
-        self.save_configuration(self.default_preset)
+        self.save_configuration("default.json")
 
     @Slot()
     def load_default(self):
-        self.load_configuration(self.default_preset)
+        self.load_configuration("default.json")
 
     @Slot()
     def save_last_config(self):
-        self.save_configuration(self.last_preset)
+        self.save_configuration("last_config.json")
 
     @Slot(list, str)
     def save_selected_channels(self, channels, filename):
+        filename = self.get_preset_path(filename)
         data_to_save = []
         for index in channels:
             data_to_save.append(index)
@@ -160,6 +177,7 @@ class DMXArray(QObject):
 
     @Slot(list, str)
     def load_selected_channels(self, channels, filename):
+        filename = self.get_preset_path(filename)
         if os.path.exists(filename):
             with open(filename, 'r') as file:
                 config = json.load(file)
@@ -199,28 +217,29 @@ class DMXArray(QObject):
 
     @Slot(result=list)
     def list_presets(self):
-        presets_folder = "presets"
+        presets_folder = os.path.join("presets", self.device)
         if not os.path.exists(presets_folder):
             return []
         return [os.path.splitext(f)[0] for f in os.listdir(presets_folder) if f.endswith('.json') and f not in ['default.json', 'last_config.json']]
 
-
     @Property(bool)
     def ola002(self):
-        return self._ola002
+        return self.device == "ola002"
 
     @Property(bool)
     def gla001(self):
-        return self._gla001
+        return self.device == "gla001"
 
     @ola002.setter
     def ola002(self, value):
-        self._ola002 = value
         if value:
-            self._gla001 = False
+            self.device = "ola002"
+        elif self.device == "ola002":
+            self.device = "other"
 
     @gla001.setter
     def gla001(self, value):
-        self._gla001 = value
         if value:
-            self._ola002 = False
+            self.device = "gla001"
+        elif self.device == "gla001":
+            self.device = "other"
