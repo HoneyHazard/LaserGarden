@@ -33,36 +33,11 @@ Page {
         }
 
         CircularGauge {
-            id: gauge2
+            id: sizeAndOobGauge
+            title: "SIZE & OOB"
+            valueColor: theme.mainBeamColorA
+            //arrowPressedColor: theme.mainBeamColorA
             dmxIndex: 1
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
-
-        CircularGauge {
-            id: gauge3
-            dmxIndex: 2
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
-
-        CircularGauge {
-            id: gauge4
-            dmxIndex: 3
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
-
-        CircularGauge {
-            id: gauge5
-            dmxIndex: 4
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
-
-        CircularGauge {
-            id: gauge6
-            dmxIndex: 5
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
