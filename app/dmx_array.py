@@ -127,6 +127,8 @@ class DMXArray(QObject):
         else:
             print(f"Scene {scene_name} not found for beam {beam}, group {group}")
 
+    
+
     @Slot(str)
     def load_configuration(self, filename):
         filename = self.get_preset_path(filename)

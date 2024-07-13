@@ -62,6 +62,7 @@ ApplicationWindow {
 
     function buildScenesModel(model, beam, group) {
         var scenes = sceneManager.list_scenes_for_beam_and_group(beam, group)
+        //var scenes = sceneManager.list_scenes_for_beam(beam)
         for (var i = 0; i < scenes.length; i++) {
             model.append({"name": scenes[i]})
         }
@@ -71,8 +72,37 @@ ApplicationWindow {
         connectChildItems(stackView)
 
         rebuildPresetsModel()
-        // Load scenes for Beam A, Group 0
+
+        // build models for menus;
+        // todo: automate
         buildScenesModel(scenesModelA0, "a", "0")
+        buildScenesModel(scenesModelA_star, "a", "*")
+        buildScenesModel(scenesModelA1, "a", "1")
+        buildScenesModel(scenesModelA2, "a", "2")
+        buildScenesModel(scenesModelA3, "a", "3")
+        buildScenesModel(scenesModelA4, "a", "4")
+        buildScenesModel(scenesModelA5, "a", "5")
+        buildScenesModel(scenesModelA6, "a", "6")
+        buildScenesModel(scenesModelA8, "a", "8")
+        buildScenesModel(scenesModelA12, "a", "12")
+        buildScenesModel(scenesModelA_bounds, "a", "bounds")
+        buildScenesModel(scenesModelA_other, "a", "other")
+
+        buildScenesModel(scenesModelB0, "b", "0")
+        buildScenesModel(scenesModelB_star, "b", "*")
+        buildScenesModel(scenesModelB1, "b", "1")
+        buildScenesModel(scenesModelB2, "b", "2")
+        buildScenesModel(scenesModelB3, "b", "3")
+        buildScenesModel(scenesModelB4, "b", "4")
+        buildScenesModel(scenesModelB5, "b", "5")
+        buildScenesModel(scenesModelB6, "b", "6")
+        buildScenesModel(scenesModelB8, "b", "8")
+        buildScenesModel(scenesModelB12, "b", "12")
+        buildScenesModel(scenesModelB_bounds, "b", "bounds")
+        buildScenesModel(scenesModelB_other, "b", "other")
+
+        buildScenesModel(scenesModel_OTHER, "other", '')
+        //updateMenus()
     }
 
     background: Rectangle {
@@ -207,9 +237,12 @@ ApplicationWindow {
             }
         }
 
+        MenuSeparator {}
+
         // New Menu for Beam A, Group 0
         Menu {
-            title: "A0"
+            title: "A0 (animations)"
+  
             Repeater {
                 model: scenesModelA0
                 delegate: MenuItem {
@@ -217,6 +250,351 @@ ApplicationWindow {
                     onTriggered: {
                         // Load the selected scene
                         dmxArray.load_scene("a", "0", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group *
+        Menu {
+            title: "A* (circular)"
+            Repeater {
+                model: scenesModelA_star
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "*", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group 1
+        Menu {
+            title: "A1 (1-axis)"
+            Repeater {
+                model: scenesModelA1
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "1", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group 2
+        Menu {
+            title: "A2"
+            Repeater {
+                model: scenesModelA2
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "2", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group 3
+        Menu {
+            title: "A3"
+            Repeater {
+                model: scenesModelA3
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "3", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group 4
+        Menu {
+            title: "A4"
+            Repeater {
+                model: scenesModelA4
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "4", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group 5
+        Menu {
+            title: "A5"
+            Repeater {
+                model: scenesModelA5
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "5", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group 6
+        Menu {
+            title: "A6"
+            Repeater {
+                model: scenesModelA6
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "6", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group 8
+        Menu {
+            title: "A8"
+            Repeater {
+                model: scenesModelA8
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "8", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group 12
+        Menu {
+            title: "A12"
+            Repeater {
+                model: scenesModelA12
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "12", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group Bounds
+        Menu {
+            title: "A_bounds"
+            Repeater {
+                model: scenesModelA_bounds
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "bounds", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam A, Group Other
+        Menu {
+            title: "A_other"
+            Repeater {
+                model: scenesModelA_other
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("a", "other", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group 0
+        Menu {
+            title: "B0 (animations)"
+            Repeater {
+                model: scenesModelB0
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "0", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group *
+        Menu {
+            title: "B* (circular)"
+            Repeater {
+                model: scenesModelB_star
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "*", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group 1
+        Menu {
+            title: "B1 (1 axis)"
+            Repeater {
+                model: scenesModelB1
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "1", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group 2
+        Menu {
+            title: "B2"
+            Repeater {
+                model: scenesModelB2
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "2", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group 3
+        Menu {
+            title: "B3"
+            Repeater {
+                model: scenesModelB3
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "3", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group 4
+        Menu {
+            title: "B4"
+            Repeater {
+                model: scenesModelB4
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "4", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group 6
+        Menu {
+            title: "B6"
+            Repeater {
+                model: scenesModelB6
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "6", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group 8
+        Menu {
+            title: "B8"
+            Repeater {
+                model: scenesModelB8
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "8", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group 12
+        Menu {
+            title: "B12"
+            Repeater {
+                model: scenesModelB12
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "12", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group Bounds
+        Menu {
+            title: "B_bounds"
+            Repeater {
+                model: scenesModelB_bounds
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "bounds", name)
+                    }
+                }
+            }
+        }
+
+        // New Menu for Beam B, Group Other
+        Menu {
+            title: "B_other"
+            Repeater {
+                model: scenesModelB_other
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_scene("b", "other", name)
+                    }
+                }
+            }
+        }
+            
+        // New Menu for OTHER
+        Menu {
+            title: "<i>OTHER</i>"
+            Repeater {
+                model: scenesModel_OTHER
+                delegate: MenuItem {
+                    text: name
+                    onTriggered: {
+                        // Load the selected scene
+                        dmxArray.load_other_scene(name)
                     }
                 }
             }
@@ -416,8 +794,33 @@ ApplicationWindow {
         id: presetsModel
     }
 
-    // New Model for Scenes A0
-    ListModel {
-        id: scenesModelA0
-    }
+    // Scene Models for Menus
+    ListModel { id: scenesModelA0 }
+    ListModel { id: scenesModelA_star }
+    ListModel { id: scenesModelA1 }
+    ListModel { id: scenesModelA2 }
+    ListModel { id: scenesModelA3 }
+    ListModel { id: scenesModelA4 }
+    ListModel { id: scenesModelA5 }
+    ListModel { id: scenesModelA6 }
+    ListModel { id: scenesModelA8 }
+    ListModel { id: scenesModelA12 }
+    ListModel { id: scenesModelA_other }
+    ListModel { id: scenesModelA_bounds }
+
+    ListModel { id: scenesModelB0 }
+    ListModel { id: scenesModelB_star }
+    ListModel { id: scenesModelB1 }
+    ListModel { id: scenesModelB2 }
+    ListModel { id: scenesModelB3 }
+    ListModel { id: scenesModelB4 }
+    ListModel { id: scenesModelB5 }
+    ListModel { id: scenesModelB6 }
+    ListModel { id: scenesModelB8 }
+    ListModel { id: scenesModelB12 }
+    ListModel { id: scenesModelB_other }
+    ListModel { id: scenesModelB_bounds }
+
+    ListModel { id: scenesModel_OTHER }
+    
 }
