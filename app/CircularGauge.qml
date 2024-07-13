@@ -24,11 +24,11 @@ Item {
     property string title: "Circular Gauge"  // Title property
 
     // New properties for customization
-    property color backgroundColor: theme.inactiveElementColor
+    property color inactiveColor: theme.inactiveElementColor
     property color valueColor: theme.defaultGaugeColor
     property color arrowColor: theme.inactiveElementColor
     property color arrowPressedColor: valueColor
-    property color textColor: Qt.darker(valueColor)
+    property color textColor: Qt.darker(valueColor, 0.7)
 
     property real arcThickness: 0.2  // As a fraction of the radius
     property real arrowThickness: 0.065  // As a fraction of the width
@@ -95,7 +95,7 @@ Item {
                 ctx.beginPath()
                 ctx.arc(centerX, centerY, radius, (startAngle - 90) * Math.PI / 180, (endAngle - 90) * Math.PI / 180)
                 ctx.lineWidth = radius * arcThickness
-                ctx.strokeStyle = backgroundColor
+                ctx.strokeStyle = inactiveColor
                 ctx.stroke()
 
                 // Draw value arc
@@ -159,6 +159,7 @@ Item {
                     text: value
                     color: root.textColor
                     font.pixelSize: parent.width * 0.13
+                    //font.bold: true
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -189,8 +190,10 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: canvas.bottom
             font.pixelSize: parent.width * 0.13
+            font.bold: true
             anchors.topMargin: - font.pixelSize * 0.5
             color: root.textColor
+            style: Text.Outline
         }
     }
 }

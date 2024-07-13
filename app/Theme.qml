@@ -15,9 +15,9 @@ QtObject {
     //property color clickedElement: "#10f8d2"  // Bright cyan for clicked elements
     //property color heldElement: "#d210f8"  // Bright magenta for held elements
 
-    property color activeElementColor: "cyan"  // Bright yellow for active elements
+    property color activeElementColor: "lime"  // Bright yellow for active elements
     property color inactiveElementColor: "gray"  // Grey for inactive elements
-    property color clickedElementColor: "cyan"  // Bright cyan for clicked elements
+    property color clickedElementColor: "lime"  // Bright cyan for clicked elements
     property color heldElementColor: "magenta"  // Bright magenta for held elements
 
     property color defaultGaugeColor: "lime"  // Off-white for primary elements
