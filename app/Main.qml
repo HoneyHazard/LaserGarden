@@ -168,7 +168,7 @@ ApplicationWindow {
         width: parent.width * 0.3
         height: parent.height * 0.1
         color: theme.tooltipBackgroundColor
-        opacity: 0.8
+        opacity: 0.60
 
         Text {
             id: tooltipText

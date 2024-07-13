@@ -113,26 +113,24 @@ Item {
         MouseArea {
             id: mouseArea
             anchors.fill: parent
+            hoverEnabled: true
 
             onClicked: (mouse) => {
                 onMouseInteraction(mouse.x, mouse.y)
-                sigHovered(dmxIndex)
             }
 
             onPositionChanged: (mouse) => {
                 if (mouse.buttons & Qt.LeftButton) {
                     onMouseInteraction(mouse.x, mouse.y)
                 }
-                sigHovered(dmxIndex)
             }
 
             onPressed: (mouse) => {
-                sigHovered(dmxIndex)
                 onMouseInteraction(mouse.x, mouse.y)
             }
 
             onEntered: {
-                sigHovered(dmxIndex)
+                root.sigHovered(dmxIndex)
             }
         }
 
