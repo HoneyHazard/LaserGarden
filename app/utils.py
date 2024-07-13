@@ -21,14 +21,14 @@ def remove_namespace(tree):
                 new_key = key.split('}', 1)[1]
                 elem.attrib[new_key] = elem.attrib.pop(key)
 
-def parse_qlc_workspace(file_path):
+def parse_qlc_workspace(workspace_file_path, deviceName):
     """Parse QLC workspace file and import scenes."""
     scenes = {}
-    if not os.path.isfile(file_path):
-        logging.error(f"QLC workspace file {file_path} not found.")
+    if not os.path.isfile(workspace_file_path):
+        logging.error(f"QLC workspace file {workspace_file_path} not found.")
         return scenes
 
-    tree = etree.parse(file_path)
+    tree = etree.parse(workspace_file_path)
     root = tree.getroot()
 
     remove_namespace(root)
@@ -61,9 +61,9 @@ def parse_qlc_workspace(file_path):
 
             # Ensure directory structure exists
             if group:
-                dir_path = os.path.join('scenes', beam, group)
+                dir_path = os.path.join('scenes', deviceName, beam, group)
             else:
-                dir_path = os.path.join('scenes', beam)
+                dir_path = os.path.join('scenes', deviceName, beam)
             os.makedirs(dir_path, exist_ok=True)
 
             # Save scene as JSON file
@@ -78,38 +78,9 @@ def parse_qlc_workspace(file_path):
     logging.info(f"Found and imported {len(scenes)} scenes from the QLC workspace file.")
     return scenes
 
-
-class SceneManager(QObject):
-    def __init__(self, base_dir='scenes'):
-        super().__init__()
-        self.base_dir = base_dir
-        self.scenes = self.load_scenes()
-
-    def load_scenes(self):
-        scenes = {}
-        for beam in os.listdir(self.base_dir):
-            beam_path = os.path.join(self.base_dir, beam)
-            if os.path.isdir(beam_path):
-                scenes[beam] = {}
-                for group in os.listdir(beam_path):
-                    group_path = os.path.join(beam_path, group)
-                    if os.path.isdir(group_path):
-                        scenes[beam][group] = {}
-                        for scene_file in os.listdir(group_path):
-                            if scene_file.endswith('.json'):
-                                scene_path = os.path.join(group_path, scene_file)
-                                with open(scene_path, 'r') as file:
-                                    scene_data = json.load(file)
-                                    scene_name = os.path.splitext(scene_file)[0]
-                                    scenes[beam][group][scene_name] = scene_data
-        return scenes
-
-    @Slot(str, str, result='QVariantList')
-    def list_scenes_for_beam_and_group(self, beam, group):
-        if beam in self.scenes and group in self.scenes[beam]:
-            return list(self.scenes[beam][group].keys())
-        return []
-
+import os
+import json
+import logging
 from PySide6.QtCore import QObject, Slot
 
 class SceneManager(QObject):
@@ -155,3 +126,18 @@ class SceneManager(QObject):
     @Slot(str, str, str, result='QVariant')
     def get_scene_data(self, beam, group, scene_name):
         return self.scenes.get(beam, {}).get(group, {}).get(scene_name, None)
+
+    @Slot(str, str, str, 'QVariant')
+    def save_scene(self, beam, group, scene_name, scene_data):
+        beam_path = os.path.join(self.base_dir, beam)
+        group_path = os.path.join(beam_path, group)
+        os.makedirs(group_path, exist_ok=True)
+        scene_path = os.path.join(group_path, f"{scene_name}.json")
+        with open(scene_path, 'w') as file:
+            json.dump(scene_data, file)
+        if beam not in self.scenes:
+            self.scenes[beam] = {}
+        if group not in self.scenes[beam]:
+            self.scenes[beam][group] = {}
+        self.scenes[beam][group][scene_name] = scene_data
+        logging.info(f'Saved scene {scene_name} for beam {beam}, group {group} to {scene_path}')

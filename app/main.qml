@@ -23,10 +23,10 @@ ApplicationWindow {
     onAllGaugesViewModeChanged: {
         if (allGaugesViewMode) {
             console.log("Pushing all gauges view")
-            stackView.push(allGaugesView)   
+            //stackView.push(allGaugesView)   
         } else {
             console.log("Pushing modular view")
-            stackView.push(modularView)
+            //stackView.push(modularView)
         }
     }
 

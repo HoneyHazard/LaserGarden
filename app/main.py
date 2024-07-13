@@ -36,7 +36,7 @@ if __name__ == "__main__":
     qlc_workspace = args.get('qlc_workspace', None)
     if qlc_workspace:
         logging.info(f"Importing QLC workspace: {qlc_workspace}")
-        scenes = parse_qlc_workspace(qlc_workspace)
+        scenes = parse_qlc_workspace(qlc_workspace, device)
 
     # Initialize SceneManager
     scene_manager = SceneManager(dmx_array.get_scene_dir())
