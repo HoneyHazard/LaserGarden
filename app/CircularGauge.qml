@@ -33,6 +33,8 @@ Item {
     property real arcThickness: 0.2  // As a fraction of the radius
     property real arrowThickness: 0.065  // As a fraction of the width
 
+    signal sigHovered(int index)
+
     signal sigUiChannelChanged(int i, int val)
 
     onValueChanged: canvas.requestPaint()
@@ -114,16 +116,23 @@ Item {
 
             onClicked: (mouse) => {
                 onMouseInteraction(mouse.x, mouse.y)
+                sigHovered(dmxIndex)
             }
 
             onPositionChanged: (mouse) => {
                 if (mouse.buttons & Qt.LeftButton) {
                     onMouseInteraction(mouse.x, mouse.y)
                 }
+                sigHovered(dmxIndex)
             }
 
             onPressed: (mouse) => {
+                sigHovered(dmxIndex)
                 onMouseInteraction(mouse.x, mouse.y)
+            }
+
+            onEntered: {
+                sigHovered(dmxIndex)
             }
         }
 

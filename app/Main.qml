@@ -46,6 +46,12 @@ ApplicationWindow {
                 //console.log("connected sigUiChannelChanged from " + childItem.name)
                 childItem.sigUiChannelChanged.connect(dmxArray.set_value)
             }
+            if (childItem.sigHovered) {
+                childItem.sigHovered.connect(function(index) {
+                    console.log("hovered " + index)
+                    tooltipText.text = dmxArray.get_tooltip_text(index);
+                });
+            }
             if (childItem.children && childItem.children.length > 0) {
                 connectChildItems(childItem)
             }

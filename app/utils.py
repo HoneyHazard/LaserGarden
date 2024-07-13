@@ -156,3 +156,42 @@ class SceneManager(QObject):
             scenes[beam][group] = {}
         scenes[beam][group][scene_name] = scene_data
         logging.info(f'Saved scene {scene_name} for beam {beam}, group {group} to {scene_path}')
+
+
+
+def parse_qlc_fixture(fixture_file_path):
+    """Parse the QLC fixture file to extract DMX channel information."""
+    if not os.path.isfile(fixture_file_path):
+        logging.error(f"Fixture file {fixture_file_path} not found.")
+        return {}
+
+    tree = etree.parse(fixture_file_path)
+    root = tree.getroot()
+    remove_namespace(root)
+
+    channels_info = {}
+    capabilities_info = {}
+
+    # Extract capabilities from <Channel> elements
+    for channel in root.findall(".//Channel"):
+        channel_name = channel.attrib.get('Name')
+        capabilities = []
+        for capability in channel.findall(".//Capability"):
+            cap_min = capability.attrib.get('Min')
+            cap_max = capability.attrib.get('Max')
+            cap_name = capability.text
+            capabilities.append(f"{cap_min}-{cap_max}: {cap_name}")
+        
+        capabilities_info[channel_name] = capabilities
+
+    # Extract channel numbers from <Mode> elements
+    for mode in root.findall(".//Mode"):
+        for channel in mode.findall(".//Channel"):
+            channel_number = int(channel.attrib.get('Number'))
+            channel_name = channel.text.strip()
+            channels_info[channel_number] = {
+                "name": channel_name,
+                "capabilities": capabilities_info.get(channel_name, [])
+            }
+
+    return channels_info

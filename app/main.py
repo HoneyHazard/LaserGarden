@@ -42,6 +42,18 @@ if __name__ == "__main__":
     # Initialize SceneManager
     scene_manager = SceneManager(dmx_array.get_scene_dir())
     scenes = scene_manager.scenes
+     # Generate tooltips if fixture file is provided
+    
+    qlc_fixture = args.get('qlc_fixture', None)
+    if (qlc_fixture is None):
+        testPath = os.path.join('qlcplus_gruolin_olaalite_a001_a002', device) + '.qxf'
+        if os.path.exists(testPath):
+            qlc_fixture = testPath
+    tooltips = {}
+    if qlc_fixture:
+        logging.info(f"Generating tooltips from fixture file: {qlc_fixture}")
+        tooltips = dmx_array.generate_tooltips(qlc_fixture)
+
     
     # View Params
     showTooltip = args.get('tooltip', False)
@@ -52,6 +64,7 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("dmxArray", dmx_array)
     engine.rootContext().setContextProperty("pyShowTooltipSidebar", showTooltip)
     engine.rootContext().setContextProperty("pyModularViewMode", modularView)
+    engine.rootContext().setContextProperty("tooltips", tooltips)
 
     engine.load(QUrl("app/Main.qml"))
 

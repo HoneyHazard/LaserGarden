@@ -4,7 +4,7 @@
 * Save shown only
 * DONE Copy pat B olA002
 * Remap ola001
-* TODO no directories -> fail
+* DONE no directories -> fail
 * DONE Gauge: add hover text
 * DONE no --ola002 -> default to --gl001
 * DONE show ola002 vs gl001/ol003 in title

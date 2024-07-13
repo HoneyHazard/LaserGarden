@@ -1,11 +1,10 @@
 import os
-import sys
 import json
 import logging
-from PySide6.QtCore import QObject, Property, Signal, Slot
-from PySide6.QtCore import QTimer, QByteArray
+from lxml import etree
+from PySide6.QtCore import QObject, Signal, Slot, Property, QByteArray, QTimer
 from stupidArtnet import StupidArtnet
-from utils import SceneManager
+from utils import SceneManager, parse_qlc_fixture
 
 class DMXArray(QObject):
     valueChanged = Signal(int, int, arguments=['index', 'value'])
@@ -45,6 +44,8 @@ class DMXArray(QObject):
         self.timer = QTimer()
         self.timer.timeout.connect(self.send_full_dmx_array)
         self.timer.start(1000)  # 1 second interval
+
+        self.tooltips = {}
 
     def get_scene_dir(self):
         return os.path.join("scenes", self.device)
@@ -133,8 +134,6 @@ class DMXArray(QObject):
             self.apply_indexed_values(scene_data)
         else:
             print(f"Scene {scene_name} not found for beam {beam}, group {group}")
-
-    
 
     @Slot(str)
     def load_configuration(self, filename):
@@ -252,3 +251,22 @@ class DMXArray(QObject):
             self.device = "gla001"
         elif self.device == "gla001":
             self.device = "other"
+
+    def create_tooltip_html(self, channel_info):
+        """Create HTML for tooltips based on channel information."""
+        html = f"<b>{channel_info['name']}</b><br>"
+        html += "<br>".join(channel_info['capabilities'])
+        return html
+
+    def generate_tooltips(self, fixture_file_path):
+        """Generate tooltips for each channel from the QLC fixture file."""
+        channels_info = parse_qlc_fixture(fixture_file_path)
+        self.tooltips = {}
+        for channel_number, info in channels_info.items():
+            print (channel_number, info)
+            self.tooltips[channel_number] = self.create_tooltip_html(info)
+        return self.tooltips
+
+    @Slot(int, result=str)
+    def get_tooltip_text(self, index):
+        return self.tooltips.get(index, "")
