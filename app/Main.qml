@@ -60,15 +60,19 @@ ApplicationWindow {
         }
     }
 
+    function buildScenesModel(model, beam, group) {
+        var scenes = sceneManager.list_scenes_for_beam_and_group(beam, group)
+        for (var i = 0; i < scenes.length; i++) {
+            model.append({"name": scenes[i]})
+        }
+    }
+
     Component.onCompleted: {
         connectChildItems(stackView)
 
         rebuildPresetsModel()
         // Load scenes for Beam A, Group 0
-        var scenesA0 = sceneManager.list_scenes_for_beam_and_group("a", "0")
-        for (var i = 0; i < scenesA0.length; i++) {
-            scenesModelA0.append({"name": scenesA0[i]})
-        }
+        buildScenesModel(scenesModelA0, "a", "0")
     }
 
     background: Rectangle {

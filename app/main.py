@@ -52,7 +52,7 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("pyShowTooltipSidebar", showTooltip)
     engine.rootContext().setContextProperty("pyModularViewMode", modularView)
 
-    engine.load(QUrl("app/main.qml"))
+    engine.load(QUrl("app/Main.qml"))
 
     if not engine.rootObjects():
         sys.exit(-1)
