@@ -111,6 +111,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
+        anchors.fill: parent
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: (tooltipSidebar.visible ? tooltipSidebar.left : parent.right)

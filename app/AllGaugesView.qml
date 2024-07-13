@@ -17,7 +17,7 @@ Page {
 
     GridLayout {
         id: grid
-        rows: 3
+        rows: 4
         columns: 9
         anchors.fill: parent
         anchors.margins: 0
@@ -173,6 +173,10 @@ Page {
             dmxIndex: 16
             Layout.fillWidth: true
             Layout.fillHeight: true
+        }
+
+        Rectangle {
+            // placeholder for pattern B alignment
         }
 
         CircularGauge {
