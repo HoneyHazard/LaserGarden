@@ -1,3 +1,4 @@
+* TODO no directories -> fail
 * DONE Gauge: add hover text
 * DONE no --ola002 -> default to --gl001
 * DONE show ola002 vs gl001/ol003 in title
@@ -6,11 +7,11 @@
 ** qxi -> channel description at index
 ** tooltip: <br/> or separator between capabilities
 * --ola002 vs no --gla001 -> global scenes prefix, default fixture file
+* *ALL GAUGES* mode: 3x9, blue vs red, maybe dimmed, or slightly different color
 * neither -> unknown prefix
 * no scenes? search for default workspace files for ola002 vs gl001
 * TODO !CLOSE! --tooltip -> tooltip panel, also via menu. has close symbol
-* *ALL GAUGES* mode: 3x9, blue vs red, maybe dimmed, or slightly different color
-* finish scenes via menu, maybe tooltip, maybe title has hints
+* TODO finish scenes via menu, maybe tooltip, maybe title has hints
 * *CONTROL PANEL* mode: 2 control panels
 ** initially gauges
 * Then, *MAP GLA001/OLA003* vs *SUPER PAGES*

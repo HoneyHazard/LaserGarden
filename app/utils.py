@@ -89,6 +89,8 @@ class SceneManager(QObject):
         self.base_dir = base_dir
         self.scenes = self.load_scenes()
 
+        
+
     def load_scenes(self):
         scenes = {}
         for beam in os.listdir(self.base_dir):
@@ -106,6 +108,21 @@ class SceneManager(QObject):
                                     scene_data = json.load(file)
                                     scene_name = os.path.splitext(scene_file)[0]
                                     scenes[beam][group][scene_name] = scene_data
+                                    if beam == 'a' and scene_data[0] == 2 and scene_data[2] == 3:
+                                        new_scene_data = scene_data.copy()
+                                        new_scene_data[0] = 19
+                                        new_scene_data[2] = 20
+                                        beamB = 'b'
+                                        
+                                        # Initialize dictionary structure if not already done
+                                        if beamB not in scenes:
+                                            scenes[beamB] = {}
+                                        if group not in scenes[beamB]:
+                                            scenes[beamB][group] = {}
+                                            
+                                        print(f'generated scene {scene_name} for beam {beamB}, group {group}')
+                                        scenes[beamB][group][scene_name] = new_scene_data                                        
+                                        self.save_scene(scenes, beamB, group, scene_name, new_scene_data)
         return scenes
 
     @Slot(str, str, result=list)
@@ -127,17 +144,17 @@ class SceneManager(QObject):
     def get_scene_data(self, beam, group, scene_name):
         return self.scenes.get(beam, {}).get(group, {}).get(scene_name, None)
 
-    @Slot(str, str, str, 'QVariant')
-    def save_scene(self, beam, group, scene_name, scene_data):
+    # @Slot(str, str, str, 'QVariant')
+    def save_scene(self, scenes, beam, group, scene_name, scene_data):
         beam_path = os.path.join(self.base_dir, beam)
         group_path = os.path.join(beam_path, group)
         os.makedirs(group_path, exist_ok=True)
         scene_path = os.path.join(group_path, f"{scene_name}.json")
         with open(scene_path, 'w') as file:
             json.dump(scene_data, file)
-        if beam not in self.scenes:
-            self.scenes[beam] = {}
-        if group not in self.scenes[beam]:
-            self.scenes[beam][group] = {}
-        self.scenes[beam][group][scene_name] = scene_data
+        if beam not in scenes:
+            scenes[beam] = {}
+        if group not in scenes[beam]:
+            scenes[beam][group] = {}
+        scenes[beam][group][scene_name] = scene_data
         logging.info(f'Saved scene {scene_name} for beam {beam}, group {group} to {scene_path}')

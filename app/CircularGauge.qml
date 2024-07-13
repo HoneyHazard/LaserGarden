@@ -193,7 +193,8 @@ Item {
             font.bold: true
             anchors.topMargin: - font.pixelSize * 0.5
             color: root.textColor
-            style: Text.Outline
+            //style: Text.Outline
+            //font.features: { "outline": 1 }
         }
     }
 }
