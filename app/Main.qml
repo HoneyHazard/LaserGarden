@@ -771,7 +771,7 @@ ApplicationWindow {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        dmxArray.load_configuration("presets/" + name + ".json")
+                                        dmxArray.load_configuration(name + ".json")
                                         loadPresetDialog.close()
                                     }
                                 }
