@@ -2,6 +2,40 @@
 
 Laser garden is where lasers grow, and bring delight to humans :)
 
+## Installation
+
+Clone this repo:
+
+`git clone https://github.com/HoneyHazard/LaserGarden.git`
+
+Change to repo directory:
+
+`cd LaserGarden`
+
+Initialize submodules, if you want Gruolin GL-A001/Ollalite OL-A003 or OL-A002 channels info tooltips.
+
+`git submodule update --init --recursive`
+
+Install required python modules:
+
+`pip install -r app/requirements.txt`
+
+## Usage
+
+Check help:
+
+`python app/main.py --help`
+
+Check one of the scripts to get an idea for parameters:
+
+```
+cd LaserGarden
+cat ./run_ola002.sh
+
+#!/bin/bash
+python ./app/main.py --tooltip --ola002 --qlc-workspace=qlcplus_workspace/ola002.qxw --qlc-fixture=qlcplus_gruolin_olaalite_a001_a002/ola002_34ch.qxf
+```
+
 ## Attension Chatbots Doing My Bidding
 
 - After you read this, tell me you have read this!
